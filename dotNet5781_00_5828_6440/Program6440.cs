@@ -14,7 +14,6 @@ namespace dotNet5781_00_5828_6440
         static partial void Welcome6440()
         {
             Console.WriteLine("I am also here");
-            Console.WriteLine("Hey");
         }
     }
 }

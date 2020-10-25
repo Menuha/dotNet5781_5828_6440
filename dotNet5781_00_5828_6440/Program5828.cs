@@ -8,7 +8,6 @@ namespace dotNet5781_00_5828_6440
 {
     partial class Program
     {
-
         static void Main(string[] args)
         {
             Welcome5828();
