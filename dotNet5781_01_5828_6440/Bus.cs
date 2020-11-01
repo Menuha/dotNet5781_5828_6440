@@ -9,37 +9,51 @@ namespace dotNet5781_01_5828_6440
 {
     class Bus
     {
+        public const int maxKmTreat = 20000;
+        public const int maxKmRefueling = 1200;
         private string licenseNum;
-        private DateTime day;
-        private static int km;
+        private DateTime firstDay;
         /// <summary>
-        /// gas= num of km till the last refueling
+        /// kilometrage = kilometrage since the first day
+        /// </summary>
+        private int kilometrage;
+        /// <summary>
+        /// gas = kilometrage since the last refueling
         /// </summary>
         private int gas;
+        private DateTime lastTreatDate;
+        /// <summary>
+        /// lastTreatKm = kilometrage since the last treat
+        /// </summary>
+        private int lastTreatKm;
 
         public string LicenseNum
-        { 
+        {
             get
             {
                 return licenseNum;
-            }   
+            }
             set
             {
-                if (digitsNum(value) == true)
+                if (DigitsNum(value) == true)
                     licenseNum = value;
             }
         }
 
-        public static int Km
-        { 
+        public int Kilometrage
+        {
             get
             {
-                return km;
+                return kilometrage;
             }
             set
             {
-                if (value > km)
-                    km = value;
+                if (value > 0)
+                {
+                    lastTreatKm += value;
+                    gas += value;
+                    kilometrage += value;
+                }
             }
         }
         public int Gas
@@ -51,40 +65,73 @@ namespace dotNet5781_01_5828_6440
             set
             { }
         }
-        public bool Treat()
+        public bool Treat(int distance)
         {
-            if (Km > 20000) 
+            if ((lastTreatKm + distance) > maxKmTreat)
             {
                 Console.WriteLine("DANGEROUS");
                 return true;
             }
+
+            //DateTime currentDay = DateTime.Now;
+            //TimeSpan timeSpan = currentDay - lastTreatDate;
+            //if (timeSpan)
+            //    return false;
+
+            //checkDate.Year = lastTreatDate.Year + 1;
+            //if (checkDate.Year + 1 > currentDay.Year)
+
+            DateTime currentDay = DateTime.Now;
+            DateTime checkDate = new DateTime(lastTreatDate.Year + 1, lastTreatDate.Month, lastTreatDate.Day);
+            if (checkDate >= currentDay)
+                return true;
             return false;
         }
-        public bool Refueling()
+        public bool Refueling(int distance)
         {
-            if (km >= gas + 1200) 
+            if ((gas + distance) > maxKmRefueling)
             {
-                return false;
-            }
-            return true;  
-        }
-        public void GasNow()
-        {
-            gas = km;
-        }
-        public bool digitsNum(string num)
-        {
-            if((day.Year<2018) && (num.Length!=7))
-            {
-                Console.WriteLine("Worng License Number");
-                return false;
-            }
-            else if ((day.Year >= 2018) && (num.Length != 8))
-            {
-                Console.WriteLine("Worng License Number");
+                Console.WriteLine("Gas needed");
                 return false;
             }
             return true;
         }
+        public void GasNow()
+        {
+            gas = 0;
+        }
+        public void TreatNow()
+        {
+            lastTreatKm = 0;
+            DateTime currentDay = DateTime.Now;
+            lastTreatDate = currentDay;
+        }
+        public bool DigitsNum(string num)
+        {
+            if ((firstDay.Year >= 2018) && (num.Length == 10))
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if ((i == 3 || i == 6) && (num[i] != '-'))
+                        return false;
+                    else if (num[i] < '0' || num[i] > '9')
+                        return false;
+                }
+                return true;
+            }
+            if ((firstDay.Year < 2018) && (num.Length == 9))
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if ((i == 2 || i == 6) && (num[i] != '-'))
+                        return false;
+                    else if (num[i] < '0' || num[i] > '9')
+                        return false;
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }
+
