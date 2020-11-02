@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_01_5828_6440
 {
-    class Bus
+    /// <summary>
+    /// This is a class to represent a bus by
+    /// </summary>
+    public class Bus
     {
         public const int maxKmTreat = 20000;
         public const int maxKmRefueling = 1200;
+
         private string licenseNum;
-        private DateTime firstDay;
+        private DateTime firstDate;
         /// <summary>
         /// kilometrage = kilometrage since the first day
         /// </summary>
@@ -21,25 +25,37 @@ namespace dotNet5781_01_5828_6440
         /// gas = kilometrage since the last refueling
         /// </summary>
         private int gas;
-        private DateTime lastTreatDate;
         /// <summary>
-        /// lastTreatKm = kilometrage since the last treat
+        /// lastTreatKm = kilometrage since the last treatment
         /// </summary>
         private int lastTreatKm;
+        private DateTime lastTreatDate;
+
+        /// <summary>
+        /// Constractor of the Bus class
+        /// </summary>
+        /// <param name="licenseNum">The bus licunse number</param>
+        /// <param name="firstDate">The first date this bus started working</param>
+        public Bus(string licenseNum, DateTime firstDate)
+        {
+            this.licenseNum = licenseNum;
+            this.firstDate = firstDate;
+            kilometrage = 0;
+            gas = 0;
+            lastTreatKm = 0;
+            LastTreatDate = DateTime.Now;
+        }
 
         public string LicenseNum
         {
-            get
-            {
-                return licenseNum;
-            }
-            set
-            {
-                if (DigitsNum(value) == true)
-                    licenseNum = value;
-            }
+            get => licenseNum;
+            private set => licenseNum = value;
         }
-
+        public DateTime FirstDate
+        {
+            get => firstDate;
+            private set => firstDate = value;
+        }
         public int Kilometrage
         {
             get
@@ -50,7 +66,7 @@ namespace dotNet5781_01_5828_6440
             {
                 if (value > 0)
                 {
-                    lastTreatKm += value;
+                    LastTreatKm += value;
                     gas += value;
                     kilometrage += value;
                 }
@@ -58,35 +74,25 @@ namespace dotNet5781_01_5828_6440
         }
         public int Gas
         {
-            get
-            {
-                return gas;
-            }
-            set
-            { }
+            get => gas;
+            private set => gas = value;
         }
-        public bool IfTreat(int distance)
+        public int LastTreatKm
         {
-            if ((lastTreatKm + distance) > maxKmTreat)
-            {
-                Console.WriteLine("DANGEROUS");
-                return true;
-            }
-
-            //DateTime currentDay = DateTime.Now;
-            //TimeSpan timeSpan = currentDay - lastTreatDate;
-            //if (timeSpan)
-            //    return false;
-
-            //checkDate.Year = lastTreatDate.Year + 1;
-            //if (checkDate.Year + 1 > currentDay.Year)
-
-            DateTime currentDay = DateTime.Now;
-            DateTime checkDate = new DateTime(lastTreatDate.Year + 1, lastTreatDate.Month, lastTreatDate.Day);
-            if (checkDate >= currentDay)
-                return true;
-            return false;
+            get => lastTreatKm;
+            private set => lastTreatKm = value;
         }
+        public DateTime LastTreatDate 
+        { 
+            get => lastTreatDate; 
+            private set => lastTreatDate = value; 
+        }
+
+        /// <summary>
+        /// This method checks if refueling is needed to get going
+        /// </summary>
+        /// <param name="distance">This is the distance you want to travel on this bus.</param>
+        /// <returns>"true" if refueling is required</returns>
         public bool IfRefueling(int distance)
         {
             if ((gas + distance) > maxKmRefueling)
@@ -96,41 +102,44 @@ namespace dotNet5781_01_5828_6440
             }
             return false;
         }
+
+        /// <summary>
+        /// This method checks if general bus care is needed to get going.
+        /// </summary>
+        /// <param name="distance">This is the distance you want to travel on this bus.</param>
+        /// <returns>"true" if treatment is required</returns>
+        public bool IfTreat(int distance)
+        {
+            if ((LastTreatKm + distance) > maxKmTreat)
+            {
+                Console.WriteLine("Please make a general treatment, this bus is DANGEROUS!");
+                return true;
+            }
+            DateTime currentDay = DateTime.Now;
+            DateTime checkDate = new DateTime(LastTreatDate.Year + 1, LastTreatDate.Month, LastTreatDate.Day);
+            if (checkDate >= currentDay)
+            {
+                Console.WriteLine("Please make a general treatment");
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// This method updates that refueling has been performed
+        /// </summary>
         public void GasNow()
         {
             gas = 0;
         }
+
+        /// <summary>
+        /// This method updates that a general bus treatment has been performed
+        /// </summary>
         public void TreatNow()
         {
-            lastTreatKm = 0;
-            DateTime currentDay = DateTime.Now;
-            lastTreatDate = currentDay;
-        }
-        public bool DigitsNum(string num)
-        {
-            if ((firstDay.Year >= 2018) && (num.Length == 10))
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    if ((i == 3 || i == 6) && (num[i] != '-'))
-                        return false;
-                    else if (num[i] < '0' || num[i] > '9')
-                        return false;
-                }
-                return true;
-            }
-            if ((firstDay.Year < 2018) && (num.Length == 9))
-            {
-                for (int i = 0; i < 9; i++)
-                {
-                    if ((i == 2 || i == 6) && (num[i] != '-'))
-                        return false;
-                    else if (num[i] < '0' || num[i] > '9')
-                        return false;
-                }
-                return true;
-            }
-            return false;
+            LastTreatKm = 0;
+            LastTreatDate = DateTime.Now;
         }
 
     }
