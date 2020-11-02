@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace dotNet5781_01_5828_6440
@@ -54,9 +55,33 @@ namespace dotNet5781_01_5828_6440
                         break;
 
                     case Option.Refueling:
+                        Console.WriteLine("Enter license number: ");
+                        string num3 = Console.ReadLine();
+                        //בדיקה אם המספר נכון:
 
+                        Console.WriteLine("Press 1 for refueling, Press 2 for treat:");
+                        int ans = int.Parse(Console.ReadLine());
+                        if (ans==1)
+                        {
+                            Bus bus1= SearchBus(num3, buses);
+                            bus1.GasNow();
+                        }
+                       else if (ans==2)
+                       {
+                            Bus bus2 = SearchBus(num3, buses);
+                            bus2.TreatNow();
+
+                       }
+                        else
+                        {
+                            Console.WriteLine("WRONG CHOICE");
+                        }
                         break;
                     case Option.Show:
+                        for (int i = 0; i < buses.Count; i++)
+                        {
+                            Console.WriteLine(buses[i].LicenseNum, buses[i].Kilometrage);
+                        }
                         break;
                     case Option.Exit:
                         break;
@@ -79,6 +104,35 @@ Press 5 to exit");
         public static Bus NewBus()
         {
             return null;
+        }
+        public static Bus SearchBus(string num, ref Bus buses)
+        {
+            if (validate_busId(num)==false)
+            {
+                Console.WriteLine("WRONG LICENSE NUMBER");
+            }
+            else
+            {
+                for (int i = 0; i < buses.Count; i++)
+                {
+                    if (buses[i].LicenseNum == num2)
+                    {
+                        flag = true;
+                        if ((buses[i].IfTreat(reqKm) == false) && (buses[i].IfRefueling(reqKm) == false))
+                            buses[i].Kilometrage = reqKm;
+                    }
+                }
+            }
+            return null;
+        }
+        public static bool validate_busId(string busId)
+        {
+            string pattern7 = @"\d\d-\d\d\d-\d\d$";
+            string pattern8 = @"\d\d\d-\d\d-\d\d\d$";
+            Regex rgx7 = new Regex(pattern7);
+            Regex rgx8 = new Regex(pattern8);
+
+            return (rgx7.IsMatch(busId) || rgx8.IsMatch(busId));
         }
     }
 }
