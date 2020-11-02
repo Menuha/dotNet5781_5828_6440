@@ -65,7 +65,7 @@ namespace dotNet5781_01_5828_6440
             set
             { }
         }
-        public bool Treat(int distance)
+        public bool IfTreat(int distance)
         {
             if ((lastTreatKm + distance) > maxKmTreat)
             {
@@ -87,14 +87,14 @@ namespace dotNet5781_01_5828_6440
                 return true;
             return false;
         }
-        public bool Refueling(int distance)
+        public bool IfRefueling(int distance)
         {
             if ((gas + distance) > maxKmRefueling)
             {
                 Console.WriteLine("Gas needed");
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
         public void GasNow()
         {
