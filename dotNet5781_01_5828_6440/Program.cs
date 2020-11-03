@@ -1,4 +1,7 @@
-﻿using Microsoft.Win32;
+﻿//Menuha Peleg 208095828
+//
+//A program to represent a list of buses
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +48,7 @@ namespace dotNet5781_01_5828_6440
             } while (choice != Option.Exit);
             Console.ReadKey();
         }
+
         /// <summary>
         /// Show menu of actions and select action
         /// </summary>
@@ -125,6 +129,7 @@ namespace dotNet5781_01_5828_6440
             }
             Random r = new Random();
             int reqKm = r.Next(maxKm);
+            Console.WriteLine(reqKm);
             if ((busesList[index].IfTreat(reqKm) == false) && (busesList[index].IfRefueling(reqKm) == false))            
                 busesList[index].Kilometrage = reqKm;
         }
@@ -177,23 +182,8 @@ namespace dotNet5781_01_5828_6440
         {
             for(int i = 0; i < busesList.Count; i++)
             {
-                Console.WriteLine($"The bus with the license number {busesList[i].LicenseNum} traveled {busesList[i].LastTreatKm} kilometrage.");
+                Console.WriteLine($"The bus with the license number: {busesList[i].LicenseNum} traveled: {busesList[i].LastTreatKm} kilometrage.");
             }
-        }
-
-        /// <summary>
-        /// This method checks the validity of a bus license number
-        /// </summary>
-        /// <param name="licenceNum">The bus license number you want to check</param>
-        /// <returns>"true" if the license number is correct</returns>
-        public static bool validateLicenseNum(string licenceNum)
-        {
-            string pattern7 = @"\d\d-\d\d\d-\d\d$";
-            string pattern8 = @"\d\d\d-\d\d-\d\d\d$";
-            Regex rgx7 = new Regex(pattern7);
-            Regex rgx8 = new Regex(pattern8);
-
-            return (rgx7.IsMatch(licenceNum) || rgx8.IsMatch(licenceNum));
         }
 
         /// <summary>
@@ -215,5 +205,50 @@ namespace dotNet5781_01_5828_6440
             }
             return index;
         }
+
+        /// <summary>
+        /// This method checks the validity of a bus license number
+        /// </summary>
+        /// <param name="licenceNum">The bus license number you want to check</param>
+        /// <returns>"true" if the license number is correct</returns>
+        public static bool validateLicenseNum(string licenceNum)
+        {
+            string pattern7 = @"\d\d-\d\d\d-\d\d$";
+            string pattern8 = @"\d\d\d-\d\d-\d\d\d$";
+            Regex rgx7 = new Regex(pattern7);
+            Regex rgx8 = new Regex(pattern8);
+
+            return (rgx7.IsMatch(licenceNum) || rgx8.IsMatch(licenceNum));
+        }
     }
 }
+//Example:
+//Press 3 to treat or refuel of a bus
+//Press 4 to show the kilometrage since the last treat
+//Press 5 to exit
+//1
+//Enter license number (nnn-nn-nnn or nn-nnn-nn):
+//111 - 22 - 333
+//Enter the first date this bus started working (dd/mm/yyyy):
+//1 / 1 / 2020
+//Press 1 to add a new bus
+//Press 2 to choose a bus for drive
+//Press 3 to treat or refuel of a bus
+//Press 4 to show the kilometrage since the last treat
+//Press 5 to exit
+//2
+//Enter license number (nnn-nn-nnn or nn-nnn-nn):
+//111 - 22 - 333
+//158
+//Press 1 to add a new bus
+//Press 2 to choose a bus for drive
+//Press 3 to treat or refuel of a bus
+//Press 4 to show the kilometrage since the last treat
+//Press 5 to exit
+//4
+//The bus with the license number: 111 - 22 - 333 traveled: 158 kilometrage.
+//    Press 1 to add a new bus
+//    Press 2 to choose a bus for drive
+//Press 3 to treat or refuel of a bus
+//Press 4 to show the kilometrage since the last treat
+//Press 5 to exit

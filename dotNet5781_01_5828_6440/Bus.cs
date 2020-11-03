@@ -117,7 +117,7 @@ namespace dotNet5781_01_5828_6440
             }
             DateTime currentDay = DateTime.Now;
             DateTime checkDate = new DateTime(LastTreatDate.Year + 1, LastTreatDate.Month, LastTreatDate.Day);
-            if (checkDate >= currentDay)
+            if (checkDate <= currentDay)
             {
                 Console.WriteLine("Please make a general treatment");
                 return true;
