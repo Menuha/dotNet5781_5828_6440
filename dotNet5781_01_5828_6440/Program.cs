@@ -59,9 +59,9 @@ namespace dotNet5781_01_5828_6440
             while (true)
             {
                 Console.WriteLine("Press 1 to add a new bus");
-                Console.WriteLine("Press 2 to choose a bus for drive");
+                Console.WriteLine("Press 2 to add a new drive");
                 Console.WriteLine("Press 3 to treat or refuel of a bus");
-                Console.WriteLine("Press 4 to show the kilometrage since the last treat");
+                Console.WriteLine("Press 4 to show all the buses's kilometrage since the last treat");
                 Console.WriteLine("Press 5 to exit");
                 m = Console.ReadLine();
                 if (m.Length == 1 && m[0] >= '1' && m[0] <= '5') 
@@ -113,6 +113,11 @@ namespace dotNet5781_01_5828_6440
         /// <param name="busesList">The list you search and update your bus details in</param>
         public static void NewDrive(List<Bus> busesList)
         {
+            if(busesList.Count == 0)
+            {
+                Console.WriteLine("There are no Buses yet");
+                return;
+            }
             string licenseNum;
             int index = -1;
             while (true)
@@ -140,6 +145,11 @@ namespace dotNet5781_01_5828_6440
         /// <param name="busesList">The list you search and update your bus details in</param>
         public static void NewRefuelOrTreat(List<Bus> busesList)
         {
+            if (busesList.Count == 0)
+            {
+                Console.WriteLine("There are no Buses yet");
+                return;
+            }
             string licenseNum;
             int index = -1;
             while (true)
@@ -180,9 +190,14 @@ namespace dotNet5781_01_5828_6440
         /// <param name="busesList">The list from which you would like to print your buses details</param>
         public static void NewShowKilomtrage(List<Bus> busesList)
         {
-            for(int i = 0; i < busesList.Count; i++)
+            if (busesList.Count == 0)
             {
-                Console.WriteLine($"The bus with the license number: {busesList[i].LicenseNum} traveled: {busesList[i].LastTreatKm} kilometrage.");
+                Console.WriteLine("There are no Buses yet");
+                return;
+            }
+            for (int i = 0; i < busesList.Count; i++)
+            {
+                Console.WriteLine($"The bus with the license number {busesList[i].LicenseNum} traveled {busesList[i].LastTreatKm} kilometers since the last treat.");
             }
         }
 
@@ -222,9 +237,11 @@ namespace dotNet5781_01_5828_6440
         }
     }
 }
-//Example:
+//Example of output:
+//Press 1 to add a new bus
+//Press 2 to add a new drive
 //Press 3 to treat or refuel of a bus
-//Press 4 to show the kilometrage since the last treat
+//Press 4 to show all the buses's kilometrage since the last treat
 //Press 5 to exit
 //1
 //Enter license number (nnn-nn-nnn or nn-nnn-nn):
@@ -232,23 +249,24 @@ namespace dotNet5781_01_5828_6440
 //Enter the first date this bus started working (dd/mm/yyyy):
 //1 / 1 / 2020
 //Press 1 to add a new bus
-//Press 2 to choose a bus for drive
+//Press 2 to add a new drive
 //Press 3 to treat or refuel of a bus
-//Press 4 to show the kilometrage since the last treat
+//Press 4 to show all the buses's kilometrage since the last treat
 //Press 5 to exit
 //2
 //Enter license number (nnn-nn-nnn or nn-nnn-nn):
 //111 - 22 - 333
 //158
 //Press 1 to add a new bus
-//Press 2 to choose a bus for drive
+//Press 2 to add a new drive
 //Press 3 to treat or refuel of a bus
-//Press 4 to show the kilometrage since the last treat
+//Press 4 to show all the buses's kilometrage since the last treat
 //Press 5 to exit
 //4
-//The bus with the license number: 111 - 22 - 333 traveled: 158 kilometrage.
-//    Press 1 to add a new bus
-//    Press 2 to choose a bus for drive
+//The bus with the license number 111 - 22 - 333 traveled 158 kilometers since the last treat.
+//Press 1 to add a new bus
+//Press 2 to add a new drive
 //Press 3 to treat or refuel of a bus
-//Press 4 to show the kilometrage since the last treat
+//Press 4 to show all the buses's kilometrage since the last treat
 //Press 5 to exit
+//5
