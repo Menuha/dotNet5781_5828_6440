@@ -10,7 +10,7 @@ namespace dotNet5781_01_5828_6440
     /// <summary>
     /// This is a class to represent a bus by
     /// </summary>
-    public class Bus
+    class Bus
     {
         public const int maxKmTreat = 20000;
         public const int maxKmRefueling = 1200;
