@@ -1,5 +1,5 @@
 ﻿//Menuha Peleg 208095828
-//
+//Shira Cohen 207486440
 //A program to represent a list of buses
 using Microsoft.Win32;
 using System;
@@ -132,7 +132,7 @@ namespace dotNet5781_01_5828_6440
                 }
                 Console.WriteLine("WRONG LICENSE NUMBER");
             }
-            Random r = new Random();
+            Random r = new Random(DateTime.Now.Millisecond);
             int reqKm = r.Next(maxKm);
             Console.WriteLine(reqKm);
             if ((busesList[index].IfTreat(reqKm) == false) && (busesList[index].IfRefueling(reqKm) == false))            
