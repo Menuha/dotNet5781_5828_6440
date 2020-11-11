@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_02_5828_6440
 {
-    class BusStation
+    public class BusStation
     {
         public int busStationKey;
         public float latitude;
@@ -39,7 +39,8 @@ namespace dotNet5781_02_5828_6440
             set
             {
                 Random r1 = new random();
-                latitude = r1.Next(31, (int)33.3);
+                latitude = r1.Next(310, 333);
+                //latitude = latitude / 10;
             }
         }
         public float Longitude
@@ -51,12 +52,14 @@ namespace dotNet5781_02_5828_6440
             set 
             {
                 Random r2 = new random();
-                longitude = r2.Next(34.3, 35.5);
+                longitude = r2.Next(343, 355);
+                //longitude = longitude / 10;
             }
         }
         public override string ToString()
         {
-            return "Bus Station Code: " + busStationKey + ", " + latitude + " ," + longitude;
+            return "Bus Station Code: " + busStationKey + ", " + latitude + "°N ," + longitude + "°E";
         }
     }
+
 }
