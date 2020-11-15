@@ -62,7 +62,7 @@ namespace dotNet5781_02_5828_6440
         public static Option ActionsMenu()
         {
             string m;
-            while (true)
+            try
             {
                 Console.WriteLine("Press 1 to add");
                 Console.WriteLine("Press 2 to delete");
@@ -70,11 +70,21 @@ namespace dotNet5781_02_5828_6440
                 Console.WriteLine("Press 4 to print");
                 Console.WriteLine("Press 5 to exit");
                 m = Console.ReadLine();
-                if (m.Length == 1 && m[0] >= '1' && m[0] <= '5')
-                    break;
-                Console.WriteLine("WRONG CHOISE");
+                if (m.Length != 1 || m[0] < '1' || m[0] > '5')
+                {
+                    throw new System.ArgumentException("WRONG CHOISE");
+                }
+
+                //    if (m.Length == 1 && m[0] >= '1' && m[0] <= '5')
+                //        break;
+                //    Console.WriteLine("WRONG CHOISE");
+                //}
+                //return (Option)Enum.Parse(typeof(Option), m);
             }
-            return (Option)Enum.Parse(typeof(Option), m);
+            catch
+            {
+
+            }
         }
         public static void NewAdd(List<BusLine> busLinesList, List<BusStation> busStationsList )
         {
