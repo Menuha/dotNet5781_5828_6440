@@ -49,7 +49,7 @@ namespace dotNet5781_02_5828_6440
             {
                 return stationCode;
             }
-            set
+            private set
             {
                 busStationKey = value;
             }
@@ -60,7 +60,7 @@ namespace dotNet5781_02_5828_6440
             {
                 return latitude;
             }
-            set
+            private set
             {
                 Random r1 = new random();
                 latitude = r1.Next(310, 333);
@@ -73,7 +73,7 @@ namespace dotNet5781_02_5828_6440
             {
                 return longitude;
             }
-            set
+            private set
             {
                 if (value < 34.3 || value > 35.5)
                 {
@@ -95,5 +95,4 @@ namespace dotNet5781_02_5828_6440
             return "Bus Station Code: " + stationCode + ", " + latitude + "°N " + longitude + "°E";
         }
     }
-
 }
