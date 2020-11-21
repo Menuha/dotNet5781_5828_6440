@@ -134,7 +134,6 @@ namespace dotNet5781_01_5828_6440
             }
             Random r = new Random(DateTime.Now.Millisecond);
             int reqKm = r.Next(maxKm);
-            Console.WriteLine(reqKm);
             if ((busesList[index].IfTreat(reqKm) == false) && (busesList[index].IfRefueling(reqKm) == false))            
                 busesList[index].Kilometrage = reqKm;
         }
