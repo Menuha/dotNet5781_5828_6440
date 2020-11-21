@@ -82,7 +82,7 @@ namespace dotNet5781_01_5828_6440
             {
                 Console.WriteLine("Enter license number (nnn-nn-nnn or nn-nnn-nn): ");
                 licenseNum = Console.ReadLine();
-                if (validateLicenseNum(licenseNum) == true)
+                if (ValidateLicenseNum(licenseNum) == true)
                 {
                     if(SearchBus(licenseNum, busesList) == -1)
                         break;
@@ -92,13 +92,12 @@ namespace dotNet5781_01_5828_6440
                     Console.WriteLine("WRONG LICENSE STRUCTURE");
             }
             string fd;
-            bool flag = false;
             DateTime firstDate;
             while (true)
             {
                 Console.WriteLine("Enter the first date this bus started working (dd/mm/yyyy):");
                 fd = Console.ReadLine();
-                flag = DateTime.TryParse(fd, out firstDate);
+                bool flag = DateTime.TryParse(fd, out firstDate);
                 if (flag == true)
                     break;
                 Console.WriteLine("WRONG DATE");
@@ -119,12 +118,12 @@ namespace dotNet5781_01_5828_6440
                 return;
             }
             string licenseNum;
-            int index = -1;
+            int index;
             while (true)
             {
                 Console.WriteLine("Enter license number (nnn-nn-nnn or nn-nnn-nn): ");
                 licenseNum = Console.ReadLine();
-                if (validateLicenseNum(licenseNum) == true)
+                if (ValidateLicenseNum(licenseNum) == true)
                 {
                     index = SearchBus(licenseNum, busesList);
                     if (index != -1)
@@ -155,7 +154,7 @@ namespace dotNet5781_01_5828_6440
             {
                 Console.WriteLine("Enter license number (nnn-nn-nnn or nn-nnn-nn): ");
                 licenseNum = Console.ReadLine();
-                if (validateLicenseNum(licenseNum) == true)
+                if (ValidateLicenseNum(licenseNum) == true)
                 {
                     index = SearchBus(licenseNum, busesList);
                     if (index != -1)
@@ -205,11 +204,11 @@ namespace dotNet5781_01_5828_6440
         /// </summary>
         /// <param name="licenseNum">The license number you want to find</param>
         /// <param name="busesList">The list you want to search the bus in</param>
-        /// <returns>"-1" if the license number not fond, else the index of the bus in the list</returns>
+        /// <returns>"-1" if the license number not found, else the index of the bus in the list</returns>
         public static int SearchBus(string licenseNum, List<Bus> busesList)
         {
             int index = -1;
-            if (validateLicenseNum(licenseNum) == true)
+            if (ValidateLicenseNum(licenseNum) == true)
             {
                 for (int i = 0; i < busesList.Count; i++)
                 {
@@ -225,7 +224,7 @@ namespace dotNet5781_01_5828_6440
         /// </summary>
         /// <param name="licenceNum">The bus license number you want to check</param>
         /// <returns>"true" if the license number is correct</returns>
-        public static bool validateLicenseNum(string licenceNum)
+        public static bool ValidateLicenseNum(string licenceNum)
         {
             string pattern7 = @"\d\d-\d\d\d-\d\d$";
             string pattern8 = @"\d\d\d-\d\d-\d\d\d$";

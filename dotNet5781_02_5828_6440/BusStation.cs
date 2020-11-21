@@ -49,7 +49,7 @@ namespace dotNet5781_02_5828_6440
             {
                 return stationCode;
             }
-            set
+            private set
             {
                 if (value.Length != 6)
                 {
@@ -67,7 +67,7 @@ namespace dotNet5781_02_5828_6440
             {
                 return latitude;
             }
-            set
+            private set
             {
                 if (value < 31 || value > 33.3)
                 {
@@ -86,7 +86,7 @@ namespace dotNet5781_02_5828_6440
             {
                 return longitude;
             }
-            set
+            private set
             {
                 if (value < 34.3 || value > 35.5)
                 {
@@ -108,5 +108,4 @@ namespace dotNet5781_02_5828_6440
             return "Bus Station Code: " + stationCode + ", " + latitude + "°N " + longitude + "°E";
         }
     }
-
 }
