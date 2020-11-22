@@ -51,10 +51,17 @@ namespace dotNet5781_02_5828_6440
             }
             private set
             {
-                busStationKey = value;
+                if (value.Length != 6)
+                {
+                    //Exception
+                    Console.WriteLine("WRONG BUS STATION CODE");
+                    return;
+                }
+                stationCode = value;
             }
         }
-        public float Latitude
+
+        public double Latitude
         {
             get
             {
@@ -62,12 +69,18 @@ namespace dotNet5781_02_5828_6440
             }
             private set
             {
-                Random r1 = new random();
-                latitude = r1.Next(310, 333);
-                //latitude = latitude / 10;
+                if (value < 31 || value > 33.3)
+                {
+                    //A random number in the width area of the State of Israel
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    latitude = random.NextDouble() * (maxLatitude - minLatitude) + minLatitude;
+                    return;
+                }
+                latitude = value;
             }
         }
-        public float Longitude
+
+        public double Longitude
         {
             get
             {

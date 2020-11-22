@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace dotNet5781_02_5828_6440
 {
    // enum area { General = 1, North, South,Center, Jerusalem, East, West, Exit };
-    class BusLine
+    class BusLine:IComparable
     {
         //public List<BusLineStation>;
         public List<T> busLine;
@@ -31,17 +31,39 @@ namespace dotNet5781_02_5828_6440
         {
             return "Number of bus: " + busCode + ", area: " + area + " , Stations: " + busLine;
         }
+        public BusLine AddStation(BusStation sta)
+        {
+            Console.WriteLine("Press 1 to add the station to the first statio");
+            busLine.Add(sta)
+            Console.WriteLine("Press 2 to add the station to the last statio");
+            busLine.Add(sta)
+        }
+        public BusLine DeleteStation()
+        {
 
-
-
-        public bool checkStation(BusStation station)
+        }
+        public bool CheckStation(BusStation station)
         {
             bool flag = false;
-            if(station.)
+            if()
             return flag;
         }
-        
+        public double DisBetStations(BusLineStation a, BusLineStation b)
+        {
+            //חריגות שאכן נמצאות
 
+            return;
+        }
+    public int CompareTo(object obj)
+        {
+            BusLine s = (BusLine)obj;
+            if (travelTime == s.travelTime)
+                return 0;
+            else if (travelTime > s.travelTime)
+                return 1;
+            else if (travelTime < s.travelTime)
+                return -1;
+        }
     }
 
 }
