@@ -12,10 +12,10 @@ namespace dotNet5781_02_5828_6440
     /// </summary>
     public class BusStation
     {
-        public const double minLatitude = 31;
-        public const double maxLatitude = 33.3;
-        public const double minLongitude = 34.3;
-        public const double maxLongitude = 31.5;
+        private const double minLatitude = 31;
+        private const double maxLatitude = 33.3;
+        private const double minLongitude = 34.3;
+        private const double maxLongitude = 31.5;
 
         /// <summary>
         /// The code of this station
@@ -43,6 +43,9 @@ namespace dotNet5781_02_5828_6440
             Longitude = longitude;
         }
 
+        /// <summary>
+        /// The station code
+        /// </summary>
         public string StationCode
         {
             get
@@ -51,19 +54,23 @@ namespace dotNet5781_02_5828_6440
             }
             private set
             {
-                if (value.Length != 6)
+                if (value.Length <= 6)
                 {
-                    //Exception
-                    Console.WriteLine("WRONG BUS STATION CODE");
-                    return;
+                    stationCode = value;
                 }
-                stationCode = value;
+                else
+                {
+                    throw new ArgumentException("WRONG BUS STATION CODE");
+                }
             }
         }
 
+        /// <summary>
+        /// The station latitude
+        /// </summary>
         public double Latitude
         {
-            get
+            get 
             {
                 return latitude;
             }
@@ -80,9 +87,12 @@ namespace dotNet5781_02_5828_6440
             }
         }
 
+        /// <summary>
+        /// The station longitude
+        /// </summary>
         public double Longitude
         {
-            get
+            get 
             {
                 return longitude;
             }
