@@ -12,20 +12,20 @@ namespace dotNet5781_02_5828_6440
     class BusLineStation
     {
         private BusStation station;
-        private double distanceFPre;
-        private TimeSpan travelTimeFPre;
+        private double distanceFromPre;
+        private TimeSpan travelTimeFromPre;
 
         /// <summary>
         /// Constractor of a bus line station
         /// </summary>
         /// <param name="station">Data of a bus line station</param>
-        /// <param name="distanceFPre">Distance from the previous station</param>
-        /// <param name="travelTimeFPre">Travel time from previous station</param>
-        public BusLineStation(BusStation station, double distanceFPre, TimeSpan travelTimeFPre)
+        /// <param name="distanceFromPre">Distance from the previous station</param>
+        /// <param name="travelTimeFromPre">Travel time from previous station</param>
+        public BusLineStation(BusStation station, double distanceFromPre, TimeSpan travelTimeFromPre)
         {
             Station = station;
-            DistanceFPre = distanceFPre;
-            TravelTimeFPre = travelTimeFPre;
+            DistanceFromPre = distanceFromPre;
+            TravelTimeFromPre = travelTimeFromPre;
         }
 
         /// <summary>
@@ -37,19 +37,19 @@ namespace dotNet5781_02_5828_6440
         /// <summary>
         /// Distance from the previous station
         /// </summary>
-        public double DistanceFPre
+        public double DistanceFromPre
         {
-            get { return distanceFPre; }
-            private set { distanceFPre = value; }
+            get { return distanceFromPre; }
+            set { distanceFromPre = value; }
         }
 
         /// <summary>
         /// Travel time from previous station
         /// </summary>
-        public TimeSpan TravelTimeFPre
+        public TimeSpan TravelTimeFromPre
         {
-            get { return travelTimeFPre; }
-            private set { travelTimeFPre = value; }
+            get { return travelTimeFromPre; }
+            set { travelTimeFromPre = value; }
         }
     }
 }

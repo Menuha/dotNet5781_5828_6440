@@ -117,5 +117,18 @@ namespace dotNet5781_02_5828_6440
         {
             return "Bus Station Code: " + stationCode + ", " + latitude + "°N " + longitude + "°E";
         }
+
+
+        /// <summary>
+        /// Calculate air distance between 2 stations
+        /// </summary>
+        /// <param name="station1">station number 1</param>
+        /// <param name="station2">station number 2</param>
+        /// <returns>Air distance betweeen 2 stations</returns>
+        public static double Gap2S(BusStation station1, BusStation station2)
+        {
+            //חריגות
+            return Math.Sqrt(Math.Pow(station1.Latitude - station2.Latitude, 2) + Math.Pow(station1.Longitude - station2.Longitude, 2));
+        }
     }
 }

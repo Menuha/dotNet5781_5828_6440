@@ -9,14 +9,11 @@ namespace dotNet5781_02_5828_6440
     enum Area { General = 1, North, South, East, West, Jerusalem, Center, Exit };
 
     /// <summary>
-    /// Department for the representation of a single bus line (route of various stations of the bus line)
+    /// Class for the representation of a single bus line (route of various stations of the bus line)
     /// </summary>
-    class BusLine
+    class BusLine : IComparable<BusLine>
     {
-        /// <summary>
-        /// A list containing the route of the various stations of a bus line
-        /// </summary>
-        private List<BusLineStation> stations;
+        private List<BusLineStation> stationsList;
         private string busCode;
         private BusStation firstStation;
         private BusStation lastStation;
@@ -38,6 +35,12 @@ namespace dotNet5781_02_5828_6440
         }
 
         /// <summary>
+        /// A list containing the route of the various stations of a bus line
+        /// </summary>
+        public List<BusLineStation> StationsList
+        { get => stationsList; set => stationsList = value; }
+
+        /// <summary>
         /// The bus code
         /// </summary>
         public string BusCode
@@ -50,13 +53,41 @@ namespace dotNet5781_02_5828_6440
         /// The first station in the route of the bus
         /// </summary>
         public BusStation FirstStation
-        { get => firstStation; private set => firstStation = value; }
+        { 
+            get => firstStation;
+            private set
+            {
+                firstStation = value;
+                StationsList.Insert(0, new BusLineStation(firstStation, 0, new TimeSpan(0, 0, 0)));
+                if (StationsList.Count > 1)
+                {
+                    StationsList[1].DistanceFromPre = BusStation.Gap2S(StationsList[0].Station, StationsList[1].Station);
+                    StationsList[1].TravelTimeFromPre = new TimeSpan(0, 0, new Random().Next(3600));
+                }
+            }
+        }
 
         /// <summary>
         /// The last station in the route of the bus
         /// </summary>
         public BusStation LastStation
-        { get => lastStation; private set => lastStation = value; }
+        { 
+            get => lastStation;
+            private set
+            {
+                lastStation = value;
+                if (StationsList.Count > 0)
+                {
+                    double distanceFromPre = BusStation.Gap2S(StationsList[StationsList.Count - 1].Station, lastStation);
+                    TimeSpan travelTimeFromPre = new TimeSpan(0, 0, new Random().Next(3600));
+                    StationsList.Add(new BusLineStation(lastStation, distanceFromPre, travelTimeFromPre));
+                }
+                else
+                {
+                    FirstStation = lastStation;
+                }
+            }
+        }
 
         /// <summary>
         /// The area to which the bus is associated
@@ -65,30 +96,57 @@ namespace dotNet5781_02_5828_6440
         { get => busArea; private set => busArea = value; }
 
         /// <summary>
-        /// Adding a station to the line route
+        /// Inserting a station to the line route
         /// </summary>
+        /// <param name="index">the index of the new station</param>
         /// <param name="station"></param>
         public void Insert(int index, BusStation station)
         {
+            if (this.Exists(station))
+                throw new ArgumentException("This station already exsist in this bus line");
+            else
+            {
+                if (index == 0)
+                {
+                    FirstStation = station;
+                }
+                else if (index == StationsList.Count)
+                {
+                    LastStation = station;
+                }
+                else
+                {
+                    double distanceFromPre = BusStation.Gap2S(StationsList[index - 1].Station, station);
+                    int seconds = (int)(StationsList[index].TravelTimeFromPre).TotalSeconds;
+                    TimeSpan travelTimeFromPre = new TimeSpan(0, 0, new Random().Next(seconds));
+                    StationsList.Insert(index, new BusLineStation(station, distanceFromPre, travelTimeFromPre));
 
-            //if (index == 0)
-            //{
-            //    double distance = 
-            //    BusLineStation busLineStation = new BusLineStation(station, distance, )
-            //    stations.Insert(index, busLineStation);
-
-            //}
-            //busLine.Add(sta)
-            //busLine.Add(sta)
+                    StationsList[index + 1].DistanceFromPre = BusStation.Gap2S(StationsList[index].Station, StationsList[index + 1].Station);
+                    StationsList[index + 1].TravelTimeFromPre -= travelTimeFromPre;
+                }
+            }
         }
 
         /// <summary>
-        /// Deleting a station from the line route
+        /// Removing a station from the line route
         /// </summary>
-        /// <param name="station"></param>
-        public void DeleteStation(BusLineStation station)
+        /// <param name="station"> the station to remove</param>
+        /// <returns> true if item is successfully removed; otherwise, false.</returns>
+        public bool Remove(BusStation station)
         {
-
+            int index = StationsList.FindIndex(x => x.Station == station);
+            bool flag = StationsList.Remove(StationsList.Find(x => x.Station == station));
+            if (index == 0 && StationsList.Count < 0)
+            {
+                firstStation = StationsList[0].Station;
+                StationsList[0].DistanceFromPre = 0;
+                StationsList[0].TravelTimeFromPre = new TimeSpan(0, 0, 0);
+            }
+            else if(index == StationsList.Count)
+            {
+                lastStation = StationsList[StationsList.Count - 1].Station;
+            }
+            return flag;
         }
 
         /// <summary>
@@ -96,33 +154,57 @@ namespace dotNet5781_02_5828_6440
         /// </summary>
         /// <param name="station">the station you want to search</param>
         /// <returns>"true" if the given station was found</returns>
-        public bool SearchStation(BusLineStation station)
+        public bool Exists(BusStation station)
         {
-            bool flag = false;
-            if ()
-                return flag;
+            return StationsList.Exists(x => x.Station == station);
         }
 
         /// <summary>
-        /// Checking the distance between 2 stations that are on the line
+        /// Calculating the distance between 2 stations that are on the line
         /// </summary>
         /// <param name="station1">station number 1</param>
         /// <param name="station2">station number 2</param>
         /// <returns>the distance between the stations</returns>
-        public double Distance2S(BusLineStation station1, BusLineStation station2)
+        public double Distance2S(BusStation station1, BusStation station2)
         {
-            //חריגות שאכן נמצאות
+            double distance = 0;
+            int index1 = StationsList.FindIndex(x => x.Station == station1);
+            int index2 = StationsList.FindIndex(x => x.Station == station2);
+            if(index1 > index2)
+            {
+                int tmp = index1;
+                index1 = index2;
+                index2 = tmp;
+            }
+            for(; index1 < index2; index1++)
+            {
+                distance += StationsList[index1].DistanceFromPre;
+            }
+            return distance;
         }
 
         /// <summary>
-        /// Checking the travel time between 2 stations that are on the line
+        /// Calculating the travel time between 2 stations that are on the line
         /// </summary>
         /// <param name="station1">station number 1</param>
         /// <param name="station2">station number 2</param>
         /// <returns>the travel time between the stations</returns>
-        public TimeSpan TravelTime2S(BusLineStation station1, BusLineStation station2)
+        public TimeSpan TravelTime2S(BusStation station1, BusStation station2)
         {
-
+            TimeSpan timeBetween = new TimeSpan(0, 0, 0);
+            int index1 = StationsList.FindIndex(x => x.Station == station1);
+            int index2 = StationsList.FindIndex(x => x.Station == station2);
+            if (index1 > index2)
+            {
+                int tmp = index1;
+                index1 = index2;
+                index2 = tmp;
+            }
+            for (; index1 < index2; index1++)
+            {
+                timeBetween += StationsList[index1].TravelTimeFromPre;
+            }
+            return timeBetween;
         }
 
         /// <summary>
@@ -131,38 +213,21 @@ namespace dotNet5781_02_5828_6440
         /// <param name="station1">station number 1</param>
         /// <param name="station2">station number 2</param>
         /// <returns>sub-trajectory of the line</returns>
-        public BusLine SubLine(BusLineStation station1, BusLineStation station2)
+        public BusLine SubLine(BusStation station1, BusStation station2)
         {
-
+            BusLine subLine = new BusLine(BusCode, station1, station2, BusArea);
+            int index1 = StationsList.FindIndex(x => x.Station == station1);
+            int index2 = StationsList.FindIndex(x => x.Station == station2);
+            if (index1 > index2)
+            {
+                int tmp = index1;
+                index1 = index2;
+                index2 = tmp;
+            }
+            List<BusLineStation> subLineStations = StationsList.GetRange(index1, index2 - index1 + 1);
+            subLine.StationsList = subLineStations;
+            return subLine;
         }
-
-        /// <summary>
-        /// Comparison of 2 sub-routes of lines by comparing their time of travel between 2 given station
-        /// </summary>
-        /// <param name="otherLine">the second line</param>
-        /// <param name="sourceStation">the source station</param>
-        /// <param name="targetStation">the target station</param>
-        /// <returns>the line where the travel time is shorter</returns>
-        public BusLine Compare(BusLineStation otherLine, BusLineStation sourceStation, BusStation targetStation)
-        {
-            BusLine s = (BusLine)obj;
-            if (travelTime == s.travelTime)
-                return 0;
-            else if (travelTime > s.travelTime)
-                return 1;
-            else if (travelTime < s.travelTime)
-                return -1;
-        }
-        //public int CompareTo(object obj)
-        //{
-        //    BusLine s = (BusLine)obj;
-        //    if (travelTime == s.travelTime)
-        //        return 0;
-        //    else if (travelTime > s.travelTime)
-        //        return 1;
-        //    else if (travelTime < s.travelTime)
-        //        return -1;
-        //}
 
         /// <summary>
         /// A method that displays the bus line parameters
@@ -170,7 +235,17 @@ namespace dotNet5781_02_5828_6440
         /// <returns>Bus line parameters</returns>
         public override string ToString()
         {
-            return "Number of bus: " + busCode + ", area: " + busArea + " , Stations: " + busLine;
+            return "Number of bus: " + busCode + ", area: " + busArea + " , Stations: ";
+        }
+
+        /// <summary>
+        /// Comparison of 2 sub-routes of lines by comparing their time of travel
+        /// </summary>
+        /// <param name="other">the second line</param>
+        /// <returns>the line where the travel time is shorter</returns>
+        public int CompareTo(BusLine other)
+        {
+            return TravelTime2S(FirstStation, LastStation).CompareTo(other.TravelTime2S(FirstStation, LastStation));
         }
     }
 
