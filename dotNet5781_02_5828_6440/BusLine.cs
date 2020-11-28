@@ -18,10 +18,9 @@ namespace dotNet5781_02_5828_6440
         /// </summary>
         private List<BusLineStation> stations;
         private string busCode;
-        private BusStation firstStation;
-        private BusStation lastStation;
+        private BusLineStation firstStation;
+        private BusLineStation lastStation;
         private Area busArea;
-
         /// <summary>
         /// Constractor of a bus line
         /// </summary>
@@ -29,7 +28,7 @@ namespace dotNet5781_02_5828_6440
         /// <param name="firstStation">first station of the bus</param>
         /// <param name="lastStation">last station of the bus</param>
         /// <param name="busArea">area of the bus</param>
-        public BusLine(string busCode, BusStation firstStation, BusStation lastStation, Area busArea)
+        public BusLine(string busCode, BusLineStation firstStation, BusLineStation lastStation, Area busArea)
         {
             BusCode = busCode;
             FirstStation = firstStation;
@@ -43,19 +42,20 @@ namespace dotNet5781_02_5828_6440
         public string BusCode
         {
             get => busCode;
+
             private set => busCode = value;
         }
 
         /// <summary>
         /// The first station in the route of the bus
         /// </summary>
-        public BusStation FirstStation
+        public BusLineStation FirstStation
         { get => firstStation; private set => firstStation = value; }
 
         /// <summary>
         /// The last station in the route of the bus
         /// </summary>
-        public BusStation LastStation
+        public BusLineStation LastStation
         { get => lastStation; private set => lastStation = value; }
 
         /// <summary>
@@ -68,25 +68,25 @@ namespace dotNet5781_02_5828_6440
         /// Adding a station to the line route
         /// </summary>
         /// <param name="station"></param>
-        public void Insert(int index, BusStation station)
+        public void AddStation(BusStation station)
         {
 
-            //if (index == 0)
-            //{
-            //    double distance = 
-            //    BusLineStation busLineStation = new BusLineStation(station, distance, )
-            //    stations.Insert(index, busLineStation);
-
-            //}
-            //busLine.Add(sta)
-            //busLine.Add(sta)
         }
+        public BusLine AddStation(BusStation sta)
+        {
+            Console.WriteLine("Press 1 to add the station to the first statio");
+            busLine.Add(sta)
+            Console.WriteLine("Press 2 to add the station to the last statio");
+            busLine.Add(sta)
+        }
+        public BusLine DeleteStation()
+        {
 
         /// <summary>
         /// Deleting a station from the line route
         /// </summary>
         /// <param name="station"></param>
-        public void DeleteStation(BusLineStation station)
+        public void DeleteStation(BusStation station)
         {
 
         }
@@ -96,12 +96,15 @@ namespace dotNet5781_02_5828_6440
         /// </summary>
         /// <param name="station">the station you want to search</param>
         /// <returns>"true" if the given station was found</returns>
-        public bool SearchStation(BusLineStation station)
+        public bool SearchStation(BusStation station)
         {
             bool flag = false;
-            if ()
-                return flag;
+            if()
+            return flag;
         }
+        public double DisBetStations(BusLineStation a, BusLineStation b)
+        {
+            //חריגות שאכן נמצאות
 
         /// <summary>
         /// Checking the distance between 2 stations that are on the line
@@ -109,9 +112,9 @@ namespace dotNet5781_02_5828_6440
         /// <param name="station1">station number 1</param>
         /// <param name="station2">station number 2</param>
         /// <returns>the distance between the stations</returns>
-        public double Distance2S(BusLineStation station1, BusLineStation station2)
+        public double Distance2S(BusStation station1, BusStation station2)
         {
-            //חריגות שאכן נמצאות
+
         }
 
         /// <summary>
@@ -120,7 +123,7 @@ namespace dotNet5781_02_5828_6440
         /// <param name="station1">station number 1</param>
         /// <param name="station2">station number 2</param>
         /// <returns>the travel time between the stations</returns>
-        public TimeSpan TravelTime2S(BusLineStation station1, BusLineStation station2)
+        public TimeSpan TravelTime2S(BusStation station1, BusStation station2)
         {
 
         }
@@ -131,7 +134,7 @@ namespace dotNet5781_02_5828_6440
         /// <param name="station1">station number 1</param>
         /// <param name="station2">station number 2</param>
         /// <returns>sub-trajectory of the line</returns>
-        public BusLine SubLine(BusLineStation station1, BusLineStation station2)
+        public BusLine SubLine(BusStation station1, BusStation station2)
         {
 
         }
@@ -143,7 +146,12 @@ namespace dotNet5781_02_5828_6440
         /// <param name="sourceStation">the source station</param>
         /// <param name="targetStation">the target station</param>
         /// <returns>the line where the travel time is shorter</returns>
-        public BusLine Compare(BusLineStation otherLine, BusLineStation sourceStation, BusStation targetStation)
+        public BusLine Compare(BusLine otherLine, BusStation sourceStation, BusStation targetStation)
+        {
+
+            return;
+        }
+    public int CompareTo(object obj)
         {
             BusLine s = (BusLine)obj;
             if (travelTime == s.travelTime)
@@ -153,16 +161,7 @@ namespace dotNet5781_02_5828_6440
             else if (travelTime < s.travelTime)
                 return -1;
         }
-        //public int CompareTo(object obj)
-        //{
-        //    BusLine s = (BusLine)obj;
-        //    if (travelTime == s.travelTime)
-        //        return 0;
-        //    else if (travelTime > s.travelTime)
-        //        return 1;
-        //    else if (travelTime < s.travelTime)
-        //        return -1;
-        //}
+    }
 
         /// <summary>
         /// A method that displays the bus line parameters
@@ -172,9 +171,58 @@ namespace dotNet5781_02_5828_6440
         {
             return "Number of bus: " + busCode + ", area: " + busArea + " , Stations: " + busLine;
         }
+
+        public double Distance2S( BusLineStation station1, BusLineStation station2)
+        {
+            double dis = 0;
+            int tmp = station2.LocationRoute;
+            BusLineStation f = station2;
+            BusLineStation e = station1;
+            if (station1.LocationRoute > station2.LocationRoute)
+            {
+                f = station1;
+                e = station2;
+                tmp = station2.LocationRoute;
+            }
+            while (station1.Station.StationCode != station2.Station.StationCode)
+            {
+                dis = dis + f.DistanceFPre;
+                tmp = tmp - 1;
+                for (int i = 0; i < stations.Count; i++)
+                {
+                    if (stations[i].LocationRoute == tmp)
+                        f = stations[i];     
+                }
+
+            }
+            return dis;
+        }
+
+        public TimeSpan TravelTime2S(BusLineStation station1, BusLineStation station2)
+        {
+            TimeSpan timeBet = new TimeSpan(0, 0, 0);
+            int tmp = station2.LocationRoute;
+            BusLineStation f = station2;
+            BusLineStation e = station1;
+            if (station1.LocationRoute > station2.LocationRoute)
+            {
+                f = station1;
+                e = station2;
+                tmp = station2.LocationRoute;
+            }
+            while (station1.Station.StationCode != station2.Station.StationCode)
+            {
+                timeBet = timeBet + f.TravelTimeFPre;
+                tmp = tmp - 1;
+                for (int i = 0; i < stations.Count; i++)
+                {
+                    if (stations[i].LocationRoute == tmp)
+                        f = stations[i];
+                }
+
+            }
+            return timeBet;
+        }
     }
-
-   
 }
-
 

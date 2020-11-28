@@ -14,6 +14,7 @@ namespace dotNet5781_02_5828_6440
         private BusStation station;
         private double distanceFPre;
         private TimeSpan travelTimeFPre;
+        private int locationRoute;
 
         /// <summary>
         /// Constractor of a bus line station
@@ -51,5 +52,7 @@ namespace dotNet5781_02_5828_6440
             get { return travelTimeFPre; }
             private set { travelTimeFPre = value; }
         }
+
+        public int LocationRoute { get => locationRoute; set => locationRoute = value; }
     }
 }
