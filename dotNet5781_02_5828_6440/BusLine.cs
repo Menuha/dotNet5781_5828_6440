@@ -13,6 +13,8 @@ namespace dotNet5781_02_5828_6440
     /// </summary>
     class BusLine : IComparable<BusLine>
     {
+        private const int maxSecond = 10800;
+
         private List<BusLineStation> stationsList;
         private string busCode;
         private BusStation firstStation;
@@ -28,6 +30,7 @@ namespace dotNet5781_02_5828_6440
         /// <param name="busArea">area of the bus</param>
         public BusLine(string busCode, BusStation firstStation, BusStation lastStation, Area busArea)
         {
+            StationsList = new List<BusLineStation>();
             BusCode = busCode;
             FirstStation = firstStation;
             LastStation = lastStation;
@@ -53,17 +56,11 @@ namespace dotNet5781_02_5828_6440
         /// The first station in the route of the bus
         /// </summary>
         public BusStation FirstStation
-        { 
+        {
             get => firstStation;
             private set
             {
-                firstStation = value;
-                StationsList.Insert(0, new BusLineStation(firstStation, 0, new TimeSpan(0, 0, 0)));
-                if (StationsList.Count > 1)
-                {
-                    StationsList[1].DistanceFromPre = BusStation.Gap2S(StationsList[0].Station, StationsList[1].Station);
-                    StationsList[1].TravelTimeFromPre = new TimeSpan(0, 0, new Random().Next(3600));
-                }
+                Insert(0, value);
             }
         }
 
@@ -71,21 +68,11 @@ namespace dotNet5781_02_5828_6440
         /// The last station in the route of the bus
         /// </summary>
         public BusStation LastStation
-        { 
+        {
             get => lastStation;
             private set
             {
-                lastStation = value;
-                if (StationsList.Count > 0)
-                {
-                    double distanceFromPre = BusStation.Gap2S(StationsList[StationsList.Count - 1].Station, lastStation);
-                    TimeSpan travelTimeFromPre = new TimeSpan(0, 0, new Random().Next(3600));
-                    StationsList.Add(new BusLineStation(lastStation, distanceFromPre, travelTimeFromPre));
-                }
-                else
-                {
-                    FirstStation = lastStation;
-                }
+                Insert(StationsList.Count, value);
             }
         }
 
@@ -102,29 +89,26 @@ namespace dotNet5781_02_5828_6440
         /// <param name="station"></param>
         public void Insert(int index, BusStation station)
         {
-            if (this.Exists(station))
+            if (index < 0 || index > StationsList.Count)
+                throw new ArgumentOutOfRangeException();
+            if (Exists(station))
                 throw new ArgumentException("This station already exsist in this bus line");
-            else
+            double distanceFromPre = 0;
+            TimeSpan travelTimeFromPre = new TimeSpan(0, 0, 0);
+            if (index > 0)
             {
-                if (index == 0)
-                {
-                    FirstStation = station;
-                }
-                else if (index == StationsList.Count)
-                {
-                    LastStation = station;
-                }
-                else
-                {
-                    double distanceFromPre = BusStation.Gap2S(StationsList[index - 1].Station, station);
-                    int seconds = (int)(StationsList[index].TravelTimeFromPre).TotalSeconds;
-                    TimeSpan travelTimeFromPre = new TimeSpan(0, 0, new Random().Next(seconds));
-                    StationsList.Insert(index, new BusLineStation(station, distanceFromPre, travelTimeFromPre));
-
-                    StationsList[index + 1].DistanceFromPre = BusStation.Gap2S(StationsList[index].Station, StationsList[index + 1].Station);
-                    StationsList[index + 1].TravelTimeFromPre -= travelTimeFromPre;
-                }
+                distanceFromPre = BusStation.Gap2S(StationsList[index - 1].Station, station);
+                travelTimeFromPre = new TimeSpan(0, 0, new Random().Next(maxSecond));
             }
+            StationsList.Insert(index, new BusLineStation(station, distanceFromPre, travelTimeFromPre));
+            //Update distances, if there is another station after the new station  
+            if ((index + 1) < StationsList.Count)
+            {
+                StationsList[index + 1].DistanceFromPre = BusStation.Gap2S(station, StationsList[index + 1].Station);
+                StationsList[index + 1].TravelTimeFromPre = new TimeSpan(0, 0, new Random().Next(maxSecond));
+            }
+            firstStation = StationsList[0].Station;
+            lastStation = StationsList[StationsList.Count - 1].Station;
         }
 
         /// <summary>
@@ -134,6 +118,8 @@ namespace dotNet5781_02_5828_6440
         /// <returns> true if item is successfully removed; otherwise, false.</returns>
         public bool Remove(BusStation station)
         {
+            if (StationsList.Count == 2)
+                throw new ArgumentException("Removing a station can't be done, the bus has only 2 stations");
             int index = StationsList.FindIndex(x => x.Station == station);
             bool flag = StationsList.Remove(StationsList.Find(x => x.Station == station));
             if (index == 0 && StationsList.Count < 0)
@@ -235,7 +221,10 @@ namespace dotNet5781_02_5828_6440
         /// <returns>Bus line parameters</returns>
         public override string ToString()
         {
-            return "Number of bus: " + busCode + ", area: " + busArea + " , Stations: ";
+            string myToString = "Number of bus: " + busCode + ", area: " + busArea + " , Stations:\n";
+            for (int i = 0; i < StationsList.Count; i++)
+                myToString += StationsList[i].Station.StationCode + "\n";
+            return myToString;
         }
 
         /// <summary>

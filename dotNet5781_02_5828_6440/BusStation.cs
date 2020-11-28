@@ -60,7 +60,7 @@ namespace dotNet5781_02_5828_6440
                 }
                 else
                 {
-                    throw new ArgumentException("WRONG BUS STATION CODE");
+                    throw new FormatException("WRONG BUS STATION CODE");
                 }
             }
         }
