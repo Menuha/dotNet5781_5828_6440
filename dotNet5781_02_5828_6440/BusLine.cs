@@ -162,6 +162,7 @@ namespace dotNet5781_02_5828_6440
                 index1 = index2;
                 index2 = tmp;
             }
+            index1++;
             for(; index1 < index2; index1++)
             {
                 distance += StationsList[index1].DistanceFromPre;
@@ -186,6 +187,7 @@ namespace dotNet5781_02_5828_6440
                 index1 = index2;
                 index2 = tmp;
             }
+            index1++;
             for (; index1 < index2; index1++)
             {
                 timeBetween += StationsList[index1].TravelTimeFromPre;

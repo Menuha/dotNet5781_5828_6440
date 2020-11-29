@@ -42,7 +42,7 @@ namespace dotNet5781_02_5828_6440
             List<BusLine> subLines = new List<BusLine>();
             foreach (BusLine item in BusesList)
             {
-                if (BusesList[0].StationsList.Exists(x => x.Station.StationCode == station))
+                if (item.StationsList.Exists(x => x.Station.StationCode == station))
                 {
                     subLines.Add(item);
                 }
@@ -54,6 +54,7 @@ namespace dotNet5781_02_5828_6440
    
         public List<BusLine> Sort()
         {
+            //רדודה/עמוקה
             List<BusLine> subLines = BusesList;
             subLines.Sort();
             return subLines;
