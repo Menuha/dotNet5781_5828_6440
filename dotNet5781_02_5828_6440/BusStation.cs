@@ -20,7 +20,7 @@ namespace dotNet5781_02_5828_6440
         /// <summary>
         /// The code of this station
         /// </summary>
-        private string stationCode = null;
+        private int stationCode;
         /// <summary>
         /// latitude = The latitude where the station is located
         /// </summary>
@@ -36,7 +36,7 @@ namespace dotNet5781_02_5828_6440
         /// <param name="stationCode">The station code</param>
         /// <param name="latitude">Station latitude</param>
         /// <param name="longitude">Station longtitude</param>
-        public BusStation(string stationCode, double latitude = 0, double longitude = 0)
+        public BusStation(int stationCode, double latitude = 0, double longitude = 0)
         {
             StationCode = stationCode;
             Latitude = latitude;
@@ -46,7 +46,7 @@ namespace dotNet5781_02_5828_6440
         /// <summary>
         /// The station code
         /// </summary>
-        public string StationCode
+        public int StationCode
         {
             get
             {
@@ -54,7 +54,8 @@ namespace dotNet5781_02_5828_6440
             }
             private set
             {
-                if (value.Length <= 6)
+                
+                if (value < 1000000)
                 {
                     stationCode = value;
                 }
