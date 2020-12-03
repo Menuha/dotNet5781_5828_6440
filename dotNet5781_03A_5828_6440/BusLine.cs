@@ -16,7 +16,7 @@ namespace dotNet5781_02_5828_6440
         private const int maxSecond = 10800;
 
         private List<BusLineStation> stationsList;
-        private string busCode;
+        private int busCode;
         private BusStation firstStation;
         private BusStation lastStation;
         private Area busArea;
@@ -28,7 +28,7 @@ namespace dotNet5781_02_5828_6440
         /// <param name="firstStation">first station of the bus</param>
         /// <param name="lastStation">last station of the bus</param>
         /// <param name="busArea">area of the bus</param>
-        public BusLine(string busCode, BusStation firstStation, BusStation lastStation, Area busArea)
+        public BusLine(int busCode, BusStation firstStation, BusStation lastStation, Area busArea)
         {
             StationsList = new List<BusLineStation>();
             BusCode = busCode;
@@ -46,7 +46,7 @@ namespace dotNet5781_02_5828_6440
         /// <summary>
         /// The bus code
         /// </summary>
-        public string BusCode
+        public int BusCode
         {
             get => busCode;
             private set => busCode = value;

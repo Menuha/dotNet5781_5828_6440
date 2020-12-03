@@ -41,11 +41,11 @@ namespace dotNet5781_02_5828_6440
             if (station < 1000000)
                 throw new FormatException("WRONG BUS STATION CODE");
             List<BusLine> subLines = new List<BusLine>();
-            foreach (BusLine item in BusesList)
+            for (int i = 0; i < busesList.Count; i++) 
             {
-                if (item.StationsList.Exists(x => x.Station.StationCode == station))
+                if (busesList[i].StationsList.Exists(x => x.Station.StationCode == station))
                 {
-                    subLines.Add(item);
+                    subLines.Add(busesList[i]);
                 }
             }
             if (subLines.Count == 0)
@@ -77,6 +77,5 @@ namespace dotNet5781_02_5828_6440
         {
             return busesList.GetEnumerator();
         }
-
     }
 }
