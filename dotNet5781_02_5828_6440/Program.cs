@@ -88,6 +88,12 @@ namespace dotNet5781_02_5828_6440
 
             }
         }
+        //add-if noy number
+        //  catch (FormatException e)
+        //{
+        //    Console.WriteLine("The value must be numeric"); 
+        // }
+
         public static void NewAdd(List<BusLine> busLinesList, List<BusStation> busStationsList )
         {
             string m;
@@ -101,9 +107,17 @@ namespace dotNet5781_02_5828_6440
                 Console.WriteLine("WRONG CHOISE");
             }
             if (m == "1")
-                AddBusLine(busLinesList);
+                AddBusLine(busLinesList, /*busStationsList*/);
             else
                AddBusStation(busStationsList);
+
+        }
+        public static void AddBusLine(List<Buses> buses, List<BusLineStation> stations)
+        {
+            
+        }
+        public static void NewDelete()
+        {
 
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_02_5828_6440
 {
-    class Buses:IEnumerable
+    class Buses
     {
         private List<BusLine> busesList;
 
@@ -72,10 +71,5 @@ namespace dotNet5781_02_5828_6440
                 throw new ArgumentException("There is no such a bus in my list");
             }
         }
-        public IEnumerator GetEnumerator()
-        {
-            return busesList.GetEnumerator();
-        }
-
     }
 }
