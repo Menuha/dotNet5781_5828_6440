@@ -35,9 +35,9 @@ namespace dotNet5781_02_5828_6440
             return flag;
         }
 
-        public List<BusLine> LinesForStation(string station)
+        public List<BusLine> LinesForStation(int station)
         {
-            if (station.Length > 6)
+            if (station < 1000000)
                 throw new FormatException("WRONG BUS STATION CODE");
             List<BusLine> subLines = new List<BusLine>();
             foreach (BusLine item in BusesList)
@@ -60,13 +60,13 @@ namespace dotNet5781_02_5828_6440
             return subLines;
         }
 
-        public BusLine this[string index]
+        public BusLine this[int busCode]
         {
             get
             {
                 for (int i = 0; i < BusesList.Count; i++)
                 {
-                    if (BusesList[i].BusCode == index)
+                    if (BusesList[i].BusCode == busCode)
                         return BusesList[i];
                 }
                 throw new ArgumentException("There is no such a bus in my list");
