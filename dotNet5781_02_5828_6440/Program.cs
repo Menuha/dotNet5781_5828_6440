@@ -15,7 +15,9 @@ namespace dotNet5781_02_5828_6440
         static void Main(string[] args)
         {
             List<BusStation> busStationsList = new List<BusStation>();
-            List<BusLine> busLinesList = new List<BusLine>();
+            Buses busLinesList = new Buses();
+
+            //List<BusLine> busLinesList = new List<BusLine>();
             while (busStationsList.Count < 40)
             {
                 AddBusStation(busStationsList);
@@ -112,9 +114,20 @@ namespace dotNet5781_02_5828_6440
                AddBusStation(busStationsList);
 
         }
-        public static void AddBusLine(List<Buses> buses, List<BusLineStation> stations)
+        public static void AddBusLine(Buses busLinesList)
         {
-            
+            Console.WriteLine("Enter bus code:");
+            int busCode = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter first station code:");
+            int fStationCode = int.Parse(Console.ReadLine());
+            BusStation firstStation = new BusStation(fStationCode);
+            Console.WriteLine("Enter last station code:");
+            int lStationCode = int.Parse(Console.ReadLine());
+            BusStation lastStation = new BusStation(lStationCode);
+            Console.WriteLine("Enter bus area(1-7):");
+            string busarea = Console.ReadLine();
+            Area myArea = (Area)Enum.Parse(typeof(Area), busarea);
+            busLinesList.Add(new BusLine(busCode, firstStation, lastStation, myArea));
         }
         public static void NewDelete()
         {

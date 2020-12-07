@@ -9,8 +9,9 @@ namespace dotNet5781_02_5828_6440
 {
     class Buses:IEnumerable
     {
+        private int counter = 0;
         private List<BusLine> busesList;
-
+        
         public Buses()
         {
             BusesList = new List<BusLine>();
@@ -21,24 +22,43 @@ namespace dotNet5781_02_5828_6440
 
         public void Add(BusLine bus)
         {
-            //בדיקות
+            int index = -1;
+            for (int i = 0; i < busesList.Count; i++)
+            {
+             //check only if the bus code not exist more than 2 times and not first nd last stations because they are different.
+                if (busesList[i].BusCode==bus.BusCode)
+                {
+                    counter++;
+                    index = i;
+                }
 
-            BusesList.Add(bus);
+            }
+            if (counter>2)
+            {
+                throw new ArgumentException("This bus already exist");
+            }
+            else if (counter == 1 && busesList[index].BusArea != bus.BusArea) 
+            {
+                throw new ArgumentException("Worng bus area");
+            }
+            else
+                BusesList.Add(bus);
+            counter = 0;
         }
 
         public bool Remove(BusLine bus)
         {
-            bool flag = false;
-            //בדיקות
-
-            BusesList.Remove(bus);
-
+            bool flag = BusesList.Remove(bus);
+            if (flag == false)
+            {
+                throw new ArgumentException("This bus doesn't exist in this list.");
+            }
             return flag;
         }
 
         public List<BusLine> LinesForStation(int station)
         {
-            if (station < 1000000)
+            if (station >= 1000000)
                 throw new FormatException("WRONG BUS STATION CODE");
             List<BusLine> subLines = new List<BusLine>();
             for (int i = 0; i < busesList.Count; i++) 
@@ -55,10 +75,13 @@ namespace dotNet5781_02_5828_6440
    
         public List<BusLine> Sort()
         {
-            //רדודה/עמוקה
-            List<BusLine> subLines = BusesList;
-            subLines.Sort();
-            return subLines;
+            List<BusLine> sortedList = new List<BusLine>();
+            for (int i = 0; i < busesList.Count; i++)
+            {
+                sortedList[i] = busesList[i];
+            }
+            sortedList.Sort();
+            return sortedList;
         }
 
         public BusLine this[int busCode]

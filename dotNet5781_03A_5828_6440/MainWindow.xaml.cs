@@ -26,6 +26,7 @@ namespace dotNet5781_03A_5828_6440
         private static Random r = new Random();
         public MainWindow()
         {
+            InitializeComponent();
             for (int i = 0; i < 10; i++)
             {
                 int busCode = r.Next(1000);
@@ -35,7 +36,6 @@ namespace dotNet5781_03A_5828_6440
                 Area myArea = (Area)Enum.Parse(typeof(Area), (string)(Object)ch);
                 busLines.Add(new BusLine(busCode, firstStation, lastStation, myArea));
             }
-            InitializeComponent();
             cbBusLines.ItemsSource = busLines.BusesList;
             cbBusLines.DisplayMemberPath = " BusLineNum "; 
             cbBusLines.SelectedIndex = 0;
