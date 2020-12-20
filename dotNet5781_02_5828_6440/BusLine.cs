@@ -116,12 +116,12 @@ namespace dotNet5781_02_5828_6440
         /// </summary>
         /// <param name="station"> the station to remove</param>
         /// <returns> true if item is successfully removed; otherwise, false.</returns>
-        public bool Remove(BusStation station)
+        public bool Remove(int station)
         {
             if (StationsList.Count == 2)
                 throw new ArgumentException("Removing a station can't be done, the bus has only 2 stations");
-            int index = StationsList.FindIndex(x => x.Station == station);
-            bool flag = StationsList.Remove(StationsList.Find(x => x.Station == station));
+            int index = StationsList.FindIndex(x => x.Station.StationCode == station);
+            bool flag = StationsList.Remove(StationsList.Find(x => x.Station.StationCode == station));
             if (index == 0 && StationsList.Count < 0)
             {
                 firstStation = StationsList[0].Station;

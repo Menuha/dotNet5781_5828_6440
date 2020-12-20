@@ -27,8 +27,6 @@ namespace dotNet5781_02_5828_6440
                 AddBusLine(busLinesList);
             }
 
-
-
             Option choice;
             do
             {
@@ -54,10 +52,8 @@ namespace dotNet5781_02_5828_6440
                     case Option.Exit:
                         break;
                 }
-
             } while (choice != Option.Exit);
             Console.ReadKey();
-
         }
         /// <summary>
         /// Show menu of actions and select action
@@ -129,9 +125,64 @@ namespace dotNet5781_02_5828_6440
             Area myArea = (Area)Enum.Parse(typeof(Area), busarea);
             busLinesList.Add(new BusLine(busCode, firstStation, lastStation, myArea));
         }
-        public static void NewDelete()
+        
+        public static void NewDelete(Buses busLines)
         {
+            string m;
+            while (true)
+            {
+                Console.WriteLine("Press 1 to remove a bus line");
+                Console.WriteLine("Press 2 to remove a bus station");
+                m = Console.ReadLine();
+                if (m == "1" || m == "2")
+                    break;
+                Console.WriteLine("WRONG CHOISE");
+            }
+            if (m == "1")
+                DeleteBusLine(busLines);
+            else
+                DeleteBusStation(busLines);
+        }
+        public static void DeleteBusLine(Buses busLines)
+        {
+            Console.WriteLine("Enter the bus code:");
+            busLines.Remove(int.Parse(Console.ReadLine()));
+        }
+        public static void DeleteBusStation(Buses busLines)
+        {
+            Console.WriteLine("Enter the bus code of the station you want to remove:");
+            int busCode = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the station code:");
+            busLines.Find(busCode).Remove(int.Parse(Console.ReadLine()));
+        }
 
+        public static void NewSearch(Buses busLines)
+        {
+            string m;
+            while (true)
+            {
+                Console.WriteLine("Press 1 to search buses in a station");
+                Console.WriteLine("Press 2 to search buses for your route");
+                m = Console.ReadLine();
+                if (m == "1" || m == "2")
+                    break;
+                Console.WriteLine("WRONG CHOISE");
+            }
+            if (m == "1")
+                SearchByStation(busLines);
+            else
+                SearchByRoute(busLines);
+        }
+        public static void SearchByStation(Buses busLines)
+        {
+            Console.WriteLine("Enter the station code:");
+            int stationCode = int.Parse(Console.ReadLine());
+            Console.WriteLine(busLines.LinesForStation(stationCode));
+        }
+        public static void SearchByRoute(Buses busLines)
+        {
+            Console.WriteLine("Enter first station code:");
+            
         }
     }
 }

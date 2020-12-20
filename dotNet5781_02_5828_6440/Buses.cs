@@ -46,9 +46,9 @@ namespace dotNet5781_02_5828_6440
             counter = 0;
         }
 
-        public bool Remove(BusLine bus)
+        public bool Remove(int busCode)
         {
-            bool flag = BusesList.Remove(bus);
+            bool flag = BusesList.Remove(Find(busCode));
             if (flag == false)
             {
                 throw new ArgumentException("This bus doesn't exist in this list.");
@@ -56,7 +56,12 @@ namespace dotNet5781_02_5828_6440
             return flag;
         }
 
-        public List<BusLine> LinesForStation(int station)
+        public BusLine Find(int busCode)
+        {
+            return BusesList.Find(x => x.BusCode == busCode);
+        }
+
+        public Buses LinesForStation(int station)
         {
             if (station >= 1000000)
                 throw new FormatException("WRONG BUS STATION CODE");
@@ -70,7 +75,9 @@ namespace dotNet5781_02_5828_6440
             }
             if (subLines.Count == 0)
                 throw new ArgumentException("There are no lines in this station");
-            return subLines;
+            Buses subBuses = new Buses();
+            subBuses.BusesList = subLines;
+            return subBuses;
         }
    
         public List<BusLine> Sort()
