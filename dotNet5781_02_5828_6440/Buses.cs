@@ -96,6 +96,20 @@ namespace dotNet5781_02_5828_6440
                 throw new ArgumentException("There is no such a bus in my list");
             }
         }
+        public bool Remove(int busCode)
+        {
+            bool flag = BusesList.Remove(Find(busCode));
+            if (flag == false)
+            {
+                throw new ArgumentException("This bus doesn't exist in this list.");
+            }
+            return flag;
+        }
+
+        public BusLine Find(int busCode)
+        {
+            return BusesList.Find(x => x.BusCode == busCode);
+        }
         public IEnumerator GetEnumerator()
         {
             return busesList.GetEnumerator();

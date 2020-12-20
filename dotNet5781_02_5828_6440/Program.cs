@@ -16,7 +16,7 @@ namespace dotNet5781_02_5828_6440
         {
             List<BusStation> busStationsList = new List<BusStation>();
             Buses busLinesList = new Buses();
-
+            Buses busLines = new Buses();
             //List<BusLine> busLinesList = new List<BusLine>();
             while (busStationsList.Count < 40)
             {
@@ -36,19 +36,19 @@ namespace dotNet5781_02_5828_6440
                 switch (choice)
                 {
                     case Option.Add:
-                        NewAdd(busLinesList, busStationsList);
+                        NewAdd(busLinesList);
                         break;
 
                     case Option.Delete:
-                        NewDelete();
+                        NewDelete(busLines);
                         break;
 
                     case Option.Search:
-                        NewSearch();
+                        NewSearch(busLines);
                         break;
 
                     case Option.Print:
-                        NewPrint();
+                        NewPrint(busLinesList);
                         break;
 
                     case Option.Exit:
@@ -96,7 +96,7 @@ namespace dotNet5781_02_5828_6440
         //    Console.WriteLine("The value must be numeric"); 
         // }
 
-        public static void NewAdd(List<BusLine> busLinesList, List<BusStation> busStationsList )
+        public static void NewAdd(Buses busLinesList /*List<BusLine> busLinesList*//*, List<BusStation> busStationsList*/ )
         {
             string m;
             while (true)
@@ -109,9 +109,9 @@ namespace dotNet5781_02_5828_6440
                 Console.WriteLine("WRONG CHOISE");
             }
             if (m == "1")
-                AddBusLine(busLinesList, /*busStationsList*/);
+                AddBusLine(busLinesList);
             else
-               AddBusStation(busStationsList);
+               AddBusStation(busLinesList);
 
         }
         public static void AddBusLine(Buses busLinesList)
@@ -129,10 +129,106 @@ namespace dotNet5781_02_5828_6440
             Area myArea = (Area)Enum.Parse(typeof(Area), busarea);
             busLinesList.Add(new BusLine(busCode, firstStation, lastStation, myArea));
         }
-        public static void NewDelete()
+        public static void AddBusStation(Buses busLinesList)
         {
+            Console.WriteLine("Enter the bus code:");
+            int busCode = int.Parse(Console.ReadLine());
+            BusLine b = busLinesList.Search(busCode);
+            Console.WriteLine("Enter station code:");
+            int stationCode = int.Parse(Console.ReadLine());
+            BusStation s = new BusStation(stationCode);
+            Console.WriteLine("Enter the index of station in the route:");
+            int i = int.Parse(Console.ReadLine());
+            b.Insert(i, s);
+        }
+        public static void NewDelete(Buses busLines)
+        {
+            string m;
+            while (true)
+            {
+                Console.WriteLine("Press 1 to remove a bus line");
+                Console.WriteLine("Press 2 to remove a bus station");
+                m = Console.ReadLine();
+                if (m == "1" || m == "2")
+                    break;
+                Console.WriteLine("WRONG CHOISE");
+            }
+            if (m == "1")
+                DeleteBusLine(busLines);
+            else
+                DeleteBusStation(busLines);
+        }
+        public static void DeleteBusLine(Buses busLines)
+        {
+            Console.WriteLine("Enter the bus code:");
+            busLines.Remove(int.Parse(Console.ReadLine()));
+        }
+        public static void DeleteBusStation(Buses busLines)
+        {
+            Console.WriteLine("Enter the bus code of the station you want to remove:");
+            int busCode = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the station code:");
+            busLines.Find(busCode).Remove(int.Parse(Console.ReadLine()));
+        }
+        public static void NewSearch(Buses busLines)
+        {
+            string m;
+            while (true)
+            {
+                Console.WriteLine("Press 1 to search buses in a station");
+                Console.WriteLine("Press 2 to search buses for your route");
+                m = Console.ReadLine();
+                if (m == "1" || m == "2")
+                    break;
+                Console.WriteLine("WRONG CHOISE");
+            }
+            if (m == "1")
+                SearchByStation(busLines);
+            else
+                SearchByRoute(busLines);
+        }
+        public static void SearchByStation(Buses busLines)
+        {
+            Console.WriteLine("Enter the station code:");
+            int stationCode = int.Parse(Console.ReadLine());
+            Console.WriteLine(busLines.LinesForStation(stationCode));
+        }
+        public static void SearchByRoute(Buses busLines)
+        {
+            Console.WriteLine("Enter first station code:");
 
         }
+        public static void NewPrint(Buses busLinesList)
+        {
+            string m;
+            while (true)
+            {
+                Console.WriteLine("Press 1 to print all the bus lines");
+                Console.WriteLine("Press 2 to print list of all stations and the buses code passing through them");
+                m = Console.ReadLine();
+                if (m == "1" || m == "2")
+                    break;
+                Console.WriteLine("WRONG CHOISE");
+            }
+            if (m == "1")
+                PrintAll(busLinesList);
+            else
+                PrintStations(busLinesList);
+
+        }
+        public static void PrintAll(Buses busLinesList)
+        {
+            foreach (var item in busLinesList)
+                Console.WriteLine(item);
+        }
+        public static void PrintStations(Buses busLinesList)
+        {
+            for (int i = 0; i < ; i++)
+            {
+
+            }
+        }
+
     }
 }
 
