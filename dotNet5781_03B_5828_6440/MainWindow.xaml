@@ -6,7 +6,30 @@
         xmlns:local="clr-namespace:dotNet5781_03B_5828_6440"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+
+    <Grid >
+        <DataGrid x:Name="bus3DataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="171,92,209.333,128.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="licenseNumColumn" Binding="{Binding LicenseNum}" Header="License Num" IsReadOnly="True" Width="SizeToHeader"/>
+                <DataGridTemplateColumn x:Name="firstDateColumn" Header="First Date" IsReadOnly="True" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding FirstDate, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="gasColumn" Binding="{Binding Gas}" Header="Gas" IsReadOnly="True" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="kilometrageColumn" Binding="{Binding Kilometrage}" Header="Kilometrage" Width="SizeToHeader"/>
+                <DataGridTemplateColumn x:Name="lastTreatDateColumn" Header="Last Treat Date" IsReadOnly="True" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding LastTreatDate, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="lastTreatKmColumn" Binding="{Binding LastTreatKm}" Header="Last Treat Km" IsReadOnly="True" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>
