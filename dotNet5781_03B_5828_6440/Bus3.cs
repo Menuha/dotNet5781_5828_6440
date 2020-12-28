@@ -30,6 +30,7 @@ namespace dotNet5781_03B_5828_6440
             /// </summary>
             private int lastTreatKm;
             private DateTime lastTreatDate;
+            
             public Bus3() { }
             /// <summary>
             /// Constractor of the Bus class

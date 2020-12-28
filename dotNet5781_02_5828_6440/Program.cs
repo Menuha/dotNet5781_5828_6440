@@ -9,23 +9,12 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_02_5828_6440
 {
-    enum Option { Add = 1, Delete, Search, Print, Exit };
     class Program
     {
         static void Main(string[] args)
         {
-            List<BusStation> busStationsList = new List<BusStation>();
-            Buses busLinesList = new Buses();
             Buses busLines = new Buses();
-            //List<BusLine> busLinesList = new List<BusLine>();
-            while (busStationsList.Count < 40)
-            {
-                AddBusStation(busStationsList);
-            }
-            while (busLinesList.Count < 10)
-            {
-                AddBusLine(busLinesList);
-            }
+            InitialBusesList(busLines);  
 
             Option choice;
             do
@@ -34,7 +23,7 @@ namespace dotNet5781_02_5828_6440
                 switch (choice)
                 {
                     case Option.Add:
-                        NewAdd(busLinesList);
+                        NewAdd(busLines);
                         break;
 
                     case Option.Delete:
@@ -46,7 +35,7 @@ namespace dotNet5781_02_5828_6440
                         break;
 
                     case Option.Print:
-                        NewPrint(busLinesList);
+                        NewPrint(busLines);
                         break;
 
                     case Option.Exit:
@@ -55,6 +44,28 @@ namespace dotNet5781_02_5828_6440
             } while (choice != Option.Exit);
             Console.ReadKey();
         }
+
+        public static void InitialBusesList(Buses busLines)
+        {
+            int busCode = 1;
+            int fStationCode = 20;
+            int station2Code = 30;
+            int station3Code = 40;
+            int lStationCode = 50;
+            string myArea = "1";
+            for (; busCode <= 10; busCode++, fStationCode++, station2Code++, station3Code++, lStationCode++)
+            {
+                BusStation firstStation = new BusStation(fStationCode);
+                BusStation station2 = new BusStation(station2Code);
+                BusStation station3 = new BusStation(station3Code);
+                BusStation lastStation = new BusStation(lStationCode);
+                Area busArea = (Area)Enum.Parse(typeof(Area), myArea);
+                busLines.Add(new BusLine(busCode, firstStation, lastStation, busArea));
+                busLines[busCode].Insert(1, station2);
+                busLines[busCode].Insert(2, station3);
+            }
+        }
+
         /// <summary>
         /// Show menu of actions and select action
         /// </summary>
@@ -92,7 +103,7 @@ namespace dotNet5781_02_5828_6440
         //    Console.WriteLine("The value must be numeric"); 
         // }
 
-        public static void NewAdd(Buses busLinesList /*List<BusLine> busLinesList*//*, List<BusStation> busStationsList*/ )
+        public static void NewAdd(Buses busLines)
         {
             string m;
             while (true)
@@ -105,12 +116,12 @@ namespace dotNet5781_02_5828_6440
                 Console.WriteLine("WRONG CHOISE");
             }
             if (m == "1")
-                AddBusLine(busLinesList);
+                AddBusLine(busLines);
             else
-               AddBusStation(busLinesList);
+               AddBusStation(busLines);
 
         }
-        public static void AddBusLine(Buses busLinesList)
+        public static void AddBusLine(Buses busLines)
         {
             Console.WriteLine("Enter bus code:");
             int busCode = int.Parse(Console.ReadLine());
@@ -120,22 +131,30 @@ namespace dotNet5781_02_5828_6440
             Console.WriteLine("Enter last station code:");
             int lStationCode = int.Parse(Console.ReadLine());
             BusStation lastStation = new BusStation(lStationCode);
-            Console.WriteLine("Enter bus area(1-7):");
-            string busarea = Console.ReadLine();
-            Area myArea = (Area)Enum.Parse(typeof(Area), busarea);
-            busLinesList.Add(new BusLine(busCode, firstStation, lastStation, myArea));
+            string myArea;
+            while(true)
+            {
+                Console.WriteLine("Enter bus area(1-7):");
+                myArea = Console.ReadLine();
+                if (myArea.Length == 1 && myArea[0] >= '1' && myArea[0] <= '7')
+                    break;
+                Console.WriteLine("WRONG AREA");
+            }
+            Area busArea = (Area)Enum.Parse(typeof(Area), myArea);
+
+            busLines.Add(new BusLine(busCode, firstStation, lastStation, busArea));
         }
-        public static void AddBusStation(Buses busLinesList)
+        public static void AddBusStation(Buses busLines)
         {
             Console.WriteLine("Enter the bus code:");
             int busCode = int.Parse(Console.ReadLine());
-            BusLine b = busLinesList.Search(busCode);
+            BusLine bus = busLines.Find(busCode);
             Console.WriteLine("Enter station code:");
             int stationCode = int.Parse(Console.ReadLine());
-            BusStation s = new BusStation(stationCode);
+            BusStation station = new BusStation(stationCode);
             Console.WriteLine("Enter the index of station in the route:");
-            int i = int.Parse(Console.ReadLine());
-            b.Insert(i, s);
+            int index = int.Parse(Console.ReadLine());
+            bus.Insert(index, station);
         }
         public static void NewDelete(Buses busLines)
         {
@@ -166,6 +185,7 @@ namespace dotNet5781_02_5828_6440
             Console.WriteLine("Enter the station code:");
             busLines.Find(busCode).Remove(int.Parse(Console.ReadLine()));
         }
+        
         public static void NewSearch(Buses busLines)
         {
             string m;
@@ -191,9 +211,16 @@ namespace dotNet5781_02_5828_6440
         }
         public static void SearchByRoute(Buses busLines)
         {
-            Console.WriteLine("Enter first station code:");
-
+            Console.WriteLine("Enter the source station code:");
+            int fStationCode = int.Parse(Console.ReadLine());
+            Buses linesInSource = busLines.LinesForStation(fStationCode);
+            Console.WriteLine("Enter the destination station code:");
+            int lStationCode = int.Parse(Console.ReadLine());
+            Buses linesInDestination = busLines.LinesForStation(lStationCode);
+            //Buses busesList = linesInSource.
+            //Console.WriteLine();
         }
+        
         public static void NewPrint(Buses busLinesList)
         {
             string m;
@@ -214,8 +241,8 @@ namespace dotNet5781_02_5828_6440
         }
         public static void PrintAll(Buses busLinesList)
         {
-            foreach (var item in busLinesList)
-                Console.WriteLine(item);
+            //foreach (var item in busLinesList)
+            //    Console.WriteLine(item);
         }
         public static void PrintStations(Buses busLinesList)
         {

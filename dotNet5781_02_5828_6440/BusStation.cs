@@ -17,6 +17,8 @@ namespace dotNet5781_02_5828_6440
         private const double minLongitude = 34.3;
         private const double maxLongitude = 31.5;
 
+        private static Random random = new Random();
+
         /// <summary>
         /// The code of this station
         /// </summary>
@@ -80,7 +82,7 @@ namespace dotNet5781_02_5828_6440
                 if (value < 31 || value > 33.3)
                 {
                     //A random number in the width area of the State of Israel
-                    Random random = new Random(DateTime.Now.Millisecond);
+                    random = new Random(DateTime.Now.Millisecond);
                     latitude = random.NextDouble() * (maxLatitude - minLatitude) + minLatitude;
                     return;
                 }
@@ -102,23 +104,13 @@ namespace dotNet5781_02_5828_6440
                 if (value < 34.3 || value > 35.5)
                 {
                     //A random number in the longitudinal area of the State of Israel
-                    Random random = new Random(DateTime.Now.Millisecond);
+                    random = new Random(DateTime.Now.Millisecond);
                     longitude = random.NextDouble() * (maxLongitude - minLongitude) + minLongitude;
                     return;
                 }
                 longitude = value;
             }
         }
-
-        /// <summary>
-        /// A method that displays the station parameters
-        /// </summary>
-        /// <returns>Station parameters</returns>
-        public override string ToString()
-        {
-            return "Bus Station Code: " + stationCode + ", " + latitude + "°N " + longitude + "°E";
-        }
-
 
         /// <summary>
         /// Calculate air distance between 2 stations
@@ -128,8 +120,17 @@ namespace dotNet5781_02_5828_6440
         /// <returns>Air distance betweeen 2 stations</returns>
         public static double Gap2S(BusStation station1, BusStation station2)
         {
-            //חריגות
+
             return Math.Sqrt(Math.Pow(station1.Latitude - station2.Latitude, 2) + Math.Pow(station1.Longitude - station2.Longitude, 2));
+        }
+
+        /// <summary>
+        /// A method that displays the station parameters
+        /// </summary>
+        /// <returns>Station parameters</returns>
+        public override string ToString()
+        {
+            return "Bus Station Code: " + stationCode + ", " + latitude + "°N " + longitude + "°E";
         }
     }
 }

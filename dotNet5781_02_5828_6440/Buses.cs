@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_02_5828_6440
 {
-    class Buses:IEnumerable
+    class Buses :IEnumerable
     {
         private int counter = 0;
         private List<BusLine> busesList;
@@ -26,12 +26,11 @@ namespace dotNet5781_02_5828_6440
             for (int i = 0; i < busesList.Count; i++)
             {
              //check only if the bus code not exist more than 2 times and not first nd last stations because they are different.
-                if (busesList[i].BusCode==bus.BusCode)
+                if (busesList[i].BusCode == bus.BusCode)
                 {
                     counter++;
                     index = i;
                 }
-
             }
             if (counter>2)
             {
@@ -103,23 +102,18 @@ namespace dotNet5781_02_5828_6440
                 throw new ArgumentException("There is no such a bus in my list");
             }
         }
-        public bool Remove(int busCode)
-        {
-            bool flag = BusesList.Remove(Find(busCode));
-            if (flag == false)
-            {
-                throw new ArgumentException("This bus doesn't exist in this list.");
-            }
-            return flag;
-        }
 
-        public BusLine Find(int busCode)
-        {
-            return BusesList.Find(x => x.BusCode == busCode);
-        }
         public IEnumerator GetEnumerator()
         {
             return busesList.GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            string myToString = null;
+            for (int i = 0; i < BusesList.Count; i++)
+                myToString += BusesList[i].ToString() + "\n";
+            return myToString;
         }
     }
 }

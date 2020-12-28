@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_02_5828_6440
 {
-    enum Area { General = 1, North, South, East, West, Jerusalem, Center };
-
     /// <summary>
     /// Class for the representation of a single bus line (route of various stations of the bus line)
     /// </summary>
@@ -206,14 +204,19 @@ namespace dotNet5781_02_5828_6440
             BusLine subLine = new BusLine(BusCode, station1, station2, BusArea);
             int index1 = StationsList.FindIndex(x => x.Station == station1);
             int index2 = StationsList.FindIndex(x => x.Station == station2);
-            if (index1 > index2)
+            if (index1 == -1 || index2 == -1)
+                throw new ArgumentException("At least 1 station doesn't exist on this line");
+            else
             {
-                int tmp = index1;
-                index1 = index2;
-                index2 = tmp;
+                if (index1 > index2)
+                {
+                    int tmp = index1;
+                    index1 = index2;
+                    index2 = tmp;
+                }
+                List<BusLineStation> subLineStations = StationsList.GetRange(index1, index2 - index1 + 1);
+                subLine.StationsList = subLineStations;
             }
-            List<BusLineStation> subLineStations = StationsList.GetRange(index1, index2 - index1 + 1);
-            subLine.StationsList = subLineStations;
             return subLine;
         }
 
