@@ -52,6 +52,7 @@
     <Compile Include="DO\Enums.cs" />
     <Compile Include="DO\Trip.cs" />
     <Compile Include="DO\User.cs" />
+    <Compile Include="IDL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
