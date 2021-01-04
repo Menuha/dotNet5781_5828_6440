@@ -41,8 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLAPI\IBL.cs" />
     <Compile Include="BO\AdjacentStations.cs" />
+    <Compile Include="BO\Enums.cs" />
     <Compile Include="BO\Line.cs" />
+    <Compile Include="BO\LineOfStation.cs" />
+    <Compile Include="BO\StationOfLine.cs" />
     <Compile Include="BO\Station.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

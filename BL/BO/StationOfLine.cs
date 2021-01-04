@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Line
+    public class StationOfLine
     {
-        public int Id { get; set; }
         public int Code { get; set; }
-        public Areas Area { get; set; }
-        public IEnumerable<StationOfLine> StationsInLine { get; set; }
+        public string StationName { get; set; }
+        public int StationIndex { get; set; }
     }
 }

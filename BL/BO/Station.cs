@@ -10,5 +10,7 @@ namespace BO
     {
         public int Code { get; set; }
         public string Name { get; set; }
+        public string StationAdress { get; set; }
+        public IEnumerable<LineOfStation> LinesInStation { get; set; }
     }
 }
