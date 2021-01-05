@@ -19,9 +19,9 @@ namespace DLAPI
         #endregion
 
         #region Station
-        IEnumerable<DO.Station> Stations();
+        IEnumerable<DO.Station> GetAllStations();
         IEnumerable<DO.Station> GetAllStationsBy(Predicate<DO.Station> predicate);
-        DO.Bus GetStation(int code);
+        DO.Station GetStation(int code);
         void AddStation(DO.Station station);
         void UpdateStation(DO.Station station);
         void UpdateStation(int code, Action<DO.Station> update); //method that knows to update specific fields in Station
@@ -31,21 +31,21 @@ namespace DLAPI
         #region Line
         IEnumerable<DO.Line> GetAllLines();
         IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate);
-        DO.Bus GetLine(int id);
+        DO.Line GetLine(int id);
         void AddLine(DO.Line line);
         void UpdateLine(DO.Line line);
         void UpdateLine(int id, Action<DO.Line> update); //method that knows to update specific fields in Line
         void DeleteLine(int id);
         #endregion
 
-        #region LineStation
-        IEnumerable<DO.LineStation> GetAllLineStations();
-        IEnumerable<DO.LineStation> GetAllLineStationsBy(Predicate<DO.LineStation> predicate);
-        DO.Bus GetLineStation(int lineId);
-        void AddLineStation(DO.LineStation lineStation);
-        void UpdateLineStation(DO.LineStation lineStation);
-        void UpdateLineStation(int lineId, Action<DO.LineStation> update); //method that knows to update specific fields in LineStation
-        void DeleteLineStation(int lineId);
+        #region StationOfLine
+        IEnumerable<DO.StationOfLine> GetAllStationsOfLine();
+        IEnumerable<DO.StationOfLine> GetAllStationsOfLineBy(Predicate<DO.StationOfLine> predicate);
+        DO.StationOfLine GetStationOfLine(int lineId, int stationCode);
+        void AddStationOfLine(DO.StationOfLine lineStation);
+        void UpdateStationOfLine(DO.StationOfLine lineStation);
+        void UpdateStationOfLine(int lineId, int stationCode, Action<DO.StationOfLine> update); //method that knows to update specific fields in LineStation
+        void DeleteStationOfLine(int lineId, int stationCode);
         #endregion
     }
 }

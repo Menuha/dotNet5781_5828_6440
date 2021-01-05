@@ -12,7 +12,7 @@ namespace DS
     {
         public static List<Bus> ListBuses;
         public static List<Line> ListLines;
-        public static List<LineStation> ListLineStations;
+        public static List<StationOfLine> ListLineStations;
         public static List<Station> ListStations;
         public static List<User> ListUsers;
         public static List<Trip> ListTrips;
@@ -27,59 +27,97 @@ namespace DS
             {
                 new Bus
                 {
-                    LicenseNum= 1234,
+                    LicenseNum= 1111,
                     FromDate=new DateTime(2019,2,1),
                     TotalTrip=12000,
                     FuelRemain=450,
                     Status=BusStatus.ReadyToDrive
                 },
 
-                new Person
+                new Bus
                 {
-                    Name = "Yossi",
-                    ID = 23,
-                    Street = "Moshe Dayan",
-                    HouseNumber = 145,
-                    City = "Jerusalem",
-                    PersonalStatus = PersonalStatus.SINGLE,
-                    BirthDate = DateTime.Parse("13.10.95")
+                    LicenseNum= 1112,
+                    FromDate=new DateTime(2018,3,1),
+                    TotalTrip=18000,
+                    FuelRemain=500,
+                    Status=BusStatus.ReadyToDrive
                 },
 
-                new Person
+                 new Bus
                 {
-                    Name = "Roni",
-                    ID = 15,
-                    Street = "Dayan",
-                    HouseNumber = 33,
-                    City = "Petach Tikva",
-                    PersonalStatus = PersonalStatus.MARRIED,
-                    BirthDate = DateTime.Parse("14.02.98")
+                    LicenseNum= 1113,
+                    FromDate=new DateTime(2018,1,1),
+                    TotalTrip=5000,
+                    FuelRemain=1000,
+                    Status=BusStatus.ReadyToDrive
                 },
 
-                new Person
+                new Bus
                 {
-                    Name = "Shira",
-                    ID = 3,
-                    Street = "Moshe",
-                    HouseNumber = 33,
-                    City = "Eilat",
-                    PersonalStatus = PersonalStatus.SINGLE,
-                    BirthDate = DateTime.Parse("13.10.95")
+                    LicenseNum= 1114,
+                    FromDate=new DateTime(2020,2,1),
+                    TotalTrip=12000,
+                    FuelRemain=400,
+                    Status=BusStatus.Driving
                 },
 
-                new Person
+                 new Bus
                 {
-                    Name = "Gila",
-                    ID = 67,
-                    Street = "Marom",
-                    HouseNumber = 56,
-                    City = "Givataiim",
-                    PersonalStatus = PersonalStatus.MARRIED,
-                    BirthDate = DateTime.Parse("14.11.90")
-                }
-
-
+                    LicenseNum= 1115,
+                    FromDate=new DateTime(2019,8,1),
+                    TotalTrip=19000,
+                    FuelRemain=450,
+                    Status=BusStatus.ReadyToDrive
+                },
             };
 
+            ListStations = new List<Station>
+            {
+                new Station
+                {
+                  Code=38831,
+                  Name="בי''ס בר לב/בן יהודה",
+                  Latitude=32,
+                  Longitude=34,
+                  StationAdress="רחוב:בן יהודה 76 עיר: כפר סבא"
+                },
+                new Station
+                {
+                  Code=38832,
+                  Name="הרצל/צומת בילו",
+                  Latitude=31,
+                  Longitude=34,
+                  StationAdress=" רחוב:הרצל  עיר: קרית עקרון"
+                },
+                new Station
+                {
+                  Code=38833,
+                  Name="הנחשול/הדייגים",
+                  Latitude=31,
+                  Longitude=34,
+                  StationAdress="רחוב:הנחשול 30 עיר: ראשון לציון"
+                },
+                new Station
+                {
+                  Code=38833,
+                  Name="הנחשול/הדייגים",
+                  Latitude=31,
+                  Longitude=34,
+                  StationAdress="רחוב:הנחשול 30 עיר: ראשון לציון"
+                },
+            };
+
+            ListLines = new List<Line>
+            {
+                new Line
+                {
+                    Id = 1,
+                    Code = 2,
+                    Area = Areas.Center,
+                    FirstStationCode = 38831,
+                    LastStationCode = 38833
+                },
+            };
         }
     }
+}
