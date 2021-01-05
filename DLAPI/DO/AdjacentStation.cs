@@ -8,8 +8,8 @@ namespace DO
 {
     public class AdjacentStation
     {
-        public int Station1 { get; set; }
-        public int Station2 { get; set; }
+        public int Station1Code { get; set; }
+        public int Station2Code { get; set; }
         public double Distance { get; set; }
         public TimeSpan Time { get; set; }
     }

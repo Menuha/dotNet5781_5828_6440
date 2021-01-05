@@ -13,7 +13,7 @@ namespace DO
         public int LineId { get; set; }
         public TimeSpan PlannedTakeOff { get; set; }
         public TimeSpan ActualTakeOff { get; set; }
-        public int PrevStation { get; set; }
+        public int PrevStationCode { get; set; }
         public TimeSpan PrevStationAt { get; set; }
         public TimeSpan NextStationAt { get; set; }
     }

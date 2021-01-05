@@ -15,7 +15,7 @@ namespace DL
         static DLObject() { }// static ctor to ensure instance init is done just before first usage
         DLObject() { } // default => private
         public static DLObject Instance { get => instance; }// The public Instance property to use
-        #endregion
+        #endregion singelton
 
         #region Station
         public IEnumerable<DO.Station> GetAllStations()
@@ -31,10 +31,10 @@ namespace DL
 
         public DO.Station GetStation(int code)
         {
-            DO.Station per = DataSource.ListStations.Find(p => p.Code == code);
+            DO.Station sta = DataSource.ListStations.Find(s => s.Code == code);
 
-            if (per != null)
-                return per.Clone();
+            if (sta != null)
+                return sta.Clone();
             else
                 throw new DO.BadStationCodeException(code, $"bad station code: {code}");
         }
@@ -48,7 +48,7 @@ namespace DL
         
         public void DeleteStation(int code)
         {
-            DO.Station sta = DataSource.ListStations.Find(p => p.Code == code);
+            DO.Station sta = DataSource.ListStations.Find(s => s.Code == code);
 
             if (sta != null)
             {
@@ -197,7 +197,7 @@ namespace DL
         {
             throw new NotImplementedException();
         }
-        #endregion Station
+        #endregion StationOfLine
 
     }
 }

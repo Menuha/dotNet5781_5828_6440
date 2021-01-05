@@ -9,6 +9,6 @@ namespace BO
     public class LineOfStation
     {
         public int LineID { get; set; }
-        public int StationIndex { get; set; }
+        public int StationIndexInLine { get; set; }
     }
 }
