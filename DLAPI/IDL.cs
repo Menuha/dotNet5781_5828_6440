@@ -8,15 +8,15 @@ namespace DLAPI
 {
     public interface IDL
     {
-        #region Bus
-        IEnumerable<DO.Bus> GetAllBuses();
-        IEnumerable<DO.Bus> GetAllBusesBy(Predicate<DO.Bus> predicate);
-        DO.Bus GetBus(int licenseNum);
-        void AddBus(DO.Bus bus);
-        void UpdateBus(DO.Bus bus);
-        void UpdateBus(int licenseNum, Action<DO.Bus> update); //method that knows to update specific fields in Bus
-        void DeleteBus(int licenseNum);
-        #endregion
+        //#region Bus
+        //IEnumerable<DO.Bus> GetAllBuses();
+        //IEnumerable<DO.Bus> GetAllBusesBy(Predicate<DO.Bus> predicate);
+        //DO.Bus GetBus(int licenseNum);
+        //void AddBus(DO.Bus bus);
+        //void UpdateBus(DO.Bus bus);
+        //void UpdateBus(int licenseNum, Action<DO.Bus> update); //method that knows to update specific fields in Bus
+        //void DeleteBus(int licenseNum);
+        //#endregion
 
         #region Station
         IEnumerable<DO.Station> GetAllStations();

@@ -9,9 +9,9 @@ namespace DO
     public class StationOfLine
     {
         public int LineId { get; set; }
-        public int Station { get; set; }
-        public int LineStationIndex { get; set; }
-        public int PrevStation { get; set; }
-        public int NextStation { get; set; }
+        public int StationCode { get; set; }
+        public int StationIndexInLine { get; set; }
+        public int PrevStationCode { get; set; }
+        public int NextStationCode { get; set; }
     }
 }

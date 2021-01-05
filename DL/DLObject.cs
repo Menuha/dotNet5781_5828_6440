@@ -140,58 +140,60 @@ namespace DL
         #region StationOfLine
         public IEnumerable<DO.StationOfLine> GetAllStationsOfLine()
         {
-            return from station in DataSource.ListStations
+            return from station in DataSource.ListStationsOfLine
                    select station.Clone();
         }
 
-        public IEnumerable<DO.Station> GetAllStationsBy(Predicate<DO.Station> predicate)
+        public IEnumerable<DO.StationOfLine> GetAllStationsOfLineBy(Predicate<DO.StationOfLine> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public DO.Station GetStation(int code)
+        public DO.StationOfLine GetStationOfLine(int lineId, int stationCode)
         {
-            DO.Station per = DataSource.ListStations.Find(p => p.Code == code);
+            DO.StationOfLine sol = DataSource.ListStationsOfLine.Find(sl => sl.LineId == lineId && sl.StationCode == stationCode);
 
-            if (per != null)
-                return per.Clone();
+            if (sol != null)
+                return sol.Clone();
             else
-                throw new DO.BadStationCodeException(code, $"bad station code: {code}");
+                throw new DO.BadLineIdStationCodeException(lineId, stationCode, "bad station code or line id");
         }
 
-        public void AddStation(DO.Station station)
+        public void AddStationOfLine(DO.StationOfLine stationOfLine)
         {
-            if (DataSource.ListStations.FirstOrDefault(s => s.Code == station.Code) != null)
-                throw new DO.BadStationCodeException(station.Code, "Duplicate station code");
-            DataSource.ListStations.Add(station.Clone());
+
+            DO.StationOfLine sol = DataSource.ListStationsOfLine.Find(sl => sl.LineId == stationOfLine.LineId && sl.StationCode == stationOfLine.StationCode);
+            if (sol != null)
+                throw new DO.BadLineIdStationCodeException(stationOfLine.LineId, stationOfLine.StationCode, "Duplicate station code");
+            DataSource.ListStationsOfLine.Add(stationOfLine.Clone());
         }
 
-        public void DeleteStation(int code)
+        public void DeleteStationOfLine(int lineId, int stationCode)
         {
-            DO.Station sta = DataSource.ListStations.Find(p => p.Code == code);
+            DO.StationOfLine sol = DataSource.ListStationsOfLine.Find(sl => sl.LineId == lineId && sl.StationCode == stationCode);
 
-            if (sta != null)
+            if (sol != null)
             {
-                DataSource.ListStations.Remove(sta);
+                DataSource.ListStationsOfLine.Remove(sol);
             }
             else
-                throw new DO.BadStationCodeException(code, $"bad person id: {code}");
+                throw new DO.BadLineIdStationCodeException(lineId, stationCode, "Worng line id or station code");
         }
 
-        public void UpdateStation(DO.Station station)
+        public void UpdateStationOfLine(DO.StationOfLine stationOfLine)
         {
-            DO.Station sta = DataSource.ListStations.Find(s => s.Code == station.Code);
+            DO.StationOfLine sol = DataSource.ListStationsOfLine.Find(sl => sl.LineId == stationOfLine.LineId && sl.StationCode == stationOfLine.StationCode);
 
-            if (sta != null)
+            if (sol != null)
             {
-                DataSource.ListStations.Remove(sta);
-                DataSource.ListStations.Add(station.Clone());
+                DataSource.ListStationsOfLine.Remove(sol);
+                DataSource.ListStationsOfLine.Add(stationOfLine.Clone());
             }
             else
-                throw new DO.BadStationCodeException(station.Code, $"bad station code: {station.Code}");
+                throw new DO.BadLineIdStationCodeException(stationOfLine.LineId, stationOfLine.StationCode, "Worng station of line");
         }
 
-        public void UpdateStation(int code, Action<DO.Station> update)
+        public void UpdateStationOfLine(int lineId, int stationCode, Action<DO.StationOfLine> update)
         {
             throw new NotImplementedException();
         }

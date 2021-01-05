@@ -33,18 +33,18 @@ namespace DO
         public override string ToString() => base.ToString() + $", bad Line code: {Id}";
     }
 
-    //public class BadPersonIdCourseIDException : Exception
-    //{
-    //    public int personID;
-    //    public int courseID;
-    //    public BadPersonIdCourseIDException(int perID, int crsID) : base() { personID = perID; courseID = crsID; }
-    //    public BadPersonIdCourseIDException(int perID, int crsID, string message) :
-    //        base(message)
-    //    { personID = perID; courseID = crsID; }
-    //    public BadPersonIdCourseIDException(int perID, int crsID, string message, Exception innerException) :
-    //        base(message, innerException)
-    //    { personID = perID; courseID = crsID; }
+    public class BadLineIdStationCodeException : Exception
+    {
+        public int LineId;
+        public int StationCode;
+        public BadLineIdStationCodeException(int lineId, int stationCode) : base() {LineId = lineId; StationCode = stationCode; }
+        public BadLineIdStationCodeException(int lineId, int stationCode, string message) :
+            base(message)
+        { LineId = lineId; StationCode = stationCode; }
+        public BadLineIdStationCodeException(int lineId, int stationCode, string message, Exception innerException) :
+            base(message, innerException)
+        { LineId = lineId; StationCode = stationCode; }
 
-    //    public override string ToString() => base.ToString() + $", bad person id: {personID} and course id: {courseID}";
-    //}
+        public override string ToString() => base.ToString() + $", bad line id: {LineId} and station code: {StationCode}";
+    }
 }

@@ -11,9 +11,9 @@ namespace DS
     public static class DataSource
     {
         public static List<Bus> ListBuses;
-        public static List<Line> ListLines;
-        public static List<StationOfLine> ListLineStations;
         public static List<Station> ListStations;
+        public static List<Line> ListLines;
+        public static List<StationOfLine> ListStationsOfLine;
         public static List<User> ListUsers;
         public static List<Trip> ListTrips;
 
@@ -99,11 +99,11 @@ namespace DS
                 },
                 new Station
                 {
-                  Code=38833,
-                  Name="הנחשול/הדייגים",
+                  Code=38834,
+                  Name="פריד/ששת הימים",
                   Latitude=31,
                   Longitude=34,
-                  StationAdress="רחוב:הנחשול 30 עיר: ראשון לציון"
+                  StationAdress=" רחוב:משה פריד 9 עיר: רחובות"
                 },
             };
 
@@ -118,6 +118,43 @@ namespace DS
                     LastStationCode = 38833
                 },
             };
+
+            ListStationsOfLine = new List<StationOfLine>
+            {
+                new StationOfLine
+                {
+                    LineId=123,
+                    StationCode=38832,
+                    StationIndexInLine=12,
+                    PrevStationCode=38831,
+                    NextStationCode=38833
+                },
+            };
+
+            ListUsers = new List<User>
+            {
+                new User
+                {
+                    UserName="Moshe",
+                    Password="1234AA",
+                    Admin=true
+                },
+            };
+
+            ListTrips = new List<Trip>
+            {
+                new Trip
+                {
+                    Id=12345,
+                    UserName="David Cohen",
+                    LineId=11111,
+                    InStation=38832,
+                    InAt=new TimeSpan(07,00,00),
+                    OutStation=38834,
+                    OutAt =new TimeSpan(04,00,00)
+                },
+            };
         }
+
     }
 }
