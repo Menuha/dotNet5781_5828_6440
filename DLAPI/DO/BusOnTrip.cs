@@ -16,5 +16,6 @@ namespace DO
         public int PrevStationCode { get; set; }
         public TimeSpan PrevStationAt { get; set; }
         public TimeSpan NextStationAt { get; set; }
+        public override string ToString() => this.ToStringProperty();
     }
 }

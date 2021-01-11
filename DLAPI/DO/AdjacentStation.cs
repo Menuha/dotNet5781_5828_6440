@@ -12,5 +12,6 @@ namespace DO
         public int Station2Code { get; set; }
         public double Distance { get; set; }
         public TimeSpan Time { get; set; }
+        public override string ToString() => this.ToStringProperty();
     }
 }

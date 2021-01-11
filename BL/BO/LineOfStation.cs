@@ -10,5 +10,6 @@ namespace BO
     {
         public int LineID { get; set; }
         public int StationIndexInLine { get; set; }
+        public override string ToString() => this.ToStringProperty();
     }
 }

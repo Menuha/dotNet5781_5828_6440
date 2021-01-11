@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DLConfig.cs" />
+    <Compile Include="DLFactory.cs" />
     <Compile Include="DO\AdjacentStation.cs" />
     <Compile Include="DO\Bus.cs" />
     <Compile Include="DO\Exceptions.cs" />

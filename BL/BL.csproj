@@ -50,6 +50,7 @@
     <Compile Include="BO\StationOfLine.cs" />
     <Compile Include="BO\Station.cs" />
     <Compile Include="BLImp.cs" />
+    <Compile Include="BO\Tools.cs" />
     <Compile Include="DeepCopyUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -13,5 +13,6 @@ namespace DO
         public float TotalTrip { get; set; }
         public float FuelRemain { get; set; }
         public BusStatus Status { get; set; }
+        public override string ToString() => this.ToStringProperty();
     }
 }

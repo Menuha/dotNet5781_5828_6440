@@ -9,9 +9,9 @@ namespace BLAPI
     public interface IBL
     {
         #region Line
+        BO.Line GetLine(int id);
         IEnumerable<BO.Line> GetAllLines();
         IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate);
-        IEnumerable<BO.Line> GetLine(int id);
         void AddLine(BO.Line line);
         void UpdateLine(BO.Line line);
         void UpdateLine(int id, Action<BO.Line> update); //method that knows to update specific fields in Line
@@ -19,6 +19,7 @@ namespace BLAPI
         #endregion
 
         #region Station
+        BO.Station GetStation(int code);
         IEnumerable<BO.Station> GetAllStations();
         IEnumerable<BO.Station> GetAllStationsBy(Predicate<BO.Station> predicate);
         void AddStation(BO.Station station);

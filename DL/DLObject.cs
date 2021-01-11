@@ -15,7 +15,7 @@ namespace DL
         static DLObject() { }// static ctor to ensure instance init is done just before first usage
         DLObject() { } // default => private
         public static DLObject Instance { get => instance; }// The public Instance property to use
-        #endregion singelton
+        #endregion
 
         #region Station
         public IEnumerable<DO.Station> GetAllStations()
@@ -75,7 +75,7 @@ namespace DL
         {
             throw new NotImplementedException();
         }
-        #endregion Station
+        #endregion
 
         #region Line
         public IEnumerable<DO.Line> GetAllLines()
@@ -135,7 +135,7 @@ namespace DL
         {
             throw new NotImplementedException();
         }
-        #endregion Line
+        #endregion
 
         #region StationOfLine
         public IEnumerable<DO.StationOfLine> GetAllStationsOfLine()
@@ -197,7 +197,7 @@ namespace DL
         {
             throw new NotImplementedException();
         }
-        #endregion StationOfLine
+        #endregion
 
     }
 }

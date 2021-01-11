@@ -13,5 +13,6 @@ namespace DO
         public float Latitude { get; set; }
         public float Longitude { get; set; }
         public string Adress { get; set; }
+        public override string ToString() => this.ToStringProperty();
     }
 }

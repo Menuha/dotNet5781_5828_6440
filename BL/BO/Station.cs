@@ -12,5 +12,6 @@ namespace BO
         public string Name { get; set; }
         public string StationAdress { get; set; }
         public IEnumerable<LineOfStation> LinesInStation { get; set; }
+        public override string ToString() => this.ToStringProperty();
     }
 }

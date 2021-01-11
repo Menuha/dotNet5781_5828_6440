@@ -13,5 +13,6 @@ namespace DO
         public Areas Area { get; set; }
         public int FirstStationCode { get; set; }
         public int LastStationCode { get; set; }
+        public override string ToString() => this.ToStringProperty();
     }
 }

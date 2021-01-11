@@ -13,5 +13,6 @@ namespace DO
         public int StationIndexInLine { get; set; }
         public int PrevStationCode { get; set; }
         public int NextStationCode { get; set; }
+        public override string ToString() => this.ToStringProperty();
     }
 }
