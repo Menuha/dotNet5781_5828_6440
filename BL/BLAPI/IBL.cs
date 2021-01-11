@@ -11,6 +11,7 @@ namespace BLAPI
         #region Line
         IEnumerable<BO.Line> GetAllLines();
         IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate);
+        IEnumerable<BO.Line> GetLine(int id);
         void AddLine(BO.Line line);
         void UpdateLine(BO.Line line);
         void UpdateLine(int id, Action<BO.Line> update); //method that knows to update specific fields in Line
@@ -24,7 +25,6 @@ namespace BLAPI
         void UpdateStation(BO.Station station);
         void UpdateStation(int id, Action<BO.Station> update); //method that knows to update specific fields in Station
         void DeleteStation(int id);
-
         #endregion
     }
 }
