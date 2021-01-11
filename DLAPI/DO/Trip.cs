@@ -11,9 +11,9 @@ namespace DO
         public int Id { get; set; }
         public string UserName { get; set; }
         public int LineId { get; set; }
-        public int InStation { get; set; }
+        public int InStationCode { get; set; }
         public TimeSpan InAt { get; set; }
-        public int OutStation { get; set; }
+        public int OutStationCode { get; set; }
         public TimeSpan OutAt { get; set; }
     }
 }

@@ -79,7 +79,7 @@ namespace DS
                   Name="בי''ס בר לב/בן יהודה",
                   Latitude=32,
                   Longitude=34,
-                  StationAdress="רחוב:בן יהודה 76 עיר: כפר סבא"
+                  Adress="רחוב:בן יהודה 76 עיר: כפר סבא"
                 },
                 new Station
                 {
@@ -87,7 +87,7 @@ namespace DS
                   Name="הרצל/צומת בילו",
                   Latitude=31,
                   Longitude=34,
-                  StationAdress=" רחוב:הרצל  עיר: קרית עקרון"
+                  Adress=" רחוב:הרצל  עיר: קרית עקרון"
                 },
                 new Station
                 {
@@ -95,7 +95,7 @@ namespace DS
                   Name="הנחשול/הדייגים",
                   Latitude=31,
                   Longitude=34,
-                  StationAdress="רחוב:הנחשול 30 עיר: ראשון לציון"
+                  Adress="רחוב:הנחשול 30 עיר: ראשון לציון"
                 },
                 new Station
                 {
@@ -103,7 +103,7 @@ namespace DS
                   Name="פריד/ששת הימים",
                   Latitude=31,
                   Longitude=34,
-                  StationAdress=" רחוב:משה פריד 9 עיר: רחובות"
+                  Adress=" רחוב:משה פריד 9 עיר: רחובות"
                 },
             };
 
@@ -148,9 +148,9 @@ namespace DS
                     Id=12345,
                     UserName="David Cohen",
                     LineId=11111,
-                    InStation=38832,
+                    InStationCode=38832,
                     InAt=new TimeSpan(07,00,00),
-                    OutStation=38834,
+                    OutStationCode=38834,
                     OutAt =new TimeSpan(04,00,00)
                 },
             };

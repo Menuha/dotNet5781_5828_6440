@@ -23,8 +23,9 @@ namespace BLAPI
         IEnumerable<BO.Station> GetAllStationsBy(Predicate<BO.Station> predicate);
         void AddStation(BO.Station station);
         void UpdateStation(BO.Station station);
-        void UpdateStation(int id, Action<BO.Station> update); //method that knows to update specific fields in Station
-        void DeleteStation(int id);
+        void UpdateStation(int code, Action<BO.Station> update); //method that knows to update specific fields in Station
+        void DeleteStation(int code);
+
         #endregion
     }
 }

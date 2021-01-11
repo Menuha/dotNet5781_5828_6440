@@ -10,6 +10,6 @@ namespace BO
     {
         public int Code { get; set; }
         public string StationName { get; set; }
-        public int StationIndex { get; set; }
+        public int StationIndexInLine { get; set; }
     }
 }
