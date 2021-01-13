@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-
     [Serializable]
-
     public class BadStationCodeException : Exception
     {
         public int Code;

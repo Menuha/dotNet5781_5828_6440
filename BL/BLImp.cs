@@ -1,15 +1,17 @@
-﻿using DLAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DLAPI;
+using BLAPI;
 
 namespace BL
 {
     internal class BLImp : IBL
     {
         IDL dl = DLFactory.GetDL();
+
         #region Line
         BO.Line lineDoBoAdapter(DO.Line lineDO)
         {
@@ -34,6 +36,7 @@ namespace BL
 
             return lineBO;
         }
+
         public BO.Line GetLine(int id)
         {
             DO.Line lineDO;
@@ -47,22 +50,27 @@ namespace BL
             }
             return lineDoBoAdapter(lineDO);
         }
+
         public IEnumerable<BO.Line> GetAllLines()
         {
             return from lineDO in dl.GetAllLines()
                    orderby lineDO.Id
                    select lineDoBoAdapter(lineDO);
         }
-        public IEnumerable<BO.Line> GetLinesBy(Predicate<BO.Line> predicate)
+
+        public IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate)
         {
             //return from lineDO in dl.GetAllLinesBy(predicate)
             //       orderby lineDO.Id
             //       select lineDoBoAdapter(lineDO);
+            throw new NotImplementedException();
         }
-        void Addline(BO.Line line)
+        
+        public void AddLine(BO.Line line)
         {
-
+            throw new NotImplementedException();
         }
+        
         public void UpdateLine(BO.Line line)
         {            
             DO.Line lineDO = new DO.Line();
@@ -76,6 +84,12 @@ namespace BL
                 throw new BO.BadLineIdException("Line ID is illegal", ex);
             }
         }
+
+        public void UpdateLine(int id, Action<BO.Line> update)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteLine(int id)
         {
             try
@@ -114,6 +128,7 @@ namespace BL
 
             return stationBO;
         }
+        
         public BO.Station GetStation(int code)
         {
             DO.Station stationDO;
@@ -121,28 +136,33 @@ namespace BL
             {
                 stationDO = dl.GetStation(code);
             }
-            catch (DO.BadStationdeException ex)
+            catch (DO.BadStationCodeException ex)
             {
-                throw new BO.BadStationdeException("Station code does not exist", ex);
+                throw new BO.BadStationCodeException("Station code does not exist", ex);
             }
             return stationDoBoAdapter(stationDO);
         }
+        
         public IEnumerable<BO.Station> GetAllStations()
         {
             return from stationDO in dl.GetAllStations()
                    orderby stationDO.Code
                    select stationDoBoAdapter(stationDO);
         }
+        
         public IEnumerable<BO.Station> GetAllStationsBy(Predicate<BO.Station> predicate)
         {
             //return from stationDO in dl.GetAllStationsBy(predicate)
             //       orderby stationDO.Code
             //       select stationDoBoAdapter(stationDO);
+            throw new NotImplementedException();
         }
-        void AddStation(BO.Station station)
+        
+        public void AddStation(BO.Station station)
         {
-
+            throw new NotImplementedException();
         }
+        
         public void UpdateStation(BO.Station station)
         {           
             DO.Station stationDO = new DO.Station();
@@ -156,6 +176,12 @@ namespace BL
                 throw new BO.BadStationCodeException("Station code is illegal", ex);
             }
         }
+
+        public void UpdateStation(int code, Action<BO.Station> update)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteStation(int code)
         {
             try
