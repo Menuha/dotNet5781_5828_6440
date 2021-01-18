@@ -1,10 +1,11 @@
-﻿using DLAPI;
-using DS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using DLAPI;
+using DS;
 
 namespace DL
 {
@@ -38,14 +39,14 @@ namespace DL
             else
                 throw new DO.BadStationCodeException(code, $"bad station code: {code}");
         }
-        
+
         public void AddStation(DO.Station station)
         {
             if (DataSource.ListStations.FirstOrDefault(s => s.Code == station.Code) != null)
                 throw new DO.BadStationCodeException(station.Code, "Duplicate station code");
             DataSource.ListStations.Add(station.Clone());
         }
-        
+
         public void DeleteStation(int code)
         {
             DO.Station sta = DataSource.ListStations.Find(s => s.Code == code);

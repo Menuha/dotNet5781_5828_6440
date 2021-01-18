@@ -21,12 +21,12 @@ namespace PL
     /// </summary>
     public partial class StationsWindow : Window
     {
-        //IBL bl;
+        IBL bl;
         //ObservableCollection<BO.Station> listStation;
-        public StationsWindow(/*IBL _bl*/)
+        public StationsWindow(IBL _bl)
         {
             InitializeComponent();
-            //bl = _bl;
+            bl = _bl;
             //listStation = (ObservableCollection<BO.Station>)bl.GetAllStations();
             //cbStationAdd.DataContext = listStation;
             //cbStationAdd.DisplayMemberPath = "StationAdress";

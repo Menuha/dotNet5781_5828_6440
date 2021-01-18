@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using BLAPI;
 
 namespace PL
@@ -29,7 +30,7 @@ namespace PL
 
         private void btStations_Click(object sender, RoutedEventArgs e)
         {
-            StationsWindow secondWindow = new StationsWindow(/*bl*/);
+            StationsWindow secondWindow = new StationsWindow(bl);
             secondWindow.Show();
 
         }
