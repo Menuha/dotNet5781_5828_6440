@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BLAPI;
 
 namespace PL
 {
@@ -20,9 +21,23 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        IBL bl = BLFactory.GetBL("1");
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void btStations_Click(object sender, RoutedEventArgs e)
+        {
+            StationsWindow secondWindow = new StationsWindow(/*bl*/);
+            secondWindow.Show();
+
+        }
+
+        private void btLines_Click(object sender, RoutedEventArgs e)
+        {
+            LinesWindow secondWindow = new LinesWindow();
+            secondWindow.Show();
         }
     }
 }
