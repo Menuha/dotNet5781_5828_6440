@@ -123,12 +123,22 @@ namespace DS
             {
                 new StationOfLine
                 {
-                    LineId=123,
-                    StationCode=38832,
-                    StationIndexInLine=12,
-                    PrevStationCode=38831,
+                    LineId=1,
+                    StationCode=38831,
+                    StationIndexInLine=1,
+                    PrevStationCode=3883,
                     NextStationCode=38833
                 },
+                
+                new StationOfLine
+                {
+                    LineId=1,
+                    StationCode=38833,
+                    StationIndexInLine=2,
+                    PrevStationCode=38831,
+                    NextStationCode=388
+                },
+
             };
 
             ListUsers = new List<User>

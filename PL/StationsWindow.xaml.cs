@@ -23,17 +23,33 @@ namespace PL
     {
         IBL bl;
         BO.Station sta;
-        //ObservableCollection<BO.Station> listStations;
+
         public StationsWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
 
-            cbStationID.DisplayMemberPath = "StationAdress";
+            cbStationID.DisplayMemberPath = "Name";
             cbStationID.SelectedItem = "Code";
             RefreshAllStationComboBox();
 
-            gridLinesOfStation.IsReadOnly = true;
+            dgLinesOfStation.IsReadOnly = true;
+        }
+
+        void RefreshAllStationComboBox()
+        {
+            cbStationID.DataContext = bl.GetAllStations();
+            //cbStationID.SelectedIndex = 0; //index of the object to be selected
+        }
+        void RefreshAllLinesOfStationGrid()
+        {
+            dgLinesOfStation.DataContext = bl.GetAllLinesOfStation(sta.Code);
+        }
+
+        void RefreshAllOtherLinesGrid()
+        {
+            List<BO.Line> listOfOtherLines = bl.GetAllLines().Where(l1 => bl.GetAllLinesOfStation(sta.Code).All(l2 => l2.LineID != l1.Id)).ToList();
+            dgOtherLines.DataContext = listOfOtherLines;
         }
 
         private void cbStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,18 +61,54 @@ namespace PL
             {
                 //list of lines of selected station
                 RefreshAllLinesOfStationGrid();
+                //list of all Lines (that selected station is not registered to it)
+                RefreshAllOtherLinesGrid();
             }
         }
-        void RefreshAllStationComboBox()
+
+        private void btUpStation_Click(object sender, RoutedEventArgs e)
         {
-            cbStationID.DataContext = bl.GetAllStations();
-            cbStationID.SelectedIndex = 0; //index of the object to be selected
-        }
-        void RefreshAllLinesOfStationGrid()
-        {
-            gridLinesOfStation.DataContext = bl.GetAllLinesOfStation(sta.Code);
+            try
+            {
+                if (sta != null)
+                    bl.UpdateStation(sta);
+            }
+            catch (BO.BadStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
+        private void btAddStation_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void btDelStation_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult res = MessageBox.Show("Delete selected station?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (res == MessageBoxResult.No)
+                return;
+
+            try
+            {
+                if (sta != null)
+                {
+                    bl.DeleteStation(sta.Code);
+
+                    RefreshAllStationComboBox();
+                    RefreshAllOtherLinesGrid();
+                    RefreshAllLinesOfStationGrid();
+                }
+            }
+            catch (BO.BadLineIdStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.BadStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
