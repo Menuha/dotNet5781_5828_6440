@@ -28,5 +28,9 @@ namespace BLAPI
         void DeleteStation(int code);
 
         #endregion
+
+        #region LineOfStation
+        IEnumerable<BO.LineOfStation> GetAllLinesOfStation(int code);
+        #endregion
     }
 }

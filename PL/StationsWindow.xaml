@@ -6,11 +6,23 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.StationsWindow"
         mc:Ignorable="d"
-        Title="StationsWindow" Height="450" Width="800">
+        Title="StationsWindow" Height="450" Width="800" >
     <Grid>
-        <ComboBox x:Name="cbStationAdd" HorizontalAlignment="Left" Margin="74,26,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cbStationID" HorizontalAlignment="Left" Margin="74,26,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding}" SelectionChanged="cbStationID_SelectionChanged" />
 
-        <Grid x:Name="grid1"  HorizontalAlignment="Left" Margin="33,161,0,0" VerticalAlignment="Top">
+        <Grid x:Name="gridOneStation"  HorizontalAlignment="Left" Margin="33,161,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+        </Grid>
+        <Grid x:Name="grid2"  HorizontalAlignment="Left" Margin="33,195,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -21,18 +33,13 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Content="Code:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="codeComboBox" Grid.Column="1" DisplayMemberPath="Code" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
+            <TextBox x:Name="codeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Code, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
             <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
             <TextBox x:Name="nameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
             <Label Content="Station Adress:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
             <TextBox x:Name="stationAdressTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding StationAdress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
+        <DataGrid x:Name="gridLinesOfStation" HorizontalAlignment="Left" Height="235" Margin="332,56,0,0" VerticalAlignment="Top" Width="276" RowDetailsVisibilityMode="VisibleWhenSelected"/>
 
     </Grid>
 </Window>

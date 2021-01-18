@@ -195,5 +195,14 @@ namespace BL
             }
         }
         #endregion
+
+        #region LineOfStation
+        public IEnumerable<BO.LineOfStation> GetAllLinesOfStation(int code)
+        {
+            return from sol in dl.GetAllStationsOfLineBy(sol => sol.StationCode == code)
+                   let line = dl.GetLine(sol.LineId)
+                   select line.CopyToStudentCourse(sol);
+        }
+        #endregion
     }
 }

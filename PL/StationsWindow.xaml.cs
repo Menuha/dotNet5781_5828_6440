@@ -17,20 +17,46 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for Station.xaml
+    /// Interaction logic for StationsWindow.xaml
     /// </summary>
     public partial class StationsWindow : Window
     {
         IBL bl;
-        //ObservableCollection<BO.Station> listStation;
+        BO.Station sta;
+        //ObservableCollection<BO.Station> listStations;
         public StationsWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
-            //listStation = (ObservableCollection<BO.Station>)bl.GetAllStations();
-            //cbStationAdd.DataContext = listStation;
-            //cbStationAdd.DisplayMemberPath = "StationAdress";
-            //cbStationAdd.SelectedItem = "Code";
+
+            cbStationID.DisplayMemberPath = "StationAdress";
+            cbStationID.SelectedItem = "Code";
+            RefreshAllStationComboBox();
+
+            gridLinesOfStation.IsReadOnly = true;
         }
+
+        private void cbStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            sta = (cbStationID.SelectedItem as BO.Station);
+            gridOneStation.DataContext = sta;
+
+            if (sta != null)
+            {
+                //list of lines of selected station
+                RefreshAllLinesOfStationGrid();
+            }
+        }
+        void RefreshAllStationComboBox()
+        {
+            cbStationID.DataContext = bl.GetAllStations();
+            cbStationID.SelectedIndex = 0; //index of the object to be selected
+        }
+        void RefreshAllLinesOfStationGrid()
+        {
+            gridLinesOfStation.DataContext = bl.GetAllLinesOfStation(sta.Code);
+        }
+
+
     }
 }

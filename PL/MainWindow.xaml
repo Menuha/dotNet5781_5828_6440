@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Home Page" Height="488.489" Width="1287.15"  WindowStartupLocation="CenterScreen">
+        Title="Home Page" Height="506.489" Width="849.15"  WindowStartupLocation="CenterScreen">
     <Grid x:Name="gridWindow" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Button x:Name="btStations" Content="Stations" HorizontalAlignment="Left" Margin="331,167,-468,-204" VerticalAlignment="Top" Width="177" Height="79" Click="btStations_Click"/>
-        <Button x:Name="btLines" Content="Lines" HorizontalAlignment="Left" Margin="644,167,-802,-204" VerticalAlignment="Top" Width="198" Height="79" Click="btLines_Click"/>
+        <Image Source="https://www.kipa.co.il/userFiles/314914_ae59b3616eb9d8767ac5141985555059.jpg" />
+        <Button x:Name="btStations" Content="Stations" HorizontalAlignment="Left" Margin="130,167,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btStations_Click"/>
+        <Button x:Name="btLines" Content="Lines" HorizontalAlignment="Left" Margin="464,167,0,0" VerticalAlignment="Top" Width="181" Height="79" Click="btLines_Click"/>
     </Grid>
 
 </Window>

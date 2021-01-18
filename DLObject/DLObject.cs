@@ -147,7 +147,9 @@ namespace DL
 
         public IEnumerable<DO.StationOfLine> GetAllStationsOfLineBy(Predicate<DO.StationOfLine> predicate)
         {
-            throw new NotImplementedException();
+            return from sol in DataSource.ListStationsOfLine
+                   where predicate(sol)
+                   select sol.Clone();
         }
 
         public DO.StationOfLine GetStationOfLine(int lineId, int stationCode)
