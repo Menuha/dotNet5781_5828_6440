@@ -108,8 +108,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\DataSources\BO.AdjacentStations.datasource" />
+    <None Include="Properties\DataSources\BO.Line.datasource" />
     <None Include="Properties\DataSources\BO.LineOfStation.datasource" />
     <None Include="Properties\DataSources\BO.Station.datasource" />
+    <None Include="Properties\DataSources\BO.StationOfLine.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

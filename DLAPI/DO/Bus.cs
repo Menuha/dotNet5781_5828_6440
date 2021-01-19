@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// Bonus. DO entity with bus information.
+    /// </summary>
     public class Bus
     {
-        public int LicenseNum { get; set; }
+        public int LicenseNum { get; set; } //Key
         public DateTime FromDate { get; set; }
         public float TotalTrip { get; set; }
         public float FuelRemain { get; set; }

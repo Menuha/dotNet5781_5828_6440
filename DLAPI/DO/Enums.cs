@@ -14,11 +14,13 @@ namespace DO
         Refueling 
     }
 
-    public enum Areas 
+    public enum Areas
     { 
         General = 1, 
-        North, South, 
-        East, West, 
+        North, 
+        South, 
+        East, 
+        West, 
         Jerusalem, 
         Center 
     }

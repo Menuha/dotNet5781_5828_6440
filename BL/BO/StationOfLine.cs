@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// BO entity with line station information.
+    /// </summary>
     public class StationOfLine
     {
-        public int Code { get; set; }
+        public int StationCode { get; set; }
         public string StationName { get; set; }
         public int StationIndexInLine { get; set; }
         public override string ToString() => this.ToStringProperty();

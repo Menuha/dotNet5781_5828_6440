@@ -28,11 +28,11 @@ namespace BL
             from.CopyPropertiesTo(to);
             return to;
         }
-        public static BO.LineOfStation CopyToStudentCourse(this DO.Line line, DO.StationOfLine sol)
+        public static BO.LineOfStation CopyToLineOfStation(this DO.Line line, DO.StationOfLine sol)
         {
             BO.LineOfStation result = (BO.LineOfStation)line.CopyPropertiesToNew(typeof(BO.LineOfStation));
             // propertys' names changed? copy them here...
-            result.LineID = sol.LineId;
+            result.LineID = sol.LineID;
             result.StationIndexInLine = sol.StationIndexInLine;
             return result;
         }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using BLAPI;
+
 namespace PL
 {
     /// <summary>
@@ -19,9 +21,48 @@ namespace PL
     /// </summary>
     public partial class LinesWindow : Window
     {
-        public LinesWindow()
+        IBL bl;
+        BO.Line curLine;
+        public LinesWindow(IBL _bl)
         {
             InitializeComponent();
+            bl = _bl;
+
+            RefreshAllLineComboBox();
+
+            areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
+
+        }
+
+        void RefreshAllLineComboBox()
+        {
+            cbLineID.DataContext = bl.GetAllLines();
+        }
+
+        void RefreshAllStationsOfLineGrid()
+        {
+            dgStationsOfLine.DataContext = bl.GetAllStationsOfLine(curLine.ID);
+        }
+       
+        void RefreshAllOtherStationsGrid()
+        {
+            List<BO.Station> listOfOtherStations = bl.GetAllStations().Where(s1 => bl.GetAllStationsOfLine(curLine.ID).All(s2 => s2.StationCode != s1.Code)).ToList();
+            dgOtherStations.DataContext = listOfOtherStations;
+        }
+
+        private void cbLineID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            curLine = (cbLineID.SelectedItem as BO.Line);
+            gridOneLine.DataContext = curLine;
+
+            if (curLine != null)
+            {
+                //list of stations of selected line
+                RefreshAllStationsOfLineGrid();
+                //list of all stations (that selected line is not registered to it)
+                RefreshAllOtherStationsGrid();
+            }
+
         }
     }
 }

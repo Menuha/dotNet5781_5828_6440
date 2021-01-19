@@ -16,23 +16,26 @@ namespace BO
     }
 
     [Serializable]
-    public class BadLineIdException : Exception
+    public class BadLineIDException : Exception
     {
-        public int Id;
-        public BadLineIdException(string message, Exception innerException) :
-            base(message, innerException) => Id = ((DO.BadLineIdException)innerException).Id;
-        public override string ToString() => base.ToString() + $", bad Line code: {Id}";
+        public int ID;
+        public BadLineIDException(string message, Exception innerException) :
+            base(message, innerException) => ID = ((DO.BadLineIDException)innerException).ID;
+        public override string ToString() => base.ToString() + $", bad Line id: {ID}";
     }
 
     [Serializable]
-    public class BadLineIdStationCodeException : Exception
+    public class BadLineIDStationCodeException : Exception
     {
-        public int LineId;
+        public int LineID;
         public int StationCode;
-        public BadLineIdStationCodeException(string message, Exception innerException) :
+        public BadLineIDStationCodeException(string message, Exception innerException) :
             base(message, innerException)
-        { LineId = ((DO.BadLineIdException)innerException).Id; StationCode = ((DO.BadStationCodeException)innerException).Code; }
-        public override string ToString() => base.ToString() + $", bad line id: {LineId} and station code: {StationCode}";
+        { 
+            LineID = ((DO.BadLineIDException)innerException).ID; 
+            StationCode = ((DO.BadStationCodeException)innerException).Code; 
+        }
+        public override string ToString() => base.ToString() + $", bad line id: {LineID} and station code: {StationCode}";
     }
 }
 

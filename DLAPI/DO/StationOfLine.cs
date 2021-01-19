@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace DO
 {
+    /// <summary>
+    /// DO entity with line station information.
+    /// </summary>
     public class StationOfLine
     {
-        public int LineId { get; set; }
-        public int StationCode { get; set; }
+        public int LineID { get; set; } //Part1 of the key
+        public int StationCode { get; set; } //Part2 of the key
         public int StationIndexInLine { get; set; }
         public int PrevStationCode { get; set; }
         public int NextStationCode { get; set; }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
+    /// <summary>
+    /// BO entity with information about a line passing through a particular station.
+    /// </summary>
     public class LineOfStation
     {
         public int LineID { get; set; }

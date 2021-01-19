@@ -12,8 +12,8 @@
             <RowDefinition Height="87*"/>
             <RowDefinition Height="332*"/>
         </Grid.RowDefinitions>
-        <Label Content="Select Station:" HorizontalAlignment="Left" Margin="51,52,0,0" VerticalAlignment="Top" Width="98" Height="35"/>
-        <ComboBox x:Name="cbStationID" HorizontalAlignment="Left" Margin="149,56,0,0" VerticalAlignment="Top" Width="120" Text=""
+        <Label Content="Select Station:" HorizontalAlignment="Left" Margin="33,57,0,0" VerticalAlignment="Top" Width="98" Height="35" Grid.RowSpan="2"/>
+        <ComboBox x:Name="cbStationID" HorizontalAlignment="Left" Margin="113,65,0,0" VerticalAlignment="Top" Width="105" Text=""
                   ItemsSource="{Binding}" SelectionChanged="cbStationID_SelectionChanged" />
 
         <Grid x:Name="grid1"  HorizontalAlignment="Left" Margin="33,73.564,0,0" VerticalAlignment="Top" Grid.Row="1">
@@ -45,13 +45,15 @@
             <Label Content="Station Adress:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
             <TextBox x:Name="stationAdressTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding StationAdress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
-        <DataGrid x:Name="dgLinesOfStation"  HorizontalAlignment="Left" Height="236" Margin="315,57,0,0" VerticalAlignment="Top" Width="219" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2"  />
+        <DataGrid x:Name="dgLinesOfStation"  HorizontalAlignment="Left" Height="259" Margin="270,57,0,0" VerticalAlignment="Top" Width="148" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2"
+                  ItemsSource="{Binding}"/>
         <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="33,224,0,0" Grid.Row="1" VerticalAlignment="Top" Width="116" Click="btUpStation_Click"/>
         <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="33,261,0,0" Grid.Row="1" VerticalAlignment="Top" Width="116" Click="btDelStation_Click"/>
         <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="580,283,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btAddStation_Click" />
-        <DataGrid x:Name="dgOtherLines" HorizontalAlignment="Left" Height="259" Margin="566,28,0,0" VerticalAlignment="Top" Width="155" Grid.RowSpan="2"/>
-        <Label Content="List of lines passing through this station:" HorizontalAlignment="Left" Margin="312,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532"/>
-        <Label Content="List of lines that don't pass through this station:" HorizontalAlignment="Left" Margin="524,1,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.044,1.237"/>
+        <DataGrid x:Name="dgOtherLines" HorizontalAlignment="Left" Height="259" Margin="475,57,0,0" VerticalAlignment="Top" Width="285" Grid.RowSpan="2" RowDetailsVisibilityMode="VisibleWhenSelected" 
+                  ItemsSource="{Binding}"/>
+        <Label Content="List of lines of this station:" HorizontalAlignment="Left" Margin="270,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34"/>
+        <Label Content="List of other lines:" HorizontalAlignment="Left" Margin="580,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.044,1.237"/>
 
 
     </Grid>

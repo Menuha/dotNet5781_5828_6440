@@ -1,5 +1,4 @@
-﻿using BLAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
+using BLAPI;
 
 namespace PL
 {
@@ -42,6 +43,7 @@ namespace PL
             cbStationID.DataContext = bl.GetAllStations();
             //cbStationID.SelectedIndex = 0; //index of the object to be selected
         }
+        
         void RefreshAllLinesOfStationGrid()
         {
             dgLinesOfStation.DataContext = bl.GetAllLinesOfStation(sta.Code);
@@ -49,7 +51,7 @@ namespace PL
 
         void RefreshAllOtherLinesGrid()
         {
-            List<BO.Line> listOfOtherLines = bl.GetAllLines().Where(l1 => bl.GetAllLinesOfStation(sta.Code).All(l2 => l2.LineID != l1.Id)).ToList();
+            List<BO.Line> listOfOtherLines = bl.GetAllLines().Where(l1 => bl.GetAllLinesOfStation(sta.Code).All(l2 => l2.LineID != l1.ID)).ToList();
             dgOtherLines.DataContext = listOfOtherLines;
         }
 
@@ -80,19 +82,6 @@ namespace PL
             }
         }
 
-        private void btAddStation_Click(object sender, RoutedEventArgs e)
-        {
-            AddStation thirdWindow = new AddStation(bl);
-            thirdWindow.Closing += WinAddStation_Closing;
-            thirdWindow.ShowDialog();
-        }
-        private void WinAddStation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            RefreshAllStationComboBox();
-            RefreshAllLinesOfStationGrid();
-            RefreshAllOtherLinesGrid();
-        }
-
         private void btDelStation_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult res = MessageBox.Show("Delete selected station?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -110,7 +99,7 @@ namespace PL
                     RefreshAllLinesOfStationGrid();
                 }
             }
-            catch (BO.BadLineIdStationCodeException ex)
+            catch (BO.BadLineIDStationCodeException ex)
             {
                 MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -118,6 +107,20 @@ namespace PL
             {
                 MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void btAddStation_Click(object sender, RoutedEventArgs e)
+        {
+            AddStation thirdWindow = new AddStation(bl);
+            thirdWindow.Closing += WinAddStation_Closing;
+            thirdWindow.ShowDialog();
+        }
+
+        private void WinAddStation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            RefreshAllStationComboBox();
+            RefreshAllLinesOfStationGrid();
+            RefreshAllOtherLinesGrid();
         }
 
     }

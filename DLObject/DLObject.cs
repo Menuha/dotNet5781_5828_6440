@@ -56,7 +56,7 @@ namespace DL
                 DataSource.ListStations.Remove(sta);
             }
             else
-                throw new DO.BadStationCodeException(code, $"bad person id: {code}");
+                throw new DO.BadStationCodeException(code, $"bad station code: {code}");
         }
 
         public void UpdateStation(DO.Station station)
@@ -92,36 +92,36 @@ namespace DL
 
         public DO.Line GetLine(int id)
         {
-            DO.Line li = DataSource.ListLines.Find(l => l.Id == id);
+            DO.Line li = DataSource.ListLines.Find(l => l.ID == id);
 
             if (li != null)
                 return li.Clone();
             else
-                throw new DO.BadLineIdException(id, $"bad line id: {id}");
+                throw new DO.BadLineIDException(id, $"bad line id: {id}");
         }
 
         public void AddLine(DO.Line line)
         {
-            if (DataSource.ListLines.FirstOrDefault(l => l.Id == line.Id) != null)
-                throw new DO.BadLineIdException(line.Id, "Duplicate line id");
+            if (DataSource.ListLines.FirstOrDefault(l => l.ID == line.ID) != null)
+                throw new DO.BadLineIDException(line.ID, "Duplicate line id");
             DataSource.ListLines.Add(line.Clone());
         }
 
         public void DeleteLine(int id)
         {
-            DO.Line li = DataSource.ListLines.Find(l => l.Id == id);
+            DO.Line li = DataSource.ListLines.Find(l => l.ID == id);
 
             if (li != null)
             {
                 DataSource.ListLines.Remove(li);
             }
             else
-                throw new DO.BadLineIdException(id, $"bad line id: {id}");
+                throw new DO.BadLineIDException(id, $"bad line id: {id}");
         }
 
         public void UpdateLine(DO.Line line)
         {
-            DO.Line li = DataSource.ListLines.Find(l => l.Id == line.Id);
+            DO.Line li = DataSource.ListLines.Find(l => l.ID == line.ID);
 
             if (li != null)
             {
@@ -129,7 +129,7 @@ namespace DL
                 DataSource.ListLines.Add(line.Clone());
             }
             else
-                throw new DO.BadLineIdException(line.Id, $"bad line id: {line.Id}");
+                throw new DO.BadLineIDException(line.ID, $"bad line id: {line.ID}");
         }
 
         public void UpdateLine(int id, Action<DO.Line> update)
@@ -139,64 +139,71 @@ namespace DL
         #endregion
 
         #region StationOfLine
-        public IEnumerable<DO.StationOfLine> GetAllStationsOfLine()
+        public IEnumerable<DO.StationOfLine> GetAllStationsOfLines()
         {
-            return from station in DataSource.ListStationsOfLine
+            return from station in DataSource.ListStationsOfLines
                    select station.Clone();
         }
 
-        public IEnumerable<DO.StationOfLine> GetAllStationsOfLineBy(Predicate<DO.StationOfLine> predicate)
+        public IEnumerable<DO.StationOfLine> GetAllStationsOfLinesBy(Predicate<DO.StationOfLine> predicate)
         {
-            return from sol in DataSource.ListStationsOfLine
+            return from sol in DataSource.ListStationsOfLines
                    where predicate(sol)
                    select sol.Clone();
         }
 
-        public DO.StationOfLine GetStationOfLine(int lineId, int stationCode)
+        public IEnumerable<DO.StationOfLine> GetAllStationsOfLine(int lineID)
         {
-            DO.StationOfLine sol = DataSource.ListStationsOfLine.Find(sl => sl.LineId == lineId && sl.StationCode == stationCode);
+            return from sol in DataSource.ListStationsOfLines
+                   where sol.LineID == lineID
+                   select sol.Clone();
+        }
+
+        public DO.StationOfLine GetStationOfLine(int lineID, int stationCode)
+        {
+            DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
 
             if (sol != null)
                 return sol.Clone();
             else
-                throw new DO.BadLineIdStationCodeException(lineId, stationCode, "bad station code or line id");
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "bad station code or line id");
         }
 
         public void AddStationOfLine(DO.StationOfLine stationOfLine)
         {
 
-            DO.StationOfLine sol = DataSource.ListStationsOfLine.Find(sl => sl.LineId == stationOfLine.LineId && sl.StationCode == stationOfLine.StationCode);
+            DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == stationOfLine.LineID && sl.StationCode == stationOfLine.StationCode);
             if (sol != null)
-                throw new DO.BadLineIdStationCodeException(stationOfLine.LineId, stationOfLine.StationCode, "Duplicate station code");
-            DataSource.ListStationsOfLine.Add(stationOfLine.Clone());
+                throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Duplicate station code");
+            DataSource.ListStationsOfLines.Add(stationOfLine.Clone());
         }
 
-        public void DeleteStationOfLine(int lineId, int stationCode)
+        public void DeleteStationOfLine(int lineID, int stationCode)
         {
-            DO.StationOfLine sol = DataSource.ListStationsOfLine.Find(sl => sl.LineId == lineId && sl.StationCode == stationCode);
+            DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
 
             if (sol != null)
             {
-                DataSource.ListStationsOfLine.Remove(sol);
+                DataSource.ListStationsOfLines.Remove(sol);
             }
             else
-                throw new DO.BadLineIdStationCodeException(lineId, stationCode, "Worng line id or station code");
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng line id or station code");
         }
 
         public void UpdateStationOfLine(DO.StationOfLine stationOfLine)
         {
-            DO.StationOfLine sol = DataSource.ListStationsOfLine.Find(sl => sl.LineId == stationOfLine.LineId && sl.StationCode == stationOfLine.StationCode);
+            DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == stationOfLine.LineID && sl.StationCode == stationOfLine.StationCode);
 
             if (sol != null)
             {
-                DataSource.ListStationsOfLine.Remove(sol);
-                DataSource.ListStationsOfLine.Add(stationOfLine.Clone());
+                DataSource.ListStationsOfLines.Remove(sol);
+                DataSource.ListStationsOfLines.Add(stationOfLine.Clone());
             }
             else
-                throw new DO.BadLineIdStationCodeException(stationOfLine.LineId, stationOfLine.StationCode, "Worng station of line");
+                throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Worng station of line");
         }
 
-        public void UpdateStationOfLine(int lineId, int stationCode, Action<DO.StationOfLine> update)
+        public void UpdateStationOfLine(int lineID, int stationCode, Action<DO.StationOfLine> update)
         {
             throw new NotImplementedException();
         }

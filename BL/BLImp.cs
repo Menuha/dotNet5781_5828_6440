@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using DLAPI;
 using BLAPI;
 
@@ -44,9 +45,9 @@ namespace BL
             {
                 lineDO = dl.GetLine(id);
             }
-            catch (DO.BadLineIdException ex)
+            catch (DO.BadLineIDException ex)
             {
-                throw new BO.BadLineIdException("Line id does not exist", ex);
+                throw new BO.BadLineIDException("Line id does not exist", ex);
             }
             return lineDoBoAdapter(lineDO);
         }
@@ -54,7 +55,7 @@ namespace BL
         public IEnumerable<BO.Line> GetAllLines()
         {
             return from lineDO in dl.GetAllLines()
-                   orderby lineDO.Id
+                   orderby lineDO.ID
                    select lineDoBoAdapter(lineDO);
         }
 
@@ -79,9 +80,9 @@ namespace BL
             {
                 dl.UpdateLine(lineDO);
             }
-            catch (DO.BadLineIdException ex)
+            catch (DO.BadLineIDException ex)
             {
-                throw new BO.BadLineIdException("Line ID is illegal", ex);
+                throw new BO.BadLineIDException("Line ID is illegal", ex);
             }
         }
 
@@ -97,9 +98,9 @@ namespace BL
                 dl.DeleteLine(id);
                 //dl.DeleteStudentFromAllCourses(id);
             }
-            catch (DO.BadLineIdException ex)
+            catch (DO.BadLineIDException ex)
             {
-                throw new BO.BadLineIdException("Line ID does Not exist", ex);
+                throw new BO.BadLineIDException("Line ID does Not exist", ex);
             }
         }
         #endregion
@@ -199,9 +200,41 @@ namespace BL
         #region LineOfStation
         public IEnumerable<BO.LineOfStation> GetAllLinesOfStation(int code)
         {
-            return from sol in dl.GetAllStationsOfLineBy(sol => sol.StationCode == code)
-                   let line = dl.GetLine(sol.LineId)
-                   select line.CopyToStudentCourse(sol);
+            return from sol in dl.GetAllStationsOfLinesBy(sol => sol.StationCode == code)
+                   let line = dl.GetLine(sol.LineID)
+                   select line.CopyToLineOfStation(sol);
+        }
+        #endregion
+
+        #region StationOfLine
+        BO.StationOfLine stationOfLineDoBoAdapter(DO.StationOfLine solDO)
+        {
+            BO.StationOfLine solBO = new BO.StationOfLine();
+            solDO.CopyPropertiesTo(solBO);
+
+            //stationBO.LinesInStation= from sil in dl.GetAllStationsOfLineBy(sil => sil.LineId == lineDO.Id)
+
+
+            //lineBO.ListOfCourses = from sic in dl.GetStudentsInCourseList(sic => sic.PersonId == id)
+            //                          let course = dl.GetCourse(sic.CourseId)
+            //                          select course.CopyToStudentCourse(sic);
+            //new BO.StudentCourse()
+            //{
+            //    ID = course.ID,
+            //    Number = course.Number,
+            //    Name = course.Name,
+            //    Year = course.Year,
+            //    Semester = (BO.Semester)(int)course.Semester,
+            //    Grade = sic.Grade
+            //};
+
+            return solBO;
+        }
+
+        public IEnumerable<BO.StationOfLine> GetAllStationsOfLine(int id)
+        {
+            return from sol in dl.GetAllStationsOfLine(id)
+                   select stationOfLineDoBoAdapter(sol);
         }
         #endregion
     }

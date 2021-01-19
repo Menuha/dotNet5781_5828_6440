@@ -37,7 +37,7 @@ namespace PL
 
         private void btLines_Click(object sender, RoutedEventArgs e)
         {
-            LinesWindow secondWindow = new LinesWindow();
+            LinesWindow secondWindow = new LinesWindow(bl);
             secondWindow.Show();
         }
     }

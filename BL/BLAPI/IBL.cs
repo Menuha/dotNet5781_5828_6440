@@ -32,5 +32,9 @@ namespace BLAPI
         #region LineOfStation
         IEnumerable<BO.LineOfStation> GetAllLinesOfStation(int code);
         #endregion
+
+        #region StationOfLine
+        IEnumerable<BO.StationOfLine> GetAllStationsOfLine(int id);
+        #endregion
     }
 }

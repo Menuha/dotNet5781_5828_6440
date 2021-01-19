@@ -1,19 +1,25 @@
-﻿using DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using DO;
 
 namespace DS
 {
 
     public static class DataSource
     {
-        public static List<Bus> ListBuses;
-        public static List<Station> ListStations;
         public static List<Line> ListLines;
-        public static List<StationOfLine> ListStationsOfLine;
+        public static List<LineTrip> ListLinesTrips;
+        public static List<Station> ListStations;
+        public static List<StationOfLine> ListStationsOfLines;
+        public static List<AdjacentStations> ListAdjacentStations;
+       
+        //Bonus:
+        public static List<Bus> ListBuses;
+        public static List<BusOnTrip> ListBusesOnTrips;
         public static List<User> ListUsers;
         public static List<Trip> ListTrips;
 
@@ -23,6 +29,102 @@ namespace DS
         }
         static void InitAllLists()
         {
+            ListLines = new List<Line>
+            {
+                new Line
+                {
+                    ID = 1,
+                    Code = 2,
+                    Area = Areas.Center,
+                    FirstStationCode = 38831,
+                    LastStationCode = 38833
+                },
+
+                new Line
+                {
+                    ID = 2,
+                    Code = 3,
+                    Area = Areas.Center,
+                    FirstStationCode = 38831,
+                    LastStationCode = 38833
+                },
+
+                 new Line
+                {
+                    ID = 3,
+                    Code = 2,
+                    Area = Areas.Jerusalem,
+                    FirstStationCode = 38834,
+                    LastStationCode = 38833
+                },
+            };
+
+            ListLinesTrips = new List<LineTrip>();
+
+            ListStations = new List<Station>
+            {
+                new Station
+                {
+                  Code=38831,
+                  Name="בי''ס בר לב/בן יהודה",
+                  Latitude=32,
+                  Longitude=34,             
+                },
+                new Station
+                {
+                  Code=38832,
+                  Name="הרצל/צומת בילו",
+                  Latitude=31,
+                  Longitude=34,
+                },
+                new Station
+                {
+                  Code=38833,
+                  Name="הנחשול/הדייגים",
+                  Latitude=31,
+                  Longitude=34,
+                },
+                new Station
+                {
+                  Code=41133,
+                  Name="פריד/ששת הימים",
+                  Latitude=31,
+                  Longitude=34,
+                },
+                new Station
+                {
+                  Code=38834,
+                  Name="מסדה/בלפור",
+                  Latitude=31,
+                  Longitude=34,
+                },
+            };
+
+            ListStationsOfLines = new List<StationOfLine>
+            {
+                new StationOfLine
+                {
+                    LineID=1,
+                    StationCode=38831,
+                    StationIndexInLine=1,
+                    PrevStationCode=3883,
+                    NextStationCode=38833
+                },
+                
+                new StationOfLine
+                {
+                    LineID=1,
+                    StationCode=38833,
+                    StationIndexInLine=2,
+                    PrevStationCode=38831,
+                    NextStationCode=388
+                },
+
+            };
+
+            ListAdjacentStations = new List<AdjacentStations>();
+
+            //Bonus:
             ListBuses = new List<Bus>
             {
                 new Bus
@@ -71,75 +173,7 @@ namespace DS
                 },
             };
 
-            ListStations = new List<Station>
-            {
-                new Station
-                {
-                  Code=38831,
-                  Name="בי''ס בר לב/בן יהודה",
-                  Latitude=32,
-                  Longitude=34,
-                  Adress="רחוב:בן יהודה 76 עיר: כפר סבא"
-                },
-                new Station
-                {
-                  Code=38832,
-                  Name="הרצל/צומת בילו",
-                  Latitude=31,
-                  Longitude=34,
-                  Adress=" רחוב:הרצל  עיר: קרית עקרון"
-                },
-                new Station
-                {
-                  Code=38833,
-                  Name="הנחשול/הדייגים",
-                  Latitude=31,
-                  Longitude=34,
-                  Adress="רחוב:הנחשול 30 עיר: ראשון לציון"
-                },
-                new Station
-                {
-                  Code=38834,
-                  Name="פריד/ששת הימים",
-                  Latitude=31,
-                  Longitude=34,
-                  Adress=" רחוב:משה פריד 9 עיר: רחובות"
-                },
-            };
-
-            ListLines = new List<Line>
-            {
-                new Line
-                {
-                    Id = 1,
-                    Code = 2,
-                    Area = Areas.Center,
-                    FirstStationCode = 38831,
-                    LastStationCode = 38833
-                },
-            };
-
-            ListStationsOfLine = new List<StationOfLine>
-            {
-                new StationOfLine
-                {
-                    LineId=1,
-                    StationCode=38831,
-                    StationIndexInLine=1,
-                    PrevStationCode=3883,
-                    NextStationCode=38833
-                },
-                
-                new StationOfLine
-                {
-                    LineId=1,
-                    StationCode=38833,
-                    StationIndexInLine=2,
-                    PrevStationCode=38831,
-                    NextStationCode=388
-                },
-
-            };
+            ListBusesOnTrips = new List<BusOnTrip>();
 
             ListUsers = new List<User>
             {
@@ -155,9 +189,9 @@ namespace DS
             {
                 new Trip
                 {
-                    Id=12345,
+                    ID=12345,
                     UserName="David Cohen",
-                    LineId=11111,
+                    LineID=11111,
                     InStationCode=38832,
                     InAt=new TimeSpan(07,00,00),
                     OutStationCode=38834,
