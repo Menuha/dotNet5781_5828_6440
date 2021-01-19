@@ -48,7 +48,7 @@
         <DataGrid x:Name="dgLinesOfStation" HorizontalAlignment="Left" Height="235" Margin="332,56,0,0" VerticalAlignment="Top" Width="196" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2"/>
         <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="33,224,0,0" Grid.Row="1" VerticalAlignment="Top" Width="116" Click="btUpStation_Click"/>
         <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="33,261,0,0" Grid.Row="1" VerticalAlignment="Top" Width="116" Click="btDelStation_Click"/>
-        <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="580,283,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btAddStation_Click"/>
+        <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="580,283,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btAddStation_Click" />
         <DataGrid x:Name="dgOtherLines" HorizontalAlignment="Left" Height="259" Margin="580,56,0,0" VerticalAlignment="Top" Width="155" Grid.RowSpan="2"/>
 
 

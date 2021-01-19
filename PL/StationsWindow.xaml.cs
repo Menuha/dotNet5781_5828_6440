@@ -31,6 +31,7 @@ namespace PL
 
             cbStationID.DisplayMemberPath = "Name";
             cbStationID.SelectedItem = "Code";
+
             RefreshAllStationComboBox();
 
             dgLinesOfStation.IsReadOnly = true;
@@ -81,7 +82,15 @@ namespace PL
 
         private void btAddStation_Click(object sender, RoutedEventArgs e)
         {
-
+            AddStation thirdWindow = new AddStation(bl);
+            thirdWindow.Closing += WinAddStation_Closing;
+            thirdWindow.ShowDialog();
+        }
+        private void WinAddStation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            RefreshAllStationComboBox();
+            RefreshAllLinesOfStationGrid();
+            RefreshAllOtherLinesGrid();
         }
 
         private void btDelStation_Click(object sender, RoutedEventArgs e)
@@ -110,5 +119,6 @@ namespace PL
                 MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
     }
 }
