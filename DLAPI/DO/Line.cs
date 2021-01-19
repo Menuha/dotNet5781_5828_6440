@@ -11,8 +11,8 @@ namespace DO
     /// </summary>
     public class Line
     {
-        public int ID { get; set; } //Key - Auto-runner number.
-        public int Code { get; set; } //Part1 of the key
+        public int ID { get; set; } //Key - automatic number.
+        public int Number { get; set; } //Part1 of the key
         public Areas Area { get; set; } //Part2 of the key
         public int FirstStationCode { get; set; }
         public int LastStationCode { get; set; }

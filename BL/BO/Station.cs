@@ -13,7 +13,8 @@ namespace BO
     {
         public int Code { get; set; }
         public string Name { get; set; }
-        public string StationAdress { get; set; }
+        public float Latitude { get; set; }
+        public float Longitude { get; set; }
         public IEnumerable<LineOfStation> LinesInStation { get; set; }
         public override string ToString() => this.ToStringProperty();
     }

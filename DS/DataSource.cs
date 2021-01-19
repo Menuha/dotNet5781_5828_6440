@@ -34,7 +34,7 @@ namespace DS
                 new Line
                 {
                     ID = 1,
-                    Code = 2,
+                    Number = 2,
                     Area = Areas.Center,
                     FirstStationCode = 38831,
                     LastStationCode = 38833
@@ -43,7 +43,7 @@ namespace DS
                 new Line
                 {
                     ID = 2,
-                    Code = 3,
+                    Number = 3,
                     Area = Areas.Center,
                     FirstStationCode = 38831,
                     LastStationCode = 38833
@@ -52,7 +52,7 @@ namespace DS
                  new Line
                 {
                     ID = 3,
-                    Code = 2,
+                    Number = 2,
                     Area = Areas.Jerusalem,
                     FirstStationCode = 38834,
                     LastStationCode = 38833
@@ -107,8 +107,6 @@ namespace DS
                     LineID=1,
                     StationCode=38831,
                     StationIndexInLine=1,
-                    PrevStationCode=3883,
-                    NextStationCode=38833
                 },
                 
                 new StationOfLine
@@ -116,8 +114,6 @@ namespace DS
                     LineID=1,
                     StationCode=38833,
                     StationIndexInLine=2,
-                    PrevStationCode=38831,
-                    NextStationCode=388
                 },
 
             };

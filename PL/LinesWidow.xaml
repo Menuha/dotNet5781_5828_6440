@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.LinesWindow"
         mc:Ignorable="d"
-        Title="LinesWindow" Height="450" Width="800" >
+        Title="LinesWindow" Height="450" Width="800">
 
     <Grid>
         <Label Content="Select line:" HorizontalAlignment="Left" Margin="22,59,0,0" VerticalAlignment="Top" Height="24" Width="81"/>
         <ComboBox x:Name="cbLineID" HorizontalAlignment="Left" Margin="117,61,0,0" VerticalAlignment="Top" Width="120" Text=""
                   ItemsSource="{Binding}" SelectionChanged="cbLineID_SelectionChanged"/>
 
-        <Grid x:Name="gridOneLine" HorizontalAlignment="Left" Margin="65,175,0,0" VerticalAlignment="Top">
+        <Grid x:Name="gridOneLine" HorizontalAlignment="Left" Margin="49,120,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -31,13 +31,23 @@
                     </ItemsPanelTemplate>
                 </ComboBox.ItemsPanel>
             </ComboBox>
-            <Label Content="Code:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-            <TextBox x:Name="codeTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Code, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-            <Label Content="Id:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-            <TextBox x:Name="idTextBox1" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            <Label Content="ID:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBox x:Name="iDTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            <Label Content="Number:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+            <TextBox x:Name="numberTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
-        <DataGrid x:Name="dgStationsOfLine" HorizontalAlignment="Left" Height="100" Margin="298,93,0,0" VerticalAlignment="Top" Width="167"/>
-        <DataGrid x:Name="dgOtherStations" HorizontalAlignment="Left" Height="97" Margin="535,96,0,0" VerticalAlignment="Top" Width="145"/>
 
+        <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="298,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.48,0.547" Width="167"/>
+        <DataGrid x:Name="dgStationsOfLine" HorizontalAlignment="Left" Height="100" Margin="298,93,0,0" VerticalAlignment="Top" Width="167" RowDetailsVisibilityMode="VisibleWhenSelected" 
+                  ItemsSource="{Binding}"/>
+
+        <Label Content="All other stations:" HorizontalAlignment="Left" Margin="554,59,0,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="1.034,0.807"/>
+        <DataGrid x:Name="dgOtherStations" HorizontalAlignment="Left" Height="100" Margin="535,93,0,0" VerticalAlignment="Top" Width="145" RowDetailsVisibilityMode="VisibleWhenSelected" 
+                  ItemsSource="{Binding}"/>
+
+        <Button x:Name="btUpdateLine" Content="Update line" HorizontalAlignment="Left" Margin="90,270,0,0" VerticalAlignment="Top" Width="123"/>
+        <Button x:Name="btDeleteLine" Content="Delete line" HorizontalAlignment="Left" Margin="90,319,0,0" VerticalAlignment="Top" Width="123"/>
+        <Button x:Name="btAddLine" Content="Add a new line" HorizontalAlignment="Left" Margin="90,367,0,0" VerticalAlignment="Top" Width="123"/>
+        
     </Grid>
 </Window>

@@ -12,7 +12,6 @@ namespace DO
     /// </summary>
     public class LineTrip
     {
-        public int ID { get; set; } //Key - Auto-runner number.
         public int LineID { get; set; } //Part1 of the key
         public TimeSpan StartAt { get; set; } //Bonus. Part2 of the key
         public TimeSpan Frequency { get; set; } //Bonus

@@ -12,7 +12,8 @@ namespace BO
     public class LineOfStation
     {
         public int LineID { get; set; }
+        public int LineNumber { get; set; }
         public int StationIndexInLine { get; set; }
-        public override string ToString() => this.ToStringProperty();
+        public override string ToString() => $"Line number: {LineNumber}, Station index in line: {StationIndexInLine}.";
     }
 }

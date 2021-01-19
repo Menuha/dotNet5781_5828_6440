@@ -14,8 +14,6 @@ namespace DO
         public int LineID { get; set; } //Part1 of the key
         public int StationCode { get; set; } //Part2 of the key
         public int StationIndexInLine { get; set; }
-        public int PrevStationCode { get; set; }
-        public int NextStationCode { get; set; }
         public override string ToString() => this.ToStringProperty();
     }
 }
