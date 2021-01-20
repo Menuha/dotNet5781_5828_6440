@@ -32,7 +32,6 @@ namespace BL
         {
             BO.LineOfStation result = (BO.LineOfStation)line.CopyPropertiesToNew(typeof(BO.LineOfStation));
             // propertys' names changed? copy them here...
-            result.LineID = sol.LineID;
             result.StationIndexInLine = sol.StationIndexInLine;
             return result;
         }
