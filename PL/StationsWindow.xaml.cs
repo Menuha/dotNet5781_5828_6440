@@ -51,7 +51,7 @@ namespace PL
 
         void RefreshAllOtherLinesGrid()
         {
-            List<BO.Line> listOfOtherLines = bl.GetAllLines().Where(l1 => bl.GetAllLinesOfStation(sta.Code).All(l2 => l2.LineID != l1.ID)).ToList();
+            List<BO.Line> listOfOtherLines = bl.GetAllLines().Where(l1 => bl.GetAllLinesOfStation(sta.Code).All(l2 => l2.ID != l1.ID)).ToList();
             dgOtherLines.DataContext = listOfOtherLines;
         }
 

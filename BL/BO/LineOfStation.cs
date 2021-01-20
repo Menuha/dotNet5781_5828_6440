@@ -11,9 +11,10 @@ namespace BO
     /// </summary>
     public class LineOfStation
     {
-        public int LineID { get; set; }
-        public int LineNumber { get; set; }
+        public int ID { get; set; }
+        public int Number { get; set; }
+        public Areas Area { get; set; }
         public int StationIndexInLine { get; set; }
-        public override string ToString() => $"Line number: {LineNumber}, Station index in line: {StationIndexInLine}.";
+        public override string ToString() => $"Line number: {Number}, Area: {Area}, Station index in line: {StationIndexInLine}.";
     }
 }

@@ -11,10 +11,10 @@ namespace BO
     /// </summary>
     public class AdjacentStations
     {
-        public StationOfLine Station1 { get; set; }
-        public StationOfLine Station2 { get; set; }
+        public int Station1Code { get; set; }
+        public int Station2Code { get; set; }
         public double Distance { get; set; }
-        public TimeSpan Time { get; set; }
+        public TimeSpan AvgTime { get; set; }
         public override string ToString() => this.ToStringProperty();
     }
 }
