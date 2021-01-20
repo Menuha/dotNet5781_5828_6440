@@ -112,15 +112,17 @@ namespace PL
         private void btAddStation_Click(object sender, RoutedEventArgs e)
         {
             AddStation thirdWindow = new AddStation(bl);
-            thirdWindow.Closing += WinAddStation_Closing;
+            //thirdWindow.Closing += WinAddStation_Closing;
             thirdWindow.ShowDialog();
         }
 
         private void WinAddStation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            RefreshAllStationComboBox();
             RefreshAllLinesOfStationGrid();
             RefreshAllOtherLinesGrid();
+            RefreshAllStationComboBox();
         }
+
+
     }
 }

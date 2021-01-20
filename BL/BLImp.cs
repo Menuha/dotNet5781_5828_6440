@@ -159,9 +159,19 @@ namespace BL
             throw new NotImplementedException();
         }
         
-        public void AddStation(BO.Station station)
+        public void AddStation(BO.Station stationBO)
         {
-            throw new NotImplementedException();
+            //Add DO.Station            
+            DO.Station stationDO = new DO.Station();
+            stationBO.CopyPropertiesTo(stationDO);
+            try
+            {
+                dl.AddStation(stationDO);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
+                throw new BO.BadStationCodeException("Station Code is illegal", ex);
+            }
         }
         
         public void UpdateStation(BO.Station station)

@@ -22,13 +22,42 @@ namespace PL
     public partial class AddStation : Window
     {
         IBL bl;
+        BO.Station newSta = new BO.Station();
         public AddStation(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
 
+            gNewStation.DataContext = newSta;
+
+
         }
 
+        private void btContinue_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult res = MessageBox.Show("Add stationt?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (res == MessageBoxResult.No)
+                return;
 
+            //code missing:
+            //test each textbox, combobox value with more TKINUT KELET etc.
+            // make sure each field has value
+            //if not takin shoe message box, and return.
+            //else
+            try
+            {
+                bl.AddStation(newSta);
+                this.Close();
+            }
+            catch (BO.BadStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

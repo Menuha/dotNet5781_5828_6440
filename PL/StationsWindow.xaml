@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.StationsWindow"
         mc:Ignorable="d"
-        Title="StationsWindow" Height="450" Width="800">
-
-    <Grid>
+        Title="StationsWindow" Height="450" Width="800" >
+   
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="87*"/>
             <RowDefinition Height="332*"/>
@@ -37,7 +37,7 @@
             <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
             <TextBox x:Name="nameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
-        
+
         <Label Content="List of lines of this station:" HorizontalAlignment="Left" Margin="270,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34"/>
         <DataGrid x:Name="dgLinesOfStation"  HorizontalAlignment="Left" Height="259" Margin="270,57,0,0" VerticalAlignment="Top" Width="172" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2"
                   ItemsSource="{Binding}"/>
@@ -49,7 +49,7 @@
         <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="69,175,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btUpStation_Click"/>
         <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="69,215,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btDelStation_Click"/>
         <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="69,255,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btAddStation_Click" />
-        
+
 
     </Grid>
 </Window>
