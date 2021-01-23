@@ -34,6 +34,7 @@
             <TextBox x:Name="numberTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             
         </Grid>
+        
         <Button x:Name="btContinue" Content="Continue" HorizontalAlignment="Left" Margin="69,305,0,0" VerticalAlignment="Top" Width="75" Click="btContinue_Click"/>
         <Button x:Name="btCancel" Content="Cancel" HorizontalAlignment="Left" Margin="180,308,0,0" VerticalAlignment="Top" Width="75" Click="btCancel_Click"/>
     </Grid>

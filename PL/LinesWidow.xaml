@@ -38,13 +38,6 @@
         </Grid>
 
         <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="298,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.48,0.547" Width="167"/>
-
-
-        <Label Content="All other stations:" HorizontalAlignment="Left" Margin="554,59,0,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="1.034,0.807"/>
-
-        <Button x:Name="btUpdateLine" Content="Update line" HorizontalAlignment="Left" Margin="90,270,0,0" VerticalAlignment="Top" Width="123" Click="btUpdateLine_Click"/>
-        <Button x:Name="btDeleteLine" Content="Delete line" HorizontalAlignment="Left" Margin="90,319,0,0" VerticalAlignment="Top" Width="123" Click="btDeleteLine_Click"/>
-        <Button x:Name="btAddLine" Content="Add a new line" HorizontalAlignment="Left" Margin="90,367,0,0" VerticalAlignment="Top" Width="123" Click="btAddLine_Click"/>
         <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="271,103,310.333,196.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="distanceFromPreColumn" Binding="{Binding DistanceFromPre}" Header="Distance From Pre" Width="SizeToHeader"/>
@@ -54,6 +47,8 @@
                 <DataGridTextColumn x:Name="timeFromPreColumn" Binding="{Binding TimeFromPre}" Header="Time From Pre" Width="SizeToHeader"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Label Content="All other stations:" HorizontalAlignment="Left" Margin="554,59,0,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="1.034,0.807"/>
         <DataGrid x:Name="dgOtherStations" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="521,99,71.333,197.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="codeColumn" Binding="{Binding Code}" Header="Code" Width="SizeToHeader"/>
@@ -62,6 +57,10 @@
                 <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Button x:Name="btUpdateLine" Content="Update line" HorizontalAlignment="Left" Margin="90,270,0,0" VerticalAlignment="Top" Width="123" Click="btUpdateLine_Click"/>
+        <Button x:Name="btDeleteLine" Content="Delete line" HorizontalAlignment="Left" Margin="90,319,0,0" VerticalAlignment="Top" Width="123" Click="btDeleteLine_Click"/>
+        <Button x:Name="btAddLine" Content="Add a new line" HorizontalAlignment="Left" Margin="90,367,0,0" VerticalAlignment="Top" Width="123" Click="btAddLine_Click"/>
 
     </Grid>
 </Window>

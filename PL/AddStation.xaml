@@ -30,6 +30,7 @@
             <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Name:"/>
             <TextBox x:Name="nameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
         </Grid>
+        
         <Button x:Name="btContinue" Content="Continue" HorizontalAlignment="Left" Margin="87,366,0,0" VerticalAlignment="Top" Width="75" Click="btContinue_Click"/>
         <Button x:Name="btCancel" Content="Cancel" HorizontalAlignment="Left" Margin="187,366,0,0" VerticalAlignment="Top" Width="75" Click="btCancel_Click"/>
 
