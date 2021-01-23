@@ -17,6 +17,7 @@ using BLAPI;
 
 namespace PL
 {
+
     /// <summary>
     /// Interaction logic for StationsWindow.xaml
     /// </summary>
@@ -49,11 +50,11 @@ namespace PL
             dgLinesOfStation.DataContext = bl.GetAllLinesOfStation(sta.Code);
         }
 
-        void RefreshAllOtherLinesGrid()
-        {
-            List<BO.Line> listOfOtherLines = bl.GetAllLines().Where(l1 => bl.GetAllLinesOfStation(sta.Code).All(l2 => l2.ID != l1.ID)).ToList();
-            dgOtherLines.DataContext = listOfOtherLines;
-        }
+        //void RefreshAllOtherLinesGrid()
+        //{
+        //    List<BO.Line> listOfOtherLines = bl.GetAllLines().Where(l1 => bl.GetAllLinesOfStation(sta.Code).All(l2 => l2.ID != l1.ID)).ToList();
+        //    dgOtherLines.DataContext = listOfOtherLines;
+        //}
 
         private void cbStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -64,8 +65,7 @@ namespace PL
             {
                 //list of lines of selected station
                 RefreshAllLinesOfStationGrid();
-                //list of all Lines (that selected station is not registered to it)
-                RefreshAllOtherLinesGrid();
+                //
             }
         }
 
@@ -95,7 +95,7 @@ namespace PL
                     bl.DeleteStation(sta.Code);
 
                     RefreshAllStationComboBox();
-                    RefreshAllOtherLinesGrid();
+                  //
                     RefreshAllLinesOfStationGrid();
                 }
             }
@@ -119,10 +119,9 @@ namespace PL
         private void WinAddStation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             RefreshAllLinesOfStationGrid();
-            RefreshAllOtherLinesGrid();
+            //
             RefreshAllStationComboBox();
         }
-
 
     }
 }

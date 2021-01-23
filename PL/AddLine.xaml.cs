@@ -17,25 +17,22 @@ using BLAPI;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for AddStation.xaml
+    /// Interaction logic for AddLine.xaml
     /// </summary>
-    public partial class AddStation : Window
+    public partial class AddLine : Window
     {
         IBL bl;
-        BO.Station newSta = new BO.Station();
-        public AddStation(IBL _bl)
+        BO.Line newLine = new BO.Line();
+        public AddLine(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
-
-            gridNewStation.DataContext = newSta;
-
-
+            gridNewLine.DataContext = newLine;
         }
 
         private void btContinue_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult res = MessageBox.Show("Add stationt?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult res = MessageBox.Show("Add line?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.No)
                 return;
 
@@ -46,10 +43,10 @@ namespace PL
             //else
             try
             {
-                bl.AddStation(newSta);
+                bl.AddLine(newLine);
                 this.Close();
             }
-            catch (BO.BadStationCodeException ex)
+            catch (BO.BadLineIDException ex)
             {
                 MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }

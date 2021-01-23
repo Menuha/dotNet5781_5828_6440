@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.LinesWindow"
         mc:Ignorable="d"
-        Title="LinesWindow" Height="450" Width="800">
+        Title="LinesWindow" Height="450" Width="800" >
 
     <Grid>
         <Label Content="Select line:" HorizontalAlignment="Left" Margin="22,59,0,0" VerticalAlignment="Top" Height="24" Width="81"/>
@@ -24,7 +24,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Content="Area:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="areaComboBox" Grid.Column="1" DisplayMemberPath="Area" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120">
+            <ComboBox x:Name="areaComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" SelectedItem="{Binding Area}" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
@@ -38,16 +38,30 @@
         </Grid>
 
         <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="298,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.48,0.547" Width="167"/>
-        <DataGrid x:Name="dgStationsOfLine" HorizontalAlignment="Left" Height="100" Margin="298,93,0,0" VerticalAlignment="Top" Width="167" RowDetailsVisibilityMode="VisibleWhenSelected" 
-                  ItemsSource="{Binding}"/>
+
 
         <Label Content="All other stations:" HorizontalAlignment="Left" Margin="554,59,0,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="1.034,0.807"/>
-        <DataGrid x:Name="dgOtherStations" HorizontalAlignment="Left" Height="100" Margin="535,93,0,0" VerticalAlignment="Top" Width="145" RowDetailsVisibilityMode="VisibleWhenSelected" 
-                  ItemsSource="{Binding}"/>
 
-        <Button x:Name="btUpdateLine" Content="Update line" HorizontalAlignment="Left" Margin="90,270,0,0" VerticalAlignment="Top" Width="123"/>
-        <Button x:Name="btDeleteLine" Content="Delete line" HorizontalAlignment="Left" Margin="90,319,0,0" VerticalAlignment="Top" Width="123"/>
-        <Button x:Name="btAddLine" Content="Add a new line" HorizontalAlignment="Left" Margin="90,367,0,0" VerticalAlignment="Top" Width="123"/>
-        
+        <Button x:Name="btUpdateLine" Content="Update line" HorizontalAlignment="Left" Margin="90,270,0,0" VerticalAlignment="Top" Width="123" Click="btUpdateLine_Click"/>
+        <Button x:Name="btDeleteLine" Content="Delete line" HorizontalAlignment="Left" Margin="90,319,0,0" VerticalAlignment="Top" Width="123" Click="btDeleteLine_Click"/>
+        <Button x:Name="btAddLine" Content="Add a new line" HorizontalAlignment="Left" Margin="90,367,0,0" VerticalAlignment="Top" Width="123" Click="btAddLine_Click"/>
+        <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="271,103,310.333,196.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="distanceFromPreColumn" Binding="{Binding DistanceFromPre}" Header="Distance From Pre" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="stationCodeColumn" Binding="{Binding StationCode}" Header="Station Code" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="stationIndexInLineColumn" Binding="{Binding StationIndexInLine}" Header="Station Index In Line" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="stationNameColumn" Binding="{Binding StationName}" Header="Station Name" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="timeFromPreColumn" Binding="{Binding TimeFromPre}" Header="Time From Pre" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="dgOtherStations" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="521,99,71.333,197.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="codeColumn" Binding="{Binding Code}" Header="Code" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="latitudeColumn" Binding="{Binding Latitude}" Header="Latitude" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="longitudeColumn" Binding="{Binding Longitude}" Header="Longitude" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>

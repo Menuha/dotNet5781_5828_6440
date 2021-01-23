@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Add New Station" Height="450" Width="800">
 
-    <Grid x:Name="gNewStation" >
+    <Grid>
 
         <Grid x:Name="gridNewStation" VerticalAlignment="Top" Margin="65,71,0,0" HorizontalAlignment="Left" Height="276" Width="223">
             <Grid.RowDefinitions>

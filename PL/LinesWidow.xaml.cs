@@ -29,9 +29,9 @@ namespace PL
             bl = _bl;
 
             RefreshAllLineComboBox();
-
+        
             areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
-
+            
         }
 
         void RefreshAllLineComboBox()
@@ -63,6 +63,53 @@ namespace PL
                 RefreshAllOtherStationsGrid();
             }
 
+        }
+
+        private void btUpdateLine_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (curLine != null)
+                    bl.UpdateLine(curLine);
+            }
+            catch (BO.BadLineIDException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btDeleteLine_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult res = MessageBox.Show("Delete selected line?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (res == MessageBoxResult.No)
+                return;
+
+            try
+            {
+                if (curLine != null)
+                {
+                    bl.DeleteLine(curLine.ID);
+
+                    RefreshAllLineComboBox();
+                    RefreshAllOtherStationsGrid();
+                    RefreshAllStationsOfLineGrid();
+                }
+            }
+            catch (BO.BadLineIDStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.BadLineIDException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btAddLine_Click(object sender, RoutedEventArgs e)
+        {
+            AddLine win = new AddLine(bl);
+            //thirdWindow.Closing += WinAddStation_Closing;
+            win.ShowDialog();
         }
     }
 }

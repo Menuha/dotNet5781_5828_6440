@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ using System.Windows.Shapes;
 using BLAPI;
 
 namespace PL
-{
+{ 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -40,5 +41,6 @@ namespace PL
             LinesWindow secondWindow = new LinesWindow(bl);
             secondWindow.Show();
         }
+
     }
 }

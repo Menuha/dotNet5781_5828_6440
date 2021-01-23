@@ -7,8 +7,8 @@
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.StationsWindow"
         mc:Ignorable="d"
         Title="StationsWindow" Height="450" Width="800" >
-   
-    <Grid >
+
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="87*"/>
             <RowDefinition Height="332*"/>
@@ -39,16 +39,19 @@
         </Grid>
 
         <Label Content="List of lines of this station:" HorizontalAlignment="Left" Margin="270,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34"/>
-        <DataGrid x:Name="dgLinesOfStation"  HorizontalAlignment="Left" Height="259" Margin="270,57,0,0" VerticalAlignment="Top" Width="172" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2"
-                  ItemsSource="{Binding}"/>
-
-        <Label Content="List of other lines:" HorizontalAlignment="Left" Margin="580,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.044,1.237"/>
-        <DataGrid x:Name="dgOtherLines" HorizontalAlignment="Left" Height="259" Margin="475,57,0,0" VerticalAlignment="Top" Width="285" Grid.RowSpan="2" RowDetailsVisibilityMode="VisibleWhenSelected" 
-                  ItemsSource="{Binding}"/>
+        <DataGrid x:Name="dgLinesOfStation" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="274,62,289.333,158.667" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="areaColumn" Binding="{Binding Area}" Header="Area" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="numberColumn" Binding="{Binding Number}" Header="Number" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="stationIndexInLineColumn" Binding="{Binding StationIndexInLine}" Header="Station Index In Line" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
         <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="69,175,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btUpStation_Click"/>
         <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="69,215,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btDelStation_Click"/>
         <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="69,255,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btAddStation_Click" />
+
 
 
     </Grid>
