@@ -59,5 +59,12 @@ namespace PL
         {
             this.Close();
         }
+        private void My_Validation_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added)
+                btContinue.IsEnabled = false; //e.Error.Exception.Message;
+            else
+                btContinue.IsEnabled = true; ; //errorMessages.Remove(e.Error.Exception.Message);
+        }
     }
 }

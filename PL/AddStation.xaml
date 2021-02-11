@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.AddStation"
         mc:Ignorable="d"
+        Validation.Error="My_Validation_Error"
         Title="Add New Station" Height="450" Width="800">
 
     <Grid>
