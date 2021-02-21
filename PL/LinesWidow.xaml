@@ -71,7 +71,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="btUnRegisterStation" Content="UnRegister" Click="btUnRegistertation_Click" ToolTip="UnRegister selected line from selected station"/>
+                            <Button x:Name="btUnRegisterStation" Content="UnRegister" Click="btUnRegisterStation_Click" ToolTip="UnRegister selected line from selected station"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

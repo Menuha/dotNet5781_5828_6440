@@ -35,6 +35,7 @@ namespace BLAPI
 
         #region StationOfLine
         IEnumerable<BO.StationOfLine> GetAllStationsOfLine(int id);
+        void DeleteStationOfLine(int lineId, int stationCode);
         #endregion
     }
 }
