@@ -245,6 +245,17 @@ namespace BL
             return from sol in dl.GetAllStationsOfLine(id)
                    select stationOfLineDoBoAdapter(sol);
         }
+        public void AddStationOfLine(int lineId, int stationCode, float grade = 0)
+        {
+            try
+            {
+                dl.AddStationOfLine(lineId, stationCode, grade);
+            }
+            catch (DO.BadLineIDStationCodeException ex)
+            {
+                throw new BO.BadLineIDStationCodeException("Line ID and Station code is Not exist", ex);
+            }
+        }
         public void DeleteStationOfLine(int lineId, int stationCode)
         {
             try

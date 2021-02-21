@@ -139,24 +139,23 @@ namespace PL
 
         private void btRegisterStation_Click(object sender, RoutedEventArgs e)
         {
-            //    if (curStu == null)
-            //    {
-            //        MessageBox.Show("You must select a student first", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //        return;
-            //    }
-            //    try
-            //    {
-            //        BO.Course cBO = ((sender as Button).DataContext as BO.Course);
-            //        bl.AddStudentInCourse(curStu.ID, cBO.ID);
-
-            //        RefreshAllRegisteredCoursesGrid();
-            //        RefreshAllNotRegisteredCoursesGrid();
-            //    }
-            //    catch (BO.BadStudentIdCourseIDException ex)
-            //    {
-            //        MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    }
+            if (curLine == null)
+            {
+                MessageBox.Show("You must select a line first", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
+                BO.Station sBO = ((sender as Button).DataContext as BO.Station);
+                bl.AddStationOfLine(curLine.ID, sBO.Code);
+                RefreshAllOtherStationsGrid();
+                RefreshAllStationsOfLineGrid();
+            }
+            catch (BO.BadLineIDStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
-}
+    }
 }
