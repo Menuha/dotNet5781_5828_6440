@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Home Page" Height="506.489" Width="849.15"  WindowStartupLocation="CenterScreen">
+        Title="Home Page" Height="506.489" Width="849.15" WindowStartupLocation="CenterScreen">
     <Grid x:Name="gridWindow" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Image Source="https://www.kipa.co.il/userFiles/314914_ae59b3616eb9d8767ac5141985555059.jpg" >
             <Image.OpacityMask>

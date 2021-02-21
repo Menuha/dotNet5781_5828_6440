@@ -28,9 +28,9 @@ namespace PL
             InitializeComponent();
             bl = _bl;
 
-            RefreshAllLineComboBox();
-        
             areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
+
+            RefreshAllLineComboBox();
             
         }
 
@@ -111,5 +111,78 @@ namespace PL
             //thirdWindow.Closing += WinAddStation_Closing;
             win.ShowDialog();
         }
+
+        //private void WinUpdateGrade_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        //{
+        //    BO.StudentCourse scBO = (sender as GradeWindow).curScBO;
+
+        //    MessageBoxResult res = MessageBox.Show("Update grade for selected student?", "Verification", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+        //    if (res == MessageBoxResult.No)
+        //    {
+        //        (sender as GradeWindow).cbGrade.Text = (sender as GradeWindow).gradeBeforeUpdate.ToString();
+        //    }
+        //    else if (res == MessageBoxResult.Cancel)
+        //    {
+        //        (sender as GradeWindow).cbGrade.Text = (sender as GradeWindow).gradeBeforeUpdate.ToString();
+        //        e.Cancel = true; //window stayed open. cancel closing event.
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            bl.UpdateStudentGradeInCourse(curStu.ID, scBO.ID, (float)scBO.Grade);
+        //            RefreshAllRegisteredCoursesGrid();
+
+        //        }
+        //        catch (BO.BadStudentIdCourseIDException ex)
+        //        {
+        //            MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        }
+        //    }
+        //}
+
+        //private void WinAddStudent_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        //{
+        //    RefreshAllRegisteredCoursesGrid();
+        //    RefreshAllNotRegisteredCoursesGrid();
+        //    RefreshAllStudentComboBox();
+        //}
+
+        //private void btUnRegisterCourse_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        BO.StudentCourse scBO = ((sender as Button).DataContext as BO.StudentCourse);
+        //        bl.DeleteStudentInCourse(curStu.ID, scBO.ID);
+        //        RefreshAllRegisteredCoursesGrid();
+        //        RefreshAllNotRegisteredCoursesGrid();
+        //    }
+        //    catch (BO.BadStudentIdCourseIDException ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
+
+        //private void btRegisterCourse_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (curStu == null)
+        //    {
+        //        MessageBox.Show("You must select a student first", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //        return;
+        //    }
+        //    try
+        //    {
+        //        BO.Course cBO = ((sender as Button).DataContext as BO.Course);
+        //        bl.AddStudentInCourse(curStu.ID, cBO.ID);
+
+        //        RefreshAllRegisteredCoursesGrid();
+        //        RefreshAllNotRegisteredCoursesGrid();
+        //    }
+        //    catch (BO.BadStudentIdCourseIDException ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+
+        //}
     }
 }

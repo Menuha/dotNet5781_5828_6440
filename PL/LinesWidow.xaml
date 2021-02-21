@@ -6,14 +6,26 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.LinesWindow"
         mc:Ignorable="d"
-        Title="LinesWindow" Height="450" Width="800" >
+        Title="LinesWindow" Height="526.787" Width="1287.15" WindowStartupLocation="CenterScreen" >
 
-    <Grid>
-        <Label Content="Select line:" HorizontalAlignment="Left" Margin="22,59,0,0" VerticalAlignment="Top" Height="24" Width="81"/>
-        <ComboBox x:Name="cbLineID" HorizontalAlignment="Left" Margin="117,61,0,0" VerticalAlignment="Top" Width="120" Text=""
-                  ItemsSource="{Binding}" SelectionChanged="cbLineID_SelectionChanged"/>
+    <Grid Margin="0,0,0.2,-0.8" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="208*"/>
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="293*"/>
+            <ColumnDefinition Width="587*"/>
+            <ColumnDefinition Width="399*"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid x:Name="gridOneLine" HorizontalAlignment="Left" Margin="49,120,0,0" VerticalAlignment="Top">
+        <Label Content="Select line:" Grid.Row="0" HorizontalAlignment="Left" Margin="39,15,0,0" VerticalAlignment="Top" Height="25" Width="90"/>
+        <ComboBox x:Name="cbLineID" HorizontalAlignment="Left" Text="" VerticalAlignment="Top"
+                  Grid.Row="0" Height="25" Margin="141,15,0,0" Width="123"
+                  ItemsSource="{Binding}" 
+                  HorizontalContentAlignment="Left" VerticalContentAlignment="Top" SelectionChanged="cbLineID_SelectionChanged"/>
+
+        <Grid x:Name="gridOneLine" HorizontalAlignment="Left" Margin="39,76,0,0" VerticalAlignment="Top" Height="96" Width="188">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -23,6 +35,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+
             <Label Content="Area:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
             <ComboBox x:Name="areaComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" SelectedItem="{Binding Area}" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120">
                 <ComboBox.ItemsPanel>
@@ -37,20 +50,45 @@
             <TextBox x:Name="numberTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
 
-        <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="298,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.48,0.547" Width="167"/>
-        <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="271,103,310.333,196.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="21,49,0,0" VerticalAlignment="Top" Height="23" Width="209" Grid.Column="1"/>
+        <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="21,80,30,17" RowDetailsVisibilityMode="VisibleWhenSelected" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.691"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-1.424"/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
+
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="distanceFromPreColumn" Binding="{Binding DistanceFromPre}" Header="Distance From Pre" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="stationCodeColumn" Binding="{Binding StationCode}" Header="Station Code" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="stationIndexInLineColumn" Binding="{Binding StationIndexInLine}" Header="Station Index In Line" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="stationNameColumn" Binding="{Binding StationName}" Header="Station Name" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="timeFromPreColumn" Binding="{Binding TimeFromPre}" Header="Time From Pre" Width="SizeToHeader"/>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btUnRegisterStation" Content="UnRegister" Click="btUnRegistertation_Click" ToolTip="UnRegister selected line from selected station"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="All other stations:" HorizontalAlignment="Left" Margin="554,59,0,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="1.034,0.807"/>
-        <DataGrid x:Name="dgOtherStations" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="521,99,71.333,197.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <Label Content="All other stations:" Grid.Column="2" HorizontalAlignment="Left"  Margin="26,54,0,0" VerticalAlignment="Top" Height="23" Width="336"/>
+        <DataGrid x:Name="dgOtherStations" Grid.Column="2" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,79,30,19" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btRegisterStation" Content="Register" Click="btRegisterStation_Click" ToolTip="Register selected line to selected station"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn x:Name="codeColumn" Binding="{Binding Code}" Header="Code" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="latitudeColumn" Binding="{Binding Latitude}" Header="Latitude" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="longitudeColumn" Binding="{Binding Longitude}" Header="Longitude" Width="SizeToHeader"/>
@@ -58,9 +96,9 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="btUpdateLine" Content="Update line" HorizontalAlignment="Left" Margin="90,270,0,0" VerticalAlignment="Top" Width="123" Click="btUpdateLine_Click"/>
-        <Button x:Name="btDeleteLine" Content="Delete line" HorizontalAlignment="Left" Margin="90,319,0,0" VerticalAlignment="Top" Width="123" Click="btDeleteLine_Click"/>
-        <Button x:Name="btAddLine" Content="Add a new line" HorizontalAlignment="Left" Margin="90,367,0,0" VerticalAlignment="Top" Width="123" Click="btAddLine_Click"/>
+        <Button x:Name="btUpdateLine" Content="Update Current Line" HorizontalAlignment="Left" Margin="19,19,0,0" VerticalAlignment="Top" Width="234" Height="28" Background="DeepPink" Grid.Row="1" Click="btUpdateLine_Click"/>
+        <Button x:Name="btDeleteLine" Content="Delete Current Line" HorizontalAlignment="Left" Margin="21,19,0,0" VerticalAlignment="Top" Width="219" Height="28" Background="BlueViolet" Grid.Column="1" Grid.Row="1" Click="btDeleteLine_Click"/>
+        <Button x:Name="btAddLine" Content="Add New Line" HorizontalAlignment="Left" Margin="26,19,0,0" VerticalAlignment="Top" Width="141" Height="28" Background="#FF6DB469" Grid.Column="2" Grid.Row="1" Click="btAddLine_Click"/>
 
     </Grid>
 </Window>
