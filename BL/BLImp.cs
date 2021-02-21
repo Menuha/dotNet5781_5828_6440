@@ -126,7 +126,6 @@ namespace BL
             //    Semester = (BO.Semester)(int)course.Semester,
             //    Grade = sic.Grade
             //};
-
             return stationBO;
         }
         
