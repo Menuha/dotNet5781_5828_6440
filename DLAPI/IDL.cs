@@ -34,6 +34,7 @@ namespace DLAPI
         IEnumerable<DO.StationOfLine> GetAllStationsOfLine(int lineID);
         DO.StationOfLine GetStationOfLine(int lineID, int stationCode);
         void AddStationOfLine(DO.StationOfLine stationOfLine);
+        void AddStationOfLine(int lineId, int stationCode);
         void UpdateStationOfLine(DO.StationOfLine stationOfLine);
         void UpdateStationOfLine(int lineID, int stationCode, Action<DO.StationOfLine> update); //method that knows to update specific fields in LineStation
         void DeleteStationOfLine(int lineID, int stationCode);

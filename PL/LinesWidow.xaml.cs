@@ -136,7 +136,6 @@ namespace PL
                 MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void btRegisterStation_Click(object sender, RoutedEventArgs e)
         {
             if (curLine == null)
@@ -148,6 +147,7 @@ namespace PL
             {
                 BO.Station sBO = ((sender as Button).DataContext as BO.Station);
                 bl.AddStationOfLine(curLine.ID, sBO.Code);
+
                 RefreshAllOtherStationsGrid();
                 RefreshAllStationsOfLineGrid();
             }

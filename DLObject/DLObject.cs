@@ -168,7 +168,6 @@ namespace DL
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "bad station code or line id");
         }
-
         public void AddStationOfLine(DO.StationOfLine stationOfLine)
         {
 
@@ -176,6 +175,13 @@ namespace DL
             if (sol != null)
                 throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Duplicate station code");
             DataSource.ListStationsOfLines.Add(stationOfLine.Clone());
+        }
+        public void AddStationOfLine(int lineId, int stationCode)
+        {
+            if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == lineId && sols.StationCode == stationCode)) != null)
+                throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
+            DO.StationOfLine sol = new DO.StationOfLine() { LineID = lineId, StationCode = stationCode};
+            DataSource.ListStationsOfLines.Add(sol);
         }
 
         public void DeleteStationOfLine(int lineID, int stationCode)

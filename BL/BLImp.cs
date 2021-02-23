@@ -245,11 +245,11 @@ namespace BL
             return from sol in dl.GetAllStationsOfLine(id)
                    select stationOfLineDoBoAdapter(sol);
         }
-        public void AddStationOfLine(int lineId, int stationCode, float grade = 0)
+        public void AddStationOfLine(int lineId, int stationCode)
         {
             try
             {
-                dl.AddStationOfLine(lineId, stationCode, grade);
+                dl.AddStationOfLine(lineId, stationCode);
             }
             catch (DO.BadLineIDStationCodeException ex)
             {

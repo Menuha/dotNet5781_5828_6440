@@ -27,6 +27,8 @@ namespace PL
         {
             InitializeComponent();
             bl = _bl;
+
+            areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             gridNewLine.DataContext = newLine;
         }
 
@@ -55,6 +57,13 @@ namespace PL
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        private void My_Validation_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added)
+                btContinue.IsEnabled = false; //e.Error.Exception.Message;
+            else
+                btContinue.IsEnabled = true; ; //errorMessages.Remove(e.Error.Exception.Message);
         }
     }
 }
