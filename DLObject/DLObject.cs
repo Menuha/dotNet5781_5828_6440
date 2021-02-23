@@ -34,7 +34,7 @@ namespace DL
         public DO.Station GetStation(int code)
         {
             DO.Station sta = DataSource.ListStations.Find(s => s.Code == code);
-            try { Thread.Sleep(2000); } catch (ThreadInterruptedException e) { }
+            //try { Thread.Sleep(2000); } catch (ThreadInterruptedException e) { }
             if (sta != null)
                 return sta.Clone();
             else
