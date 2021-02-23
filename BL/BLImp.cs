@@ -59,17 +59,27 @@ namespace BL
                    select lineDoBoAdapter(lineDO);
         }
 
-        public IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate)
-        {
-            //return from lineDO in dl.GetAllLinesBy(predicate)
-            //       orderby lineDO.Id
-            //       select lineDoBoAdapter(lineDO);
-            throw new NotImplementedException();
-        }
-        
+        //public IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate)
+        //{
+        //    //return from lineDO in dl.GetAllLinesBy(predicate)
+        //    //       orderby lineDO.Id
+        //    //       select lineDoBoAdapter(lineDO);
+        //    throw new NotImplementedException();
+        //}
+
         public void AddLine(BO.Line line)
         {
-            throw new NotImplementedException();
+            //Add DO.Line           
+            DO.Line lineDO = new DO.Line();
+            line.CopyPropertiesTo(lineDO);
+            try
+            {
+                dl.AddLine(lineDO);
+            }
+            catch (DO.BadLineIDException ex)
+            {
+                throw new BO.BadLineIDException("Line ID is illegal", ex);
+            }
         }
         
         public void UpdateLine(BO.Line line)
@@ -86,10 +96,10 @@ namespace BL
             }
         }
 
-        public void UpdateLine(int id, Action<BO.Line> update)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateLine(int id, Action<BO.Line> update)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void DeleteLine(int id)
         {
@@ -150,13 +160,13 @@ namespace BL
                    select stationDoBoAdapter(stationDO);
         }
         
-        public IEnumerable<BO.Station> GetAllStationsBy(Predicate<BO.Station> predicate)
-        {
-            //return from stationDO in dl.GetAllStationsBy(predicate)
-            //       orderby stationDO.Code
-            //       select stationDoBoAdapter(stationDO);
-            throw new NotImplementedException();
-        }
+        //public IEnumerable<BO.Station> GetAllStationsBy(Predicate<BO.Station> predicate)
+        //{
+        //    //return from stationDO in dl.GetAllStationsBy(predicate)
+        //    //       orderby stationDO.Code
+        //    //       select stationDoBoAdapter(stationDO);
+        //    throw new NotImplementedException();
+        //}
         
         public void AddStation(BO.Station stationBO)
         {
@@ -187,10 +197,10 @@ namespace BL
             }
         }
 
-        public void UpdateStation(int code, Action<BO.Station> update)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateStation(int code, Action<BO.Station> update)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void DeleteStation(int code)
         {
