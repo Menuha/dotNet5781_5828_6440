@@ -36,7 +36,9 @@ namespace DLAPI
         void AddStationOfLine(int lineId, int stationCode);
         //void AddStationOfLine(DO.StationOfLine stationOfLine);
         void DeleteStationOfLine(int lineID, int stationCode);
-        void DeleteLineFromAllStations(int lineID);
+        void DeleteSolByLine(int lineID);
+        void DeleteSolByStation(int stationCode);
+        //void DeleteStationsOfLinesBy(Predicate<DO.StationOfLine> predicate);
         void UpdateStationOfLine(DO.StationOfLine stationOfLine);
         //void UpdateStationOfLine(int lineID, int stationCode, Action<DO.StationOfLine> update); //method that knows to update specific fields in LineStation
         #endregion

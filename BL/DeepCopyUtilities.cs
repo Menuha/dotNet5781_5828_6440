@@ -35,5 +35,12 @@ namespace BL
             result.StationIndexInLine = sol.StationIndexInLine;
             return result;
         }
+        //public static BO.StationOfLine CopyToStudentCourse(this DO.StationOfLine sol, DO.StudentInCourse sic)
+        //{
+        //    BO.StudentCourse result = (BO.StudentCourse)course.CopyPropertiesToNew(typeof(BO.StudentCourse));
+        //    // propertys' names changed? copy them here...
+        //    result.Grade = sic.Grade;
+        //    return result;
+        //}
     }
 }

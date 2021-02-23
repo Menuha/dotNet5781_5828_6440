@@ -46,6 +46,10 @@ namespace PL
             try
             {
                 bl.AddLine(newLine);
+                //
+                Console.WriteLine(newLine);
+
+                //
                 this.Close();
             }
             catch (BO.BadLineIDException ex)

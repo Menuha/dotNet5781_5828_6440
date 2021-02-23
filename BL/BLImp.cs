@@ -19,21 +19,8 @@ namespace BL
             BO.Line lineBO = new BO.Line();
             lineDO.CopyPropertiesTo(lineBO);
 
-            //lineBO.StationsInLine= from sil in dl.GetAllStationsOfLineBy(sil=> sil.LineId==lineDO.Id)
-
-
-            //lineBO.ListOfCourses = from sic in dl.GetStudentsInCourseList(sic => sic.PersonId == id)
-            //                          let course = dl.GetCourse(sic.CourseId)
-            //                          select course.CopyToStudentCourse(sic);
-            //new BO.StudentCourse()
-            //{
-            //    ID = course.ID,
-            //    Number = course.Number,
-            //    Name = course.Name,
-            //    Year = course.Year,
-            //    Semester = (BO.Semester)(int)course.Semester,
-            //    Grade = sic.Grade
-            //};
+            lineBO.StationsInLine = from sol in dl.GetAllStationsOfLine(lineDO.ID)
+                                    select stationOfLineDoBoAdapter(sol);
 
             return lineBO;
         }
@@ -69,7 +56,7 @@ namespace BL
 
         public void AddLine(BO.Line line)
         {
-            //Add DO.Line           
+            //Add new DO.Line with no stations          
             DO.Line lineDO = new DO.Line();
             line.CopyPropertiesTo(lineDO);
             try
@@ -83,9 +70,12 @@ namespace BL
         }
         
         public void UpdateLine(BO.Line line)
-        {            
+        {
             DO.Line lineDO = new DO.Line();
             line.CopyPropertiesTo(lineDO);
+            lineDO.FirstStationCode = line.StationsInLine.First().StationCode;
+            lineDO.LastStationCode = line.StationsInLine.Last().StationCode;
+
             try
             {
                 dl.UpdateLine(lineDO);
@@ -106,7 +96,7 @@ namespace BL
             try
             {
                 dl.DeleteLine(id);
-                //dl.DeleteStudentFromAllCourses(id);
+                dl.DeleteSolByLine(id);
             }
             catch (DO.BadLineIDException ex)
             {
@@ -121,21 +111,10 @@ namespace BL
             BO.Station stationBO = new BO.Station();
             stationDO.CopyPropertiesTo(stationBO);
 
-            //stationBO.LinesInStation= from sil in dl.GetAllStationsOfLineBy(sil => sil.LineId == lineDO.Id)
+            stationBO.LinesInStation = from sol in dl.GetAllStationsOfLinesBy(sol => sol.StationCode == stationDO.Code)
+                                       let line = dl.GetLine(sol.LineID)
+                                       select line.CopyToLineOfStation(sol);
 
-
-            //lineBO.ListOfCourses = from sic in dl.GetStudentsInCourseList(sic => sic.PersonId == id)
-            //                          let course = dl.GetCourse(sic.CourseId)
-            //                          select course.CopyToStudentCourse(sic);
-            //new BO.StudentCourse()
-            //{
-            //    ID = course.ID,
-            //    Number = course.Number,
-            //    Name = course.Name,
-            //    Year = course.Year,
-            //    Semester = (BO.Semester)(int)course.Semester,
-            //    Grade = sic.Grade
-            //};
             return stationBO;
         }
         
@@ -170,7 +149,7 @@ namespace BL
         
         public void AddStation(BO.Station stationBO)
         {
-            //Add DO.Station            
+            //Add new DO.Station with no lines       
             DO.Station stationDO = new DO.Station();
             stationBO.CopyPropertiesTo(stationDO);
             try
@@ -207,7 +186,7 @@ namespace BL
             try
             {
                 dl.DeleteStation(code);
-                //dl.DeleteStudentFromAllCourses(id);
+                dl.DeleteSolByStation(code);
             }
             catch (DO.BadStationCodeException ex)
             {
@@ -230,22 +209,10 @@ namespace BL
         {
             BO.StationOfLine solBO = new BO.StationOfLine();
             solDO.CopyPropertiesTo(solBO);
+            solBO.StationName = dl.GetStation(solDO.StationCode).Name;
 
-            //stationBO.LinesInStation= from sil in dl.GetAllStationsOfLineBy(sil => sil.LineId == lineDO.Id)
-
-
-            //lineBO.ListOfCourses = from sic in dl.GetStudentsInCourseList(sic => sic.PersonId == id)
-            //                          let course = dl.GetCourse(sic.CourseId)
-            //                          select course.CopyToStudentCourse(sic);
-            //new BO.StudentCourse()
-            //{
-            //    ID = course.ID,
-            //    Number = course.Number,
-            //    Name = course.Name,
-            //    Year = course.Year,
-            //    Semester = (BO.Semester)(int)course.Semester,
-            //    Grade = sic.Grade
-            //};
+            //solBO.DistanceFromPre = 
+            //solBO.TimeFromPre = 
 
             return solBO;
         }
@@ -253,8 +220,10 @@ namespace BL
         public IEnumerable<BO.StationOfLine> GetAllStationsOfLine(int id)
         {
             return from sol in dl.GetAllStationsOfLine(id)
+                   orderby sol.StationIndexInLine
                    select stationOfLineDoBoAdapter(sol);
         }
+        
         public void AddStationOfLine(int lineId, int stationCode)
         {
             try
@@ -266,6 +235,7 @@ namespace BL
                 throw new BO.BadLineIDStationCodeException("Line ID and Station code is Not exist", ex);
             }
         }
+        
         public void DeleteStationOfLine(int lineId, int stationCode)
         {
             try

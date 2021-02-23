@@ -194,10 +194,20 @@ namespace DL
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng line id or station code");
         }
 
-        public void DeleteLineFromAllStations(int lineID)
+        public void DeleteSolByLine(int lineID)
         {
             DataSource.ListStationsOfLines.RemoveAll(sol => sol.LineID == lineID);
         }
+
+        public void DeleteSolByStation(int stationCode)
+        {
+            DataSource.ListStationsOfLines.RemoveAll(sol => sol.StationCode == stationCode);
+        }
+
+        //public void DeleteStationsOfLinesBy(Predicate<DO.StationOfLine> predicate)
+        //{
+        //    DataSource.ListStationsOfLines.RemoveAll(sol => predicate(sol));
+        //}
 
         public void UpdateStationOfLine(DO.StationOfLine stationOfLine)
         {

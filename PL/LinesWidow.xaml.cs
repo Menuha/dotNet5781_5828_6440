@@ -32,6 +32,7 @@ namespace PL
 
             RefreshAllLineComboBox();
             cbLineID.SelectedValuePath = "ID";//selection return only specific Property of object
+           
             dgStationsOfLine.IsReadOnly = true;
             dgOtherStations.IsReadOnly = true;
 
@@ -117,9 +118,9 @@ namespace PL
 
         private void WinAddLine_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            RefreshAllLineComboBox();
-            RefreshAllOtherStationsGrid();
             RefreshAllStationsOfLineGrid();
+            RefreshAllOtherStationsGrid();
+            RefreshAllLineComboBox();
         }
 
         private void btUnRegisterStation_Click(object sender, RoutedEventArgs e)
