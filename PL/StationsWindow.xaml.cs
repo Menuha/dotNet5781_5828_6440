@@ -42,7 +42,7 @@ namespace PL
         void RefreshAllStationComboBox()
         {
             cbStationID.DataContext = bl.GetAllStations();
-            //cbStationID.SelectedIndex = 0; //index of the object to be selected
+            cbStationID.SelectedIndex = 0; //index of the object to be selected
         }
         
         void RefreshAllLinesOfStationGrid()

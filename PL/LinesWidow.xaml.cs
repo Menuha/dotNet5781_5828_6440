@@ -153,7 +153,6 @@ namespace PL
                 {
                     bl.UpdateStationIndexInLine(curLine.ID, solBO.StationCode, solBO.StationIndexInLine);
                     RefreshAllStationsOfLineGrid();
-
                 }
                 catch (BO.BadLineIDStationCodeException ex)
                 {
@@ -161,6 +160,7 @@ namespace PL
                 }
             }
         }
+       
         private void btUnRegisterStation_Click(object sender, RoutedEventArgs e)
         {
             try

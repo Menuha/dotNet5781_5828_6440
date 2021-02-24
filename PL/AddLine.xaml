@@ -24,17 +24,16 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
-            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Area:"/>
-            <ComboBox x:Name="areaComboBox" Width="120" VerticalAlignment="Center" Grid.Row="0" Margin="3" SelectedItem="{Binding Area}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1"/>
-            
-            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="ID:"/>
-            <TextBox x:Name="iDTextBox" Width="120" VerticalAlignment="Center" Text="{Binding ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="ID:"/>
+            <TextBox x:Name="iDTextBox" Width="120" VerticalAlignment="Center" Text="{Binding ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="2" Content="{Binding ElementName=iDTextBox, Path=(Validation.Errors)[0].ErrorContent}"  Foreground="Red"/>
 
-            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Number:"/>
-            <TextBox x:Name="numberTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="2" Content="{Binding ElementName=numberTextBox, Path=(Validation.Errors)[0].ErrorContent}"  Foreground="Red"/>
+            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Number:"/>
+            <TextBox x:Name="numberTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="2" Content="{Binding ElementName=numberTextBox, Path=(Validation.Errors)[0].ErrorContent}"  Foreground="Red"/>
 
+            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Area:"/>
+            <ComboBox x:Name="areaComboBox" Width="120" VerticalAlignment="Center" Grid.Row="2" Margin="3" SelectedItem="{Binding Area}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1"/>
         </Grid>
         
         <Button x:Name="btContinue" Content="Continue" HorizontalAlignment="Left" Margin="60,206,0,0" VerticalAlignment="Top" Width="75" Click="btContinue_Click"/>

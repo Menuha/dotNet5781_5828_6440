@@ -11,17 +11,16 @@
     <Grid Margin="0,0,0.2,-0.8" >
         <Grid.RowDefinitions>
             <RowDefinition Height="208*"/>
-            <RowDefinition Height="31*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="268*"/>
-            <ColumnDefinition Width="639*"/>
-            <ColumnDefinition Width="372*"/>
+            <ColumnDefinition Width="687*"/>
+            <ColumnDefinition Width="324*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Select line:" Grid.Row="0" HorizontalAlignment="Left" Margin="21,26,0,0" VerticalAlignment="Top" Height="25" Width="68"/>
+        <Label x:Name="lbSelect" Content="Select line:" Grid.Row="0" HorizontalAlignment="Left" Margin="22,50,0,0" VerticalAlignment="Top" Height="25" Width="68" FontWeight="Bold"/>
         <ComboBox x:Name="cbLineID" HorizontalAlignment="Left" Text="" VerticalAlignment="Top"
-                  Grid.Row="0" Height="24" Margin="98,26,0,0" Width="147"
+                  Grid.Row="0" Height="24" Margin="98,53,0,0" Width="160"
                   ItemsSource="{Binding}" 
                   HorizontalContentAlignment="Left" VerticalContentAlignment="Top" SelectionChanged="cbLineID_SelectionChanged"/>
 
@@ -36,17 +35,16 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Area:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="areaComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" SelectedItem="{Binding Area}" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"/>
-
-            <Label Content="ID:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center" IsEnabled="False"/>
-            <TextBox x:Name="iDTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-            <Label Content="Number:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-            <TextBox x:Name="numberTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            <Label Content="ID:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="iDTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" IsEnabled="False"/>
+            <Label Content="Number:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBox x:Name="numberTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+            <Label Content="Area:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+            <ComboBox x:Name="areaComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" SelectedItem="{Binding Area}" Margin="3" Grid.Row="2" VerticalAlignment="Center" Width="120"/>
         </Grid>
 
-        <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="21,49,0,0" VerticalAlignment="Top" Height="23" Width="209" Grid.Column="1"/>
-        <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="21,78,30,19" RowDetailsVisibilityMode="VisibleWhenSelected" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+        <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="30,53,0,0" VerticalAlignment="Top" Height="23" Width="209" Grid.Column="1" FontWeight="Bold"/>
+        <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="28,85,30,35" RowDetailsVisibilityMode="VisibleWhenSelected" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <DataGrid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -57,10 +55,10 @@
             </DataGrid.RenderTransform>
 
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="distanceFromPreColumn" Binding="{Binding DistanceFromPre}" Header="Distance From Pre" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="stationCodeColumn" Binding="{Binding StationCode}" Header="Station Code" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="stationIndexInLineColumn" Binding="{Binding StationIndexInLine}" Header="Station Index In Line" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="stationNameColumn" Binding="{Binding StationName}" Header="Station Name" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="stationIndexInLineColumn" Binding="{Binding StationIndexInLine}" Header="Station Index In Line" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="distanceFromPreColumn" Binding="{Binding DistanceFromPre}" Header="Distance From Pre" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="timeFromPreColumn" Binding="{Binding TimeFromPre}" Header="Time From Pre" Width="SizeToHeader"/>
 
                 <DataGridTemplateColumn>
@@ -70,7 +68,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -81,8 +79,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="All other stations:" Grid.Column="2" HorizontalAlignment="Left"  Margin="26,52,0,0" VerticalAlignment="Top" Height="23" Width="336"/>
-        <DataGrid x:Name="dgOtherStations" Grid.Column="2" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,79,30,19" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <Label Content="All other stations:" Grid.Column="2" HorizontalAlignment="Left"  Margin="28,53,0,0" VerticalAlignment="Top" Height="23" Width="163" FontWeight="Bold"/>
+        <DataGrid x:Name="dgOtherStations" Grid.Column="2" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,85,30,35" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -93,15 +91,15 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn x:Name="codeColumn" Binding="{Binding Code}" Header="Code" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="latitudeColumn" Binding="{Binding Latitude}" Header="Latitude" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="longitudeColumn" Binding="{Binding Longitude}" Header="Longitude" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="btUpdateLine" Content="Update Current Line" HorizontalAlignment="Left" Margin="19,19,0,0" VerticalAlignment="Top" Width="234" Height="28" Background="DeepPink" Grid.Row="1" Click="btUpdateLine_Click"/>
-        <Button x:Name="btDeleteLine" Content="Delete Current Line" HorizontalAlignment="Left" Margin="21,19,0,0" VerticalAlignment="Top" Width="219" Height="28" Background="BlueViolet" Grid.Column="1" Grid.Row="1" Click="btDeleteLine_Click"/>
-        <Button x:Name="btAddLine" Content="Add New Line" HorizontalAlignment="Left" Margin="26,19,0,0" VerticalAlignment="Top" Width="141" Height="28" Background="#FF6DB469" Grid.Column="2" Grid.Row="1" Click="btAddLine_Click"/>
+        <Button x:Name="btUpdateLine" Content="Update Current Line" HorizontalAlignment="Left" Margin="55,268,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="DeepPink" Click="btUpdateLine_Click"/>
+        <Button x:Name="btDeleteLine" Content="Delete Current Line" HorizontalAlignment="Left" Margin="55,324,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="BlueViolet" Click="btDeleteLine_Click"/>
+        <Button x:Name="btAddLine" Content="Add New Line" HorizontalAlignment="Left" Margin="55,384,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="#FF6DB469" Click="btAddLine_Click"/>
 
     </Grid>
 </Window>
