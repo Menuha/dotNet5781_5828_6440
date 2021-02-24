@@ -14,18 +14,18 @@
             <RowDefinition Height="31*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="293*"/>
-            <ColumnDefinition Width="587*"/>
-            <ColumnDefinition Width="399*"/>
+            <ColumnDefinition Width="268*"/>
+            <ColumnDefinition Width="639*"/>
+            <ColumnDefinition Width="372*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Select line:" Grid.Row="0" HorizontalAlignment="Left" Margin="39,15,0,0" VerticalAlignment="Top" Height="25" Width="90"/>
+        <Label Content="Select line:" Grid.Row="0" HorizontalAlignment="Left" Margin="21,26,0,0" VerticalAlignment="Top" Height="25" Width="68"/>
         <ComboBox x:Name="cbLineID" HorizontalAlignment="Left" Text="" VerticalAlignment="Top"
-                  Grid.Row="0" Height="25" Margin="141,15,0,0" Width="123"
+                  Grid.Row="0" Height="24" Margin="98,26,0,0" Width="147"
                   ItemsSource="{Binding}" 
                   HorizontalContentAlignment="Left" VerticalContentAlignment="Top" SelectionChanged="cbLineID_SelectionChanged"/>
 
-        <Grid x:Name="gridOneLine" HorizontalAlignment="Left" Margin="39,76,0,0" VerticalAlignment="Top" Height="96" Width="188">
+        <Grid x:Name="gridOneLine" HorizontalAlignment="Left" Margin="39,118,0,0" VerticalAlignment="Top" Height="96" Width="188">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -37,21 +37,16 @@
             </Grid.RowDefinitions>
 
             <Label Content="Area:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="areaComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" SelectedItem="{Binding Area}" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel/>
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
-            <Label Content="ID:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <ComboBox x:Name="areaComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" SelectedItem="{Binding Area}" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"/>
+
+            <Label Content="ID:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center" IsEnabled="False"/>
             <TextBox x:Name="iDTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
             <Label Content="Number:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
             <TextBox x:Name="numberTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
 
         <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="21,49,0,0" VerticalAlignment="Top" Height="23" Width="209" Grid.Column="1"/>
-        <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="21,80,30,17" RowDetailsVisibilityMode="VisibleWhenSelected" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+        <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="21,78,30,19" RowDetailsVisibilityMode="VisibleWhenSelected" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <DataGrid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -78,7 +73,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="All other stations:" Grid.Column="2" HorizontalAlignment="Left"  Margin="26,54,0,0" VerticalAlignment="Top" Height="23" Width="336"/>
+        <Label Content="All other stations:" Grid.Column="2" HorizontalAlignment="Left"  Margin="26,52,0,0" VerticalAlignment="Top" Height="23" Width="336"/>
         <DataGrid x:Name="dgOtherStations" Grid.Column="2" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,79,30,19" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>

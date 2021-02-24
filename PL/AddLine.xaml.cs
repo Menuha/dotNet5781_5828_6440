@@ -27,9 +27,10 @@ namespace PL
         {
             InitializeComponent();
             bl = _bl;
+            gridNewLine.DataContext = newLine;
 
             areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
-            gridNewLine.DataContext = newLine;
+           
         }
 
         private void btContinue_Click(object sender, RoutedEventArgs e)
@@ -46,10 +47,6 @@ namespace PL
             try
             {
                 bl.AddLine(newLine);
-                //
-                Console.WriteLine(newLine);
-
-                //
                 this.Close();
             }
             catch (BO.BadLineIDException ex)
@@ -62,6 +59,7 @@ namespace PL
         {
             this.Close();
         }
+        
         private void My_Validation_Error(object sender, ValidationErrorEventArgs e)
         {
             if (e.Action == ValidationErrorEventAction.Added)

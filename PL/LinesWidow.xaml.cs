@@ -30,8 +30,8 @@ namespace PL
 
             areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
 
-            RefreshAllLineComboBox();
             cbLineID.SelectedValuePath = "ID";//selection return only specific Property of object
+            RefreshAllLineComboBox();
            
             dgStationsOfLine.IsReadOnly = true;
             dgOtherStations.IsReadOnly = true;
@@ -41,6 +41,7 @@ namespace PL
         void RefreshAllLineComboBox()
         {
             cbLineID.DataContext = bl.GetAllLines();
+            cbLineID.SelectedIndex = 0; //index of the object to be selected
         }
 
         void RefreshAllStationsOfLineGrid()
@@ -94,9 +95,9 @@ namespace PL
                 {
                     bl.DeleteLine(curLine.ID);
 
-                    RefreshAllLineComboBox();
-                    RefreshAllOtherStationsGrid();
                     RefreshAllStationsOfLineGrid();
+                    RefreshAllOtherStationsGrid();
+                    RefreshAllLineComboBox();
                 }
             }
             catch (BO.BadLineIDStationCodeException ex)
@@ -129,14 +130,16 @@ namespace PL
             {
                 BO.StationOfLine solBO = ((sender as Button).DataContext as BO.StationOfLine);
                 bl.DeleteStationOfLine(curLine.ID, solBO.StationCode);
-                RefreshAllOtherStationsGrid();
+
                 RefreshAllStationsOfLineGrid();
+                RefreshAllOtherStationsGrid();
             }
             catch (BO.BadLineIDStationCodeException ex)
             {
                 MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+      
         private void btRegisterStation_Click(object sender, RoutedEventArgs e)
         {
             if (curLine == null)
@@ -149,8 +152,8 @@ namespace PL
                 BO.Station sBO = ((sender as Button).DataContext as BO.Station);
                 bl.AddStationOfLine(curLine.ID, sBO.Code);
 
-                RefreshAllOtherStationsGrid();
                 RefreshAllStationsOfLineGrid();
+                RefreshAllOtherStationsGrid();
             }
             catch (BO.BadLineIDStationCodeException ex)
             {
