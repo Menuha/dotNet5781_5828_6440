@@ -66,6 +66,14 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
+                            <Button x:Name="btUpdateIndexInLine" Content="Update Index" Click="btUpdateIndexInLine_Click" ToolTip="Update index for selected station, for selected line"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
                             <Button x:Name="btUnRegisterStation" Content="UnRegister" Click="btUnRegisterStation_Click" ToolTip="UnRegister selected line from selected station"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
