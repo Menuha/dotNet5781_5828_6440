@@ -124,6 +124,43 @@ namespace PL
             RefreshAllLineComboBox();
         }
 
+        private void btUpdateIndexInLine_Click(object sender, RoutedEventArgs e)
+        {
+            BO.StationOfLine solBO = ((sender as Button).DataContext as BO.StationOfLine);
+            int routeLength = bl.GetAllStationsOfLine(curLine.ID).Count();
+            IndexWindow win = new IndexWindow(solBO, routeLength);
+            win.Closing += WinUpdateIndex_Closing;
+            win.ShowDialog();
+        }
+
+        private void WinUpdateIndex_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            BO.StationOfLine solBO = (sender as IndexWindow).curSolBO;
+
+            MessageBoxResult res = MessageBox.Show("Update index for selected line?", "Verification", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (res == MessageBoxResult.No)
+            {
+                (sender as IndexWindow).cbIndex.Text = (sender as IndexWindow).indexBeforeUpdate.ToString();
+            }
+            else if (res == MessageBoxResult.Cancel)
+            {
+                (sender as IndexWindow).cbIndex.Text = (sender as IndexWindow).indexBeforeUpdate.ToString();
+                e.Cancel = true; //window stayed open. cancel closing event.
+            }
+            else
+            {
+                try
+                {
+                    bl.UpdateStationIndexInLine(curLine.ID, solBO.StationCode, solBO.StationIndexInLine);
+                    RefreshAllStationsOfLineGrid();
+
+                }
+                catch (BO.BadLineIDStationCodeException ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
         private void btUnRegisterStation_Click(object sender, RoutedEventArgs e)
         {
             try
