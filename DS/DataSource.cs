@@ -118,7 +118,16 @@ namespace DS
 
             };
 
-            ListAdjacentStations = new List<AdjacentStations>();
+            ListAdjacentStations = new List<AdjacentStations>
+            {
+                new AdjacentStations
+                {
+                    Station1Code=38833,
+                    Station2Code=38831,
+                    Distance=50,
+                    AvgTime=new TimeSpan(0,5,0),
+                },
+            };
 
             //Bonus:
             ListBuses = new List<Bus>
