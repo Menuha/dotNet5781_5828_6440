@@ -227,5 +227,25 @@ namespace DL
         //}
         #endregion
 
+        #region AdjacentStations
+        public void AddAdjacentStations(int station1Code, int station2Code)
+        {
+
+            if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == lineId && sols.StationCode == stationCode)) != null)
+                throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
+
+            if (DataSource.ListAdjacentStations.FirstOrDefault(adjSt => (adjSt.Station1Code == station1Code && adjSt.Station2Code == station2Code)) == null)
+            {
+                DO.AdjacentStations adjSt = new DO.AdjacentStations() { Station1Code = station1Code, Station2Code = station2Code };
+                DataSource.ListAdjacentStations.Add(adjSt);
+            }
+            
+        }
+        public IEnumerable<DO.AdjacentStations> GetAllAdjacentStations()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
     }
 }

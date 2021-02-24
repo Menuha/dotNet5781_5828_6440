@@ -38,5 +38,10 @@ namespace BLAPI
         void AddStationOfLine(int lineId, int stationCode);
         void DeleteStationOfLine(int lineId, int stationCode);
         #endregion
+
+        #region AdjacentStations
+        void AddAdjacentStations(int station1Code, int station2Code);
+        IEnumerable<DO.AdjacentStations> GetMyAdjacentStations(int stationCode);
+        #endregion
     }
 }

@@ -248,5 +248,32 @@ namespace BL
             }
         }
         #endregion
+
+        #region AdjacentStations
+        BO.AdjacentStations adjacentStationsDoBoAdapter(DO.AdjacentStations adjDO)
+        {
+            BO.AdjacentStations adjBO = new BO.AdjacentStations();
+            adjDO.CopyPropertiesTo(adjBO);
+
+            return adjBO;
+        }
+        public void AddAdjacentStations(int station1Code, int station2Code)
+        {
+            try
+            {
+                dl.AddAdjacentStations(station1Code, station2Code);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
+                throw new BO.BadStationCodeException("Station code is Not exist", ex);
+            }
+        }
+        public IEnumerable<DO.AdjacentStations> GetMyAdjacentStations(int stationCode)
+        {
+            return from adjSt in dl.GetAllAdjacentStations()
+                   where adjSt.Station1Code == stationCode || adjSt.Station2Code == stationCode
+                   select adjSt;
+        }
+        #endregion
     }
 }

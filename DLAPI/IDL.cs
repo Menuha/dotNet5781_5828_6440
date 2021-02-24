@@ -43,7 +43,10 @@ namespace DLAPI
         //void UpdateStationOfLine(int lineID, int stationCode, Action<DO.StationOfLine> update); //method that knows to update specific fields in LineStation
         #endregion
 
-        #region
+        #region AdjacentStations
+        void AddAdjacentStations(int station1Code, int station2Code);
+        IEnumerable<DO.AdjacentStations> GetAllAdjacentStations();
+        #endregion
 
     }
 }
