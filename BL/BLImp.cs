@@ -46,14 +46,6 @@ namespace BL
                    select lineDoBoAdapter(lineDO);
         }
 
-        //public IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate)
-        //{
-        //    //return from lineDO in dl.GetAllLinesBy(predicate)
-        //    //       orderby lineDO.Id
-        //    //       select lineDoBoAdapter(lineDO);
-        //    throw new NotImplementedException();
-        //}
-
         public void AddLine(BO.Line line)
         {
             //Add new DO.Line with no stations          
@@ -86,11 +78,6 @@ namespace BL
             }
         }
 
-        //public void UpdateLine(int id, Action<BO.Line> update)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public void DeleteLine(int id)
         {
             try
@@ -103,6 +90,18 @@ namespace BL
                 throw new BO.BadLineIDException("Line ID does Not exist", ex);
             }
         }
+
+        //public IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate)
+        //{
+        //    //return from lineDO in dl.GetAllLinesBy(predicate)
+        //    //       orderby lineDO.Id
+        //    //       select lineDoBoAdapter(lineDO);
+        //    throw new NotImplementedException();
+        //}
+        //public void UpdateLine(int id, Action<BO.Line> update)
+        //{
+        //    throw new NotImplementedException();
+        //}
         #endregion
 
         #region Station
@@ -139,14 +138,6 @@ namespace BL
                    select stationDoBoAdapter(stationDO);
         }
         
-        //public IEnumerable<BO.Station> GetAllStationsBy(Predicate<BO.Station> predicate)
-        //{
-        //    //return from stationDO in dl.GetAllStationsBy(predicate)
-        //    //       orderby stationDO.Code
-        //    //       select stationDoBoAdapter(stationDO);
-        //    throw new NotImplementedException();
-        //}
-        
         public void AddStation(BO.Station stationBO)
         {
             //Add new DO.Station with no lines       
@@ -176,32 +167,29 @@ namespace BL
             }
         }
 
-        //public void UpdateStation(int code, Action<BO.Station> update)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public void DeleteStation(int code)
         {
             try
             {
                 dl.DeleteStation(code);
-                dl.DeleteSolByStation(code);
             }
             catch (DO.BadStationCodeException ex)
             {
                 throw new BO.BadStationCodeException("Station code does Not exist", ex);
             }
         }
-        #endregion
 
-        #region LineOfStation
-        public IEnumerable<BO.LineOfStation> GetAllLinesOfStation(int code)
-        {
-            return from sol in dl.GetAllStationsOfLinesBy(sol => sol.StationCode == code)
-                   let line = dl.GetLine(sol.LineID)
-                   select line.CopyToLineOfStation(sol);
-        }
+        //public IEnumerable<BO.Station> GetAllStationsBy(Predicate<BO.Station> predicate)
+        //{
+        //    //return from stationDO in dl.GetAllStationsBy(predicate)
+        //    //       orderby stationDO.Code
+        //    //       select stationDoBoAdapter(stationDO);
+        //    throw new NotImplementedException();
+        //}
+        //public void UpdateStation(int code, Action<BO.Station> update)
+        //{
+        //    throw new NotImplementedException();
+        //}
         #endregion
 
         #region StationOfLine
@@ -247,6 +235,27 @@ namespace BL
                 throw new BO.BadLineIDStationCodeException("Line ID and Station code is Not exist", ex);
             }
         }
+
+        public void UpdateStationIndexInLine(int lineId, int stationCode, int newIndex)
+        {
+            try
+            {
+                dl.UpdateStationIndexInLine(lineId, stationCode, newIndex);
+            }
+            catch (DO.BadLineIDStationCodeException ex)
+            {
+                throw new BO.BadLineIDStationCodeException("Line ID and Station code is Not exist", ex);
+            }
+        }
+        #endregion
+
+        #region LineOfStation
+        public IEnumerable<BO.LineOfStation> GetAllLinesOfStation(int code)
+        {
+            return from sol in dl.GetAllStationsOfLinesBy(sol => sol.StationCode == code)
+                   let line = dl.GetLine(sol.LineID)
+                   select line.CopyToLineOfStation(sol);
+        }
         #endregion
 
         #region AdjacentStations
@@ -257,6 +266,14 @@ namespace BL
 
             return adjBO;
         }
+        
+        public IEnumerable<BO.AdjacentStations> GetMyAdjacentStations(int stationCode)
+        {
+            return from adjSt in dl.GetAllAdjacentStations()
+                   where adjSt.Station1Code == stationCode || adjSt.Station2Code == stationCode
+                   select adjacentStationsDoBoAdapter(adjSt);
+        }
+
         public void AddAdjacentStations(int station1Code, int station2Code)
         {
             try
@@ -267,12 +284,6 @@ namespace BL
             {
                 throw new BO.BadStationCodeException("Station code is Not exist", ex);
             }
-        }
-        public IEnumerable<DO.AdjacentStations> GetMyAdjacentStations(int stationCode)
-        {
-            return from adjSt in dl.GetAllAdjacentStations()
-                   where adjSt.Station1Code == stationCode || adjSt.Station2Code == stationCode
-                   select adjSt;
         }
         #endregion
     }

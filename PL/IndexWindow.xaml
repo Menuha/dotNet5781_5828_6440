@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Updata Index" Height="168.163" Width="235.804">
+        Title="Updata Index" Height="168.163" Width="235.804" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Select updated index:" HorizontalAlignment="Left" Height="30" Margin="10,49,0,0" VerticalAlignment="Top" Width="130"/>
         <ComboBox x:Name="cbIndex" Text="{Binding StationIndexInLine}" HorizontalAlignment="Left" Margin="145,49,0,0" VerticalAlignment="Top" Width="50" Height="23"/>
-        <Button x:Name="btUpdateIndex" Content="Update Index" HorizontalAlignment="Left" Margin="61,100,0,0" VerticalAlignment="Top" Width="101" Height="26" Click="btUpdateIndex_Click"/>
+        <Button x:Name="btUpdateIndex" Content="Update Index" HorizontalAlignment="Left" Margin="61,100,0,0" VerticalAlignment="Top" Width="101" Height="26" Click="btUpdateIndex_Click" />
     </Grid>
 </Window>

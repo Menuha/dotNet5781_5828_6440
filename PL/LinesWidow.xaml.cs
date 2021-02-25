@@ -149,18 +149,18 @@ namespace PL
             }
             else
             {
-                //try
-                //{
-                 //   bl.UpdateStationIndexInLine(curLine.ID, solBO.StationCode, solBO.StationIndexInLine);
+                try
+                {
+                    bl.UpdateStationIndexInLine(curLine.ID, solBO.StationCode, solBO.StationIndexInLine);
                     RefreshAllStationsOfLineGrid();
-
-                //}
-                //catch (BO.BadLineIDStationCodeException ex)
-                //{
-                //    MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                //}
+                }
+                catch (BO.BadLineIDStationCodeException ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
+       
         private void btUnRegisterStation_Click(object sender, RoutedEventArgs e)
         {
             try

@@ -27,7 +27,7 @@ namespace PL
             curSolBO = solBO;
             indexBeforeUpdate = solBO.StationIndexInLine;
 
-            for (int i = 0; i < routeLength; i++)
+            for (int i = 1; i <= routeLength; i++)
             {
                 cbIndex.Items.Add(i);
             }
