@@ -39,15 +39,32 @@ namespace PL
             if (res == MessageBoxResult.No)
                 return;
 
-            //code missing:
-            //test each textbox, combobox value with more TKINUT KELET etc.
-            // make sure each field has value
-            //if not takin shoe message box, and return.
-            //else
+            newSta.Latitude = int.Parse(latitudeTextBox.Text);
+            newSta.Longitude = int.Parse(longitudeTextBox.Text);
+            //newSta.Name = nameTextBox.Text;
+           
             try
             {
-                bl.AddStation(newSta);
-                this.Close();
+                if ((codeTextBox.Text.Length) > 5 || codeTextBox.Text.Length < 5)
+                {
+                    MessageBoxResult rol = MessageBox.Show("Press station code with 5 nunbers only!");
+                    if (rol == MessageBoxResult.OK)
+                        return;
+                }
+                else if (newSta.Latitude < 30 || newSta.Latitude > 34)
+                    MessageBox.Show("Press latitude in Israel only!");
+
+                else if (newSta.Latitude < 30 || newSta.Latitude > 34)
+                    MessageBox.Show("Press latitude in Israel only!");
+
+                //else if (newSta.Name < 'A' || newSta.Name > 34)
+                //    MessageBox.Show("Press latitude in Israel only!");
+
+                else
+                {
+                    bl.AddStation(newSta);
+                    this.Close();
+                }
             }
             catch (BO.BadStationCodeException ex)
             {
@@ -66,5 +83,37 @@ namespace PL
             else
                 btContinue.IsEnabled = true; ; //errorMessages.Remove(e.Error.Exception.Message);
         }
+        private void codeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(codeTextBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.");
+                codeTextBox.Text = codeTextBox.Text.Remove(codeTextBox.Text.Length - 1);
+            }
+        }
+        private void latitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(latitudeTextBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.");
+                latitudeTextBox.Text = latitudeTextBox.Text.Remove(latitudeTextBox.Text.Length - 1);
+            }
+        }
+        private void longitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(longitudeTextBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.");
+                longitudeTextBox.Text = longitudeTextBox.Text.Remove(longitudeTextBox.Text.Length - 1);
+            }
+        }
+        //private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (System.Text.RegularExpressions.Regex.IsMatch(longitudeTextBox.Text, "[^A-z]"))
+        //    {
+        //        MessageBox.Show("Please enter only charts.");
+        //        longitudeTextBox.Text = longitudeTextBox.Text.Remove(longitudeTextBox.Text.Length - 1);
+        //    }
+        //}
     }
 }

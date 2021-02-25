@@ -23,11 +23,15 @@ namespace PL
     {
         IBL bl;
         BO.Line curLine;
-
+        System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
         public LinesWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
+
+            Timer.Tick += new EventHandler(Timer_Click);
+            Timer.Interval = new TimeSpan(0, 0, 1);
+            Timer.Start();
 
             areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
 
@@ -38,7 +42,11 @@ namespace PL
             dgOtherStations.IsReadOnly = true;
 
         }
-
+        private void Timer_Click(object sender, EventArgs e)
+        {
+            DateTime d = DateTime.Now;
+            lblTimer.Content = d.Hour + " : " + d.Minute + " : " + d.Second;
+        }
         void RefreshAllLineComboBox()
         {
             cbLineID.DataContext = bl.GetAllLines();

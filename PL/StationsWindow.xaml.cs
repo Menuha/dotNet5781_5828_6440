@@ -25,6 +25,7 @@ namespace PL
     {
         IBL bl;
         BO.Station sta;
+        System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
 
         public StationsWindow(IBL _bl)
         {
@@ -33,12 +34,20 @@ namespace PL
 
             cbStationID.DisplayMemberPath = "Name";
             cbStationID.SelectedItem = "Code";
+            Timer.Tick += new EventHandler(Timer_Click);
+            Timer.Interval = new TimeSpan(0, 0, 1);
+            Timer.Start();
 
             RefreshAllStationComboBox();
 
             dgLinesOfStation.IsReadOnly = true;
         }
 
+        private void Timer_Click(object sender, EventArgs e)
+        {
+            DateTime d = DateTime.Now;
+            lblTimer.Content = d.Hour + " : " + d.Minute + " : " + d.Second;
+        }
         void RefreshAllStationComboBox()
         {
             cbStationID.DataContext = bl.GetAllStations();
@@ -112,15 +121,18 @@ namespace PL
         private void btAddStation_Click(object sender, RoutedEventArgs e)
         {
             AddStation thirdWindow = new AddStation(bl);
-            //thirdWindow.Closing += WinAddStation_Closing;
+            thirdWindow.Closing += WinAddStation_Closing;
             thirdWindow.ShowDialog();
         }
 
         private void WinAddStation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            RefreshAllLinesOfStationGrid();
-            //
+            //RefreshAllLinesOfStationGrid();
+            ////
+            //RefreshAllStationComboBox();
             RefreshAllStationComboBox();
+            //
+            RefreshAllLinesOfStationGrid();
         }
 
     }

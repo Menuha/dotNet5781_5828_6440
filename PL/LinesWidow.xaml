@@ -100,6 +100,7 @@
         <Button x:Name="btUpdateLine" Content="Update Current Line" HorizontalAlignment="Left" Margin="55,268,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="DeepPink" Click="btUpdateLine_Click"/>
         <Button x:Name="btDeleteLine" Content="Delete Current Line" HorizontalAlignment="Left" Margin="55,324,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="BlueViolet" Click="btDeleteLine_Click"/>
         <Button x:Name="btAddLine" Content="Add New Line" HorizontalAlignment="Left" Margin="55,384,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="#FF6DB469" Click="btAddLine_Click"/>
+        <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="44" Margin="410,9,0,0" VerticalAlignment="Top" Width="177" FontStyle="Italic" FontSize="20" FontWeight="Bold"  Grid.Column="1"/>
 
     </Grid>
 </Window>
