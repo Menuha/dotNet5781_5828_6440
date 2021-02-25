@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Device.Location;
 
 using DLAPI;
 using DS;
@@ -220,6 +221,25 @@ namespace DL
             else
                 throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Worng station of line");
         }
+        public void UpdateStationIndexInLine(int lineId, int stationCode, int newIndex)
+        {
+            //DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == lineId && sl.StationCode == stationCode);
+            //if (sol != null)
+            //{
+            //    //List<DO.StationOfLine> solList = DataSource.ListStationsOfLines.FindAll(sl => sl.LineID == lineId);
+            //    if (newIndex > sol.StationIndexInLine) 
+            //    {
+            //        for (int i = 0; i < newIndex; i++)
+            //        {
+            //            DataSource.ListStationsOfLines.Find(sl => sl.LineID == lineId && sl.StationIndexInLine == i).StationIndexInLine++;
+            //        }
+            //        //sol.StationIndexInLine=
+            //    }
+            //}
+            //else
+            //    throw new DO.BadLineIDStationCodeException(sol.LineID, sol.StationCode, "Worng station of line");
+            throw new NotImplementedException();
+        }
 
         //public void UpdateStationOfLine(int lineID, int stationCode, Action<DO.StationOfLine> update)
         //{
@@ -231,19 +251,34 @@ namespace DL
         public void AddAdjacentStations(int station1Code, int station2Code)
         {
 
-            if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == lineId && sols.StationCode == stationCode)) != null)
-                throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
+            //if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == station1Code && sols.StationCode == stationCode)) != null)
+            //    throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
 
             if (DataSource.ListAdjacentStations.FirstOrDefault(adjSt => (adjSt.Station1Code == station1Code && adjSt.Station2Code == station2Code)) == null)
             {
-                DO.AdjacentStations adjSt = new DO.AdjacentStations() { Station1Code = station1Code, Station2Code = station2Code };
+                DO.Station station1 = GetStation(station1Code);
+                DO.Station station2 = GetStation(station2Code);
+                var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
+                var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
+
+                var distance = sCoord.GetDistanceTo(eCoord);
+                DO.AdjacentStations adjSt = new DO.AdjacentStations() {
+                    Station1Code = station1Code, 
+                    Station2Code = station2Code,
+                    Distance=distance
+                    //timeSpan
+                };
+
                 DataSource.ListAdjacentStations.Add(adjSt);
             }
-            
+            //else
+                //throw 
+
         }
         public IEnumerable<DO.AdjacentStations> GetAllAdjacentStations()
         {
-            throw new NotImplementedException();
+            return from adjSt in DataSource.ListAdjacentStations
+                   select adjSt.Clone();
         }
         #endregion
 
