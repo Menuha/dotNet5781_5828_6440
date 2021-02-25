@@ -12,6 +12,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="208*"/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF008000" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="268*"/>
             <ColumnDefinition Width="687*"/>

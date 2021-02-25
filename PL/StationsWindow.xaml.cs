@@ -82,6 +82,26 @@ namespace PL
         {
             try
             {
+                if ((codeTextBox.Text.Length) > 5 || codeTextBox.Text.Length < 5)
+                {
+                    MessageBoxResult rol = MessageBox.Show("Press station code with 5 nunbers only!");
+                    if (rol == MessageBoxResult.OK)
+                        return;
+                }
+                if (sta.Latitude < 30 || sta.Latitude > 34)
+                {
+                    MessageBoxResult res2 = MessageBox.Show("Press latitude in Israel only!");
+                    if (res2 == MessageBoxResult.OK)
+                        return;
+                }
+
+                if (sta.Longitude < 30 || sta.Longitude > 34)
+                {
+                    MessageBoxResult res3 = MessageBox.Show("Press longitude in Israel only!");
+                    if (res3 == MessageBoxResult.OK)
+                        return;
+                }
+                else
                 if (sta != null)
                     bl.UpdateStation(sta);
             }

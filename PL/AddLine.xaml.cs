@@ -39,11 +39,6 @@ namespace PL
             if (res == MessageBoxResult.No)
                 return;
 
-            //code missing:
-            //test each textbox, combobox value with more TKINUT KELET etc.
-            // make sure each field has value
-            //if not takin shoe message box, and return.
-            //else
             try
             {
                 bl.AddLine(newLine);
@@ -66,6 +61,22 @@ namespace PL
                 btContinue.IsEnabled = false; //e.Error.Exception.Message;
             else
                 btContinue.IsEnabled = true; ; //errorMessages.Remove(e.Error.Exception.Message);
+        }
+        private void iDTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(iDTextBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.");
+                iDTextBox.Text = iDTextBox.Text.Remove(iDTextBox.Text.Length - 1);
+            }
+        }
+        private void numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(numberTextBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.");
+                numberTextBox.Text = numberTextBox.Text.Remove(numberTextBox.Text.Length - 1);
+            }
         }
     }
 }

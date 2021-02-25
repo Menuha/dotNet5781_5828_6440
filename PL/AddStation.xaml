@@ -12,6 +12,12 @@
     <Grid>
 
         <Grid x:Name="gridNewStation" VerticalAlignment="Top" Margin="65,71,0,0" HorizontalAlignment="Left" Height="276" Width="223">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF008000" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -30,8 +36,11 @@
             <TextBox x:Name="longitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="longitudeTextBox_TextChanged"/>
             <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Name:"/>
             <TextBox x:Name="nameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label Content="Press 5 digits only" Grid.Column="1" HorizontalAlignment="Left" Margin="4.333,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,1.676"/>
+            <Label Content="Press 31-35" Grid.Column="1" HorizontalAlignment="Left" Margin="9.333,38.667,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,1.676" Grid.Row="1"/>
+            <Label Content="Press 31-35" Grid.Column="1" HorizontalAlignment="Left" Margin="16.333,39.333,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,1.676" Grid.Row="2"/>
         </Grid>
-        
+
         <Button x:Name="btContinue" Content="Continue" HorizontalAlignment="Left" Margin="87,366,0,0" VerticalAlignment="Top" Width="75" Click="btContinue_Click"/>
         <Button x:Name="btCancel" Content="Cancel" HorizontalAlignment="Left" Margin="187,366,0,0" VerticalAlignment="Top" Width="75" Click="btCancel_Click"/>
 

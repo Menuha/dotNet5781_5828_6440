@@ -51,15 +51,19 @@ namespace PL
                     if (rol == MessageBoxResult.OK)
                         return;
                 }
-                else if (newSta.Latitude < 30 || newSta.Latitude > 34)
-                    MessageBox.Show("Press latitude in Israel only!");
+                if (newSta.Latitude < 30 || newSta.Latitude > 34)
+                {
+                    MessageBoxResult res2 = MessageBox.Show("Press latitude in Israel only!");
+                    if (res2 == MessageBoxResult.OK)
+                        return;
+                }
 
-                else if (newSta.Latitude < 30 || newSta.Latitude > 34)
-                    MessageBox.Show("Press latitude in Israel only!");
-
-                //else if (newSta.Name < 'A' || newSta.Name > 34)
-                //    MessageBox.Show("Press latitude in Israel only!");
-
+                if (newSta.Longitude < 30 || newSta.Longitude > 34)
+                {
+                    MessageBoxResult res3 = MessageBox.Show("Press longitude in Israel only!");
+                    if (res3 == MessageBoxResult.OK)
+                        return;
+                }
                 else
                 {
                     bl.AddStation(newSta);
@@ -107,13 +111,5 @@ namespace PL
                 longitudeTextBox.Text = longitudeTextBox.Text.Remove(longitudeTextBox.Text.Length - 1);
             }
         }
-        //private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    if (System.Text.RegularExpressions.Regex.IsMatch(longitudeTextBox.Text, "[^A-z]"))
-        //    {
-        //        MessageBox.Show("Please enter only charts.");
-        //        longitudeTextBox.Text = longitudeTextBox.Text.Remove(longitudeTextBox.Text.Length - 1);
-        //    }
-        //}
     }
 }
