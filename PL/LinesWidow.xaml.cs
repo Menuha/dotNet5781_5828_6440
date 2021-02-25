@@ -150,11 +150,10 @@ namespace PL
             }
             else
             {
-                //try
-                //{
-                 //   bl.UpdateStationIndexInLine(curLine.ID, solBO.StationCode, solBO.StationIndexInLine);
+                try
+                {
+                    bl.UpdateStationIndexInLine(curLine.ID, solBO.StationCode, solBO.StationIndexInLine);
                     RefreshAllStationsOfLineGrid();
-
                 }
                 catch (BO.BadLineIDStationCodeException ex)
                 {
