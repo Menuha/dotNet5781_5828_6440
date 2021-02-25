@@ -23,6 +23,7 @@ namespace PL
     {
         IBL bl;
         BO.Line curLine;
+
         public LinesWindow(IBL _bl)
         {
             InitializeComponent();
