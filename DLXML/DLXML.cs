@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,10 +31,78 @@ namespace DL
 
         #endregion
 
+        #region AdjacentStations
+        //public void AddAdjacentStations(int station1Code, int station2Code)
+        //{
+
+        //    //if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == station1Code && sols.StationCode == stationCode)) != null)
+        //    //    throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
+
+        //    if (DataSource.ListAdjacentStations.FirstOrDefault(adjSt => (adjSt.Station1Code == station1Code && adjSt.Station2Code == station2Code)) == null)
+        //    {
+        //        DO.Station station1 = GetStation(station1Code);
+        //        DO.Station station2 = GetStation(station2Code);
+        //        var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
+        //        var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
+
+        //        var distance = sCoord.GetDistanceTo(eCoord);
+        //        DO.AdjacentStations adjSt = new DO.AdjacentStations()
+        //        {
+        //            Station1Code = station1Code,
+        //            Station2Code = station2Code,
+        //            Distance = distance
+        //            //timeSpan
+        //        };
+
+        //        DataSource.ListAdjacentStations.Add(adjSt);
+        //    }
+        //    //else
+        //    //throw 
+
+        //}
+        //public void AddPerson(DO.Person person)
+        //{
+        //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
+
+        //    XElement per1 = (from p in personsRootElem.Elements()
+        //                     where int.Parse(p.Element("ID").Value) == person.ID
+        //                     select p).FirstOrDefault();
+
+        //    if (per1 != null)
+        //        throw new DO.BadPersonIdException(person.ID, "Duplicate person ID");
+
+        //    XElement personElem = new XElement("Person", new XElement("ID", person.ID),
+        //                          new XElement("Name", person.Name),
+        //                          new XElement("Street", person.Street),
+        //                          new XElement("HouseNumber", person.HouseNumber.ToString()),
+        //                          new XElement("City", person.City),
+        //                          new XElement("BirthDate", person.BirthDate),
+        //                          new XElement("PersonalStatus", person.PersonalStatus.ToString()),
+        //                          new XElement("Duration", person.Duration.ToString()));
+
+        //    personsRootElem.Add(personElem);
+
+        //    XMLTools.SaveListToXMLElement(personsRootElem, personsPath);
+        //}
+        public IEnumerable<DO.AdjacentStations> GetAllAdjacentStations()
+        {
+            XElement AdjacentStationsRootElem = XMLTools.LoadListFromXMLElement(AdjacentStationsPath);
+
+            return (from a in AdjacentStationsRootElem.Elements()
+                    select new AdjacentStations()
+                    {
+                        Station1Code = Int32.Parse(a.Element("Station 1 Code").Value),
+                        Station2Code = Int32.Parse(a.Element("Station 2 Code").Value),
+                        Distance = double.Parse(a.Element("Distance").Value),
+                        AvgTime = TimeSpan.ParseExact(a.Element("Avarage Time").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                    }
+                   );
+        }
+        #endregion
 
 
         #region Line
-        public DO.Line GetStudent(int id)
+        public DO.Line GetLine(int id)
         {
             List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
 
@@ -185,14 +254,14 @@ namespace DL
         #endregion
 
         #region StationOfLine
-        public IEnumerable<DO.StationOfLine> GetAllLineStationsBy (Predicate<DO.StationOfLine> predicate)
+        public IEnumerable<DO.StationOfLine> GetAllStationsOfLinesBy (Predicate<DO.StationOfLine> predicate)
         {
             List<StationOfLine> ListStationOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
             return from stationOfLine in ListStationOfLines
                    where predicate(stationOfLine)
                    select stationOfLine;
         }
-        public IEnumerable<DO.StationOfLine> GetAllStationOfLines(int lineID)
+        public IEnumerable<DO.StationOfLine> GetAllStationsOfLine(int lineID)
         {
             List<StationOfLine> ListStationOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
 
@@ -200,7 +269,7 @@ namespace DL
                    where linestation.LineID == lineID
                    select linestation; //no need to Clone()
         }
-        public bool UpdateLineStation(DO.StationOfLine stationOfLine)
+        public void UpdateStationOfLine(DO.StationOfLine stationOfLine)
         {
             List<StationOfLine> ListStationOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
             DO.StationOfLine sol = ListStationOfLines.Find(l => l.LineID == stationOfLine.LineID);
@@ -208,26 +277,22 @@ namespace DL
             {
                 ListStationOfLines.Remove(sol);
                 ListStationOfLines.Add(stationOfLine); //no nee to Clone()
-                return true;
             }
             else
                 throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Worng station of line");
-
-
-            //XMLTools.SaveListToXMLSerializer(ListStationOfLines, StationOfLinesPath);
+            XMLTools.SaveListToXMLSerializer(ListStationOfLines, StationOfLinesPath);
         }
-        public bool AddStationOfLine(int lineId, int stationCode)
+        public void AddStationOfLine(int lineId, int stationCode)
         {
             List<StationOfLine> ListStationOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
-            if (ListStationOfLines.FirstOrDefault(sols => (sols.LineID == lineId && sols.StationCode == stationCode)) != null)
-                throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
+                if (ListStationOfLines.FirstOrDefault(sols => (sols.LineID == lineId && sols.StationCode == stationCode)) != null)
+                    throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
 
             int index = ListStationOfLines.FindAll(sols => sols.LineID == lineId).Count() + 1;
-            DO.StationOfLine sol = new DO.StationOfLine() { LineID = lineId, StationCode = stationCode, StationIndexInLine = index };
-            ListStationOfLines.Add(sol); //no need to Clone()
+                DO.StationOfLine sol = new DO.StationOfLine() { LineID = lineId, StationCode = stationCode, StationIndexInLine = index };
+                ListStationOfLines.Add(sol); //no need to Clone()
 
             XMLTools.SaveListToXMLSerializer(ListStationOfLines, StationOfLinesPath);
-            return true;
         }
         public void DeleteStationOfLine(int lineID, int stationCode)
         {
