@@ -196,9 +196,11 @@ namespace DL
         public void DeleteStationOfLine(int lineID, int stationCode)
         {
             DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
+            int routeLength = GetAllStationsOfLine(lineID).Count();
+            if (routeLength == 2)
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Line route should have at least 2 stations");
             if (sol != null)
             {
-                int routeLength = GetAllStationsOfLine(lineID).Count();
                 UpdateStationIndexInLine(lineID, stationCode, routeLength);
                 DataSource.ListStationsOfLines.Remove(sol);
                 //Update last station of this line
@@ -314,19 +316,20 @@ namespace DL
             {
                 DO.Station station1 = GetStation(station1Code);
                 DO.Station station2 = GetStation(station2Code);
-                //var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
-                //var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
-                //var distance = sCoord.GetDistanceTo(eCoord);
+                var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
+                var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
+                var distance = sCoord.GetDistanceTo(eCoord);
                 
                 DO.AdjacentStations adjSt = new DO.AdjacentStations() {
                     Station1Code = station1Code, 
                     Station2Code = station2Code,
-                    //Distance = 1.5 * distance,
-                    Distance = 500,
-                    AvgTime = new TimeSpan(0, 5, 0)
+                    Distance = 1.5 * distance,
+                    //speed = 10 m/s
+                    AvgTime = new TimeSpan(0, 0, Convert.ToInt32(1.5 * distance / 10))
                 };
                 DataSource.ListAdjacentStations.Add(adjSt);
             }
+            //
         }
 
         public void DeleteAdjacentStationsByStation(int stationCode)

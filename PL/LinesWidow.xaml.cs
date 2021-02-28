@@ -85,7 +85,10 @@ namespace PL
             try
             {
                 if (curLine != null)
+                {
                     bl.UpdateLine(curLine);
+                    RefreshAllLineComboBox();
+                }
             }
             catch (BO.BadLineIDException ex)
             {
@@ -183,7 +186,7 @@ namespace PL
             }
             catch (BO.BadLineIDStationCodeException ex)
             {
-                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Line route should have at least 2 stations", "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
       

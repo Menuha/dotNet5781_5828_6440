@@ -7,7 +7,7 @@
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.AddStation"
         mc:Ignorable="d"
         Validation.Error="My_Validation_Error"
-        Title="Add New Station" Height="450" Width="350">
+        Title="Add New Station" Height="450" Width="350" WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid.Background>
@@ -17,7 +17,7 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid x:Name="gridNewStation" VerticalAlignment="Top" Margin="65,71,0,0" HorizontalAlignment="Left" Height="276" Width="223">
+        <Grid x:Name="gridNewStation" VerticalAlignment="Top" Margin="65,51,0,0" HorizontalAlignment="Left" Height="276" Width="223">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>

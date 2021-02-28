@@ -98,6 +98,20 @@ namespace DS
                   Latitude=31,
                   Longitude=(float)34,
                 },
+                new Station
+                {
+                  Code=38855,
+                  Name="הרצל/גולני",
+                  Latitude=(float)31.856115,
+                  Longitude=(float)34.825249,
+                },
+                new Station
+                {
+                  Code=38856,
+                  Name="הרותם/הדגניות",
+                  Latitude=(float)31.874963,
+                  Longitude=(float)34.81249,
+                },
             };
 
             ListStationsOfLines = new List<StationOfLine>

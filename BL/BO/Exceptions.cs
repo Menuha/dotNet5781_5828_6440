@@ -32,8 +32,8 @@ namespace BO
         public BadLineIDStationCodeException(string message, Exception innerException) :
             base(message, innerException)
         { 
-            LineID = ((DO.BadLineIDException)innerException).ID; 
-            StationCode = ((DO.BadStationCodeException)innerException).Code; 
+            LineID = ((DO.BadLineIDStationCodeException)innerException).LineID; 
+            StationCode = ((DO.BadLineIDStationCodeException)innerException).StationCode; 
         }
         public override string ToString() => base.ToString() + $", bad line id: {LineID} and station code: {StationCode}";
     }

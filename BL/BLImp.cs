@@ -257,7 +257,7 @@ namespace BL
             }
             catch (DO.BadLineIDStationCodeException ex)
             {
-                throw new BO.BadLineIDStationCodeException("Line ID and Station code is Not exist", ex);
+                throw new BO.BadLineIDStationCodeException("Line ID and Station code does Not exist", ex);
             }
         }
 
