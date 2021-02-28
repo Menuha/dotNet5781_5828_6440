@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 using BLAPI;
 
@@ -23,15 +24,11 @@ namespace PL
     {
         IBL bl;
         BO.Line curLine;
-        System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
+        DispatcherTimer Timer = new DispatcherTimer();
         public LinesWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
-
-            Timer.Tick += new EventHandler(Timer_Click);
-            Timer.Interval = new TimeSpan(0, 0, 1);
-            Timer.Start();
 
             areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
 
@@ -41,12 +38,11 @@ namespace PL
             dgStationsOfLine.IsReadOnly = true;
             dgOtherStations.IsReadOnly = true;
 
+            Timer.Tick += new EventHandler(Timer_Click);
+            Timer.Interval = new TimeSpan(0, 0, 1);
+            Timer.Start();
         }
-        private void Timer_Click(object sender, EventArgs e)
-        {
-            DateTime d = DateTime.Now;
-            lblTimer.Content = d.Hour + " : " + d.Minute + " : " + d.Second;
-        }
+        
         void RefreshAllLineComboBox()
         {
             cbLineID.DataContext = bl.GetAllLines();
@@ -64,6 +60,12 @@ namespace PL
             dgOtherStations.DataContext = listOfOtherStations;
         }
 
+        private void Timer_Click(object sender, EventArgs e)
+        {
+            DateTime d = DateTime.Now;
+            lblTimer.Content = d.Hour + " : " + d.Minute + " : " + d.Second;
+        }
+
         private void cbLineID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             curLine = (cbLineID.SelectedItem as BO.Line);
@@ -76,7 +78,6 @@ namespace PL
                 //list of all stations (that selected line is not registered to it)
                 RefreshAllOtherStationsGrid();
             }
-
         }
 
         private void btUpdateLine_Click(object sender, RoutedEventArgs e)

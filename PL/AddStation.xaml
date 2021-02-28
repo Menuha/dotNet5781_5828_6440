@@ -7,17 +7,17 @@
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.AddStation"
         mc:Ignorable="d"
         Validation.Error="My_Validation_Error"
-        Title="Add New Station" Height="450" Width="800">
+        Title="Add New Station" Height="450" Width="350">
 
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF008000" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
         <Grid x:Name="gridNewStation" VerticalAlignment="Top" Margin="65,71,0,0" HorizontalAlignment="Left" Height="276" Width="223">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="White" Offset="0"/>
-                    <GradientStop Color="#FF008000" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -30,15 +30,18 @@
             </Grid.ColumnDefinitions>
             <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Code:"/>
             <TextBox x:Name="codeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Code, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="codeTextBox_TextChanged"/>
-            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Latitude:"/>
-            <TextBox x:Name="latitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="latitudeTextBox_TextChanged"/>
-            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Longitude:"/>
-            <TextBox x:Name="longitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="longitudeTextBox_TextChanged"/>
-            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Name:"/>
-            <TextBox x:Name="nameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label Content="Press 5 digits only" Grid.Column="1" HorizontalAlignment="Left" Margin="4.333,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,1.676"/>
-            <Label Content="Press 31-35" Grid.Column="1" HorizontalAlignment="Left" Margin="9.333,38.667,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,1.676" Grid.Row="1"/>
-            <Label Content="Press 31-35" Grid.Column="1" HorizontalAlignment="Left" Margin="16.333,39.333,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,1.676" Grid.Row="2"/>
+
+            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Name:"/>
+            <TextBox x:Name="nameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+
+            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Latitude:"/>
+            <TextBox x:Name="latitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="latitudeTextBox_TextChanged"/>
+            <Label Content="Press 31-33.3" Grid.Column="1" HorizontalAlignment="Left" Margin="9.333,38.667,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,1.676" Grid.Row="2"/>
+
+            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Longitude:"/>
+            <TextBox x:Name="longitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="longitudeTextBox_TextChanged"/>
+            <Label Content="Press 34.3-35.5" Grid.Column="1" HorizontalAlignment="Left" Margin="16.333,39.333,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,1.676" Grid.Row="3"/>
         </Grid>
 
         <Button x:Name="btContinue" Content="Continue" HorizontalAlignment="Left" Margin="87,366,0,0" VerticalAlignment="Top" Width="75" Click="btContinue_Click"/>

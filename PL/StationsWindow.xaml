@@ -6,24 +6,29 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.StationsWindow"
         mc:Ignorable="d"
-        Title="StationsWindow" Height="450" Width="800" >
+        Title="StationsWindow" Height="526.787" Width="1000" WindowStartupLocation="CenterScreen" >
 
-    <Grid>
+    <Grid Margin="0,0,0.2,-0.8" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="87*"/>
-            <RowDefinition Height="332*"/>
+            <RowDefinition Height="208*"/>
         </Grid.RowDefinitions>
-         <Grid.Background>
+        <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="White" Offset="0"/>
                 <GradientStop Color="#FF008000" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="269*"/>
+            <ColumnDefinition Width="321*"/>
+            <ColumnDefinition Width="402*"/>
+        </Grid.ColumnDefinitions>
+
         <Label Content="Select Station:" HorizontalAlignment="Left" Margin="33,57,0,0" VerticalAlignment="Top" Width="85" Height="30" RenderTransformOrigin="0.343,0.461" FontWeight="Bold"/>
         <ComboBox x:Name="cbStationID" HorizontalAlignment="Left" Margin="132,61,0,0" VerticalAlignment="Top" Width="105" Text=""
-                  ItemsSource="{Binding}" SelectionChanged="cbStationID_SelectionChanged" />
+                  ItemsSource="{Binding}" SelectionChanged="cbStationID_SelectionChanged" Height="22" />
 
-        <Grid x:Name="gridOneStation" HorizontalAlignment="Left" Margin="39,14,0,0" Grid.Row="1" VerticalAlignment="Top">
+        <Grid x:Name="gridOneStation" HorizontalAlignment="Left" Margin="39,124,0,0" VerticalAlignment="Top" Height="128" Width="198">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -44,8 +49,8 @@
             <TextBox x:Name="longitudeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
 
-        <Label Content="List of lines of this station:" HorizontalAlignment="Left" Margin="270,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold"/>
-        <DataGrid x:Name="dgLinesOfStation" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="274,62,289.333,158.667" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2" >
+        <Label Content="List of lines of this station:" HorizontalAlignment="Left" Margin="32,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Width="188"/>
+        <DataGrid x:Name="dgLinesOfStation" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="28,98,29,71" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.Column="1" >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="iDColumn" Binding="{Binding ID}" Header="ID" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="numberColumn" Binding="{Binding Number}" Header="Number" Width="SizeToHeader"/>
@@ -54,11 +59,23 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="69,175,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btUpStation_Click"/>
-        <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="69,215,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btDelStation_Click"/>
-        <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="69,255,0,0" Grid.Row="1" VerticalAlignment="Top" Width="155" Click="btAddStation_Click" />
-        <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="44" Margin="450,0,0,0" VerticalAlignment="Top" Width="177" FontStyle="Italic" FontSize="20" FontWeight="Bold"/>
+        <Label Content="List of my adjacent stations:" HorizontalAlignment="Left" Margin="32,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold" Grid.Row="0" Grid.Column="2" Width="188"/>
+        <DataGrid x:Name="dgAdjacentStations" AutoGenerateColumns="False" Grid.Column="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="28,99,62,72" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="station1CodeColumn" Binding="{Binding Station1Code}" Header="Station 1 Code" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="station2CodeColumn" Binding="{Binding Station2Code}" Header="Station 2 Code" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="distanceColumn" Binding="{Binding Distance}" Header="Distance" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="avgTimeColumn" Binding="{Binding AvgTime}" Header="Avg Time" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
+
+        <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="69,301,0,0" VerticalAlignment="Top" Width="155" Background="DeepPink" Click="btUpStation_Click" Height="20"/>
+        <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="69,345,0,0" VerticalAlignment="Top" Width="155" Background="BlueViolet" Click="btDelStation_Click" Height="20"/>
+        <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="69,387,0,0" VerticalAlignment="Top" Width="155" Background="#FF6DB469" Click="btAddStation_Click" Height="20" />
+
+        <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="35" Margin="99,430,0,0" VerticalAlignment="Top" Width="142" FontStyle="Italic" FontSize="20" FontWeight="Bold" Grid.Column="0"/>
+        
 
 
     </Grid>

@@ -68,35 +68,35 @@ namespace DS
                   Code=38831,
                   Name="בי''ס בר לב/בן יהודה",
                   Latitude=32,
-                  Longitude=34,             
+                  Longitude=(float)34.5,             
                 },
                 new Station
                 {
                   Code=38832,
                   Name="הרצל/צומת בילו",
                   Latitude=31,
-                  Longitude=34,
+                  Longitude=(float)34.5,
                 },
                 new Station
                 {
                   Code=38833,
                   Name="הנחשול/הדייגים",
                   Latitude=31,
-                  Longitude=34,
+                  Longitude=(float)34.5,
                 },
                 new Station
                 {
                   Code=41133,
                   Name="פריד/ששת הימים",
                   Latitude=31,
-                  Longitude=34,
+                  Longitude=(float)34.5,
                 },
                 new Station
                 {
                   Code=38834,
                   Name="מסדה/בלפור",
                   Latitude=31,
-                  Longitude=34,
+                  Longitude=(float)34,
                 },
             };
 

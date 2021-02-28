@@ -34,6 +34,7 @@ namespace PL
 
             cbStationID.DisplayMemberPath = "Name";
             cbStationID.SelectedItem = "Code";
+           
             Timer.Tick += new EventHandler(Timer_Click);
             Timer.Interval = new TimeSpan(0, 0, 1);
             Timer.Start();
@@ -41,6 +42,7 @@ namespace PL
             RefreshAllStationComboBox();
 
             dgLinesOfStation.IsReadOnly = true;
+            dgAdjacentStations.IsReadOnly = true;
         }
 
         private void Timer_Click(object sender, EventArgs e)
@@ -48,6 +50,7 @@ namespace PL
             DateTime d = DateTime.Now;
             lblTimer.Content = d.Hour + " : " + d.Minute + " : " + d.Second;
         }
+        
         void RefreshAllStationComboBox()
         {
             cbStationID.DataContext = bl.GetAllStations();
@@ -59,11 +62,10 @@ namespace PL
             dgLinesOfStation.DataContext = bl.GetAllLinesOfStation(sta.Code);
         }
 
-        //void RefreshAllOtherLinesGrid()
-        //{
-        //    List<BO.Line> listOfOtherLines = bl.GetAllLines().Where(l1 => bl.GetAllLinesOfStation(sta.Code).All(l2 => l2.ID != l1.ID)).ToList();
-        //    dgOtherLines.DataContext = listOfOtherLines;
-        //}
+        void RefreshAllAdjacentStationGrid()
+        {
+            dgAdjacentStations.DataContext = bl.GetMyAdjacentStations(sta.Code);
+        }
 
         private void cbStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -74,7 +76,8 @@ namespace PL
             {
                 //list of lines of selected station
                 RefreshAllLinesOfStationGrid();
-                //
+                //list of adjacent stations of selected station
+                RefreshAllAdjacentStationGrid();
             }
         }
 
@@ -88,21 +91,19 @@ namespace PL
                     if (rol == MessageBoxResult.OK)
                         return;
                 }
-                if (sta.Latitude < 30 || sta.Latitude > 34)
+                if (sta.Latitude < 31 || sta.Latitude > 33.3)
                 {
                     MessageBoxResult res2 = MessageBox.Show("Press latitude in Israel only!");
                     if (res2 == MessageBoxResult.OK)
                         return;
                 }
-
-                if (sta.Longitude < 30 || sta.Longitude > 34)
+                if (sta.Longitude < 34.3 || sta.Longitude > 35.5)
                 {
                     MessageBoxResult res3 = MessageBox.Show("Press longitude in Israel only!");
                     if (res3 == MessageBoxResult.OK)
                         return;
                 }
-                else
-                if (sta != null)
+                else if (sta != null)
                     bl.UpdateStation(sta);
             }
             catch (BO.BadStationCodeException ex)
@@ -122,10 +123,10 @@ namespace PL
                 if (sta != null)
                 {
                     bl.DeleteStation(sta.Code);
-
-                    RefreshAllStationComboBox();
-                  //
+                  
                     RefreshAllLinesOfStationGrid();
+                    RefreshAllAdjacentStationGrid();
+                    RefreshAllStationComboBox();
                 }
             }
             catch (BO.BadLineIDStationCodeException ex)
@@ -147,13 +148,10 @@ namespace PL
 
         private void WinAddStation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //RefreshAllLinesOfStationGrid();
-            ////
-            //RefreshAllStationComboBox();
-            RefreshAllStationComboBox();
-            //
             RefreshAllLinesOfStationGrid();
-        }
+            RefreshAllAdjacentStationGrid();
+            RefreshAllStationComboBox();
 
+        }
     }
 }

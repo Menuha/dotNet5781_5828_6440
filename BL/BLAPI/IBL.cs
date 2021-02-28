@@ -11,7 +11,7 @@ namespace BLAPI
         #region Line
         BO.Line GetLine(int id);
         IEnumerable<BO.Line> GetAllLines();
-        void AddLine(BO.Line line);
+        void AddLine(BO.Line line, int firstStationCode, int lastStationCode);
         void UpdateLine(BO.Line line);
         void DeleteLine(int id);
         //IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate);
@@ -30,9 +30,9 @@ namespace BLAPI
 
         #region StationOfLine
         IEnumerable<BO.StationOfLine> GetAllStationsOfLine(int id);
-        void AddStationOfLine(int lineId, int stationCode);
-        void DeleteStationOfLine(int lineId, int stationCode);
-        void UpdateStationIndexInLine(int lineId, int stationCode, int newIndex);
+        void AddStationOfLine(int lineID, int stationCode);
+        void DeleteStationOfLine(int lineID, int stationCode);
+        void UpdateStationIndexInLine(int lineID, int stationCode, int newIndex);
         #endregion
 
         #region LineOfStation

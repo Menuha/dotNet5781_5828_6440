@@ -30,7 +30,6 @@ namespace DL
         public DO.Station GetStation(int code)
         {
             DO.Station sta = DataSource.ListStations.Find(s => s.Code == code);
-            //try { Thread.Sleep(2000); } catch (ThreadInterruptedException e) { }
             if (sta != null)
                 return sta.Clone();
             else
@@ -46,7 +45,7 @@ namespace DL
 
         public void DeleteStation(int code)
         {
-            DO.Station sta = GetStation(code);
+            DO.Station sta = DataSource.ListStations.Find(s => s.Code == code);
             DO.StationOfLine sols = DataSource.ListStationsOfLines.Find(sl => sl.StationCode == code);
             if (sta != null && sols == null)
             {
@@ -155,24 +154,55 @@ namespace DL
                    select sol.Clone();
         }
 
-        public void AddStationOfLine(int lineId, int stationCode)
+        public DO.StationOfLine GetStationOfLine(int lineID, int stationCode)
         {
-            if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == lineId && sols.StationCode == stationCode)) != null)
-                throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
-            int index = DataSource.ListStationsOfLines.FindAll(sols => sols.LineID == lineId).Count() + 1;
-            DO.StationOfLine sol = new DO.StationOfLine() { LineID = lineId, StationCode = stationCode, StationIndexInLine = index };
-            DataSource.ListStationsOfLines.Add(sol);
+            DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
+            if (sol != null)
+                return sol.Clone();
+            else
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "bad station code or line id");
         }
 
+        public DO.StationOfLine GetPrevSol(int lineID, int stationCode)
+        {
+            int myIndex = GetStationOfLine(lineID, stationCode).StationIndexInLine;
+            DO.StationOfLine prevSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex - 1);
+            if (prevSol != null)
+                return prevSol.Clone();
+            else
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "this is the first station of this line");
+        }
+
+        public DO.StationOfLine GetNextSol(int lineID, int stationCode)
+        {
+            int myIndex = GetStationOfLine(lineID, stationCode).StationIndexInLine;
+            DO.StationOfLine prevSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex + 1);
+            if (prevSol != null)
+                return prevSol.Clone();
+            else
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "this is the last station of this line");
+        }
+
+        public void AddStationOfLine(int lineID, int stationCode)
+        {
+            if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == lineID && sols.StationCode == stationCode)) != null)
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, $"line ID {lineID} is already registered to station code {stationCode}");
+            int index = DataSource.ListStationsOfLines.FindAll(sols => sols.LineID == lineID).Count() + 1;
+            DO.StationOfLine sol = new DO.StationOfLine() { LineID = lineID, StationCode = stationCode, StationIndexInLine = index };
+            DataSource.ListStationsOfLines.Add(sol);
+            DataSource.ListLines.Find(li => li.ID == lineID).LastStationCode = stationCode;
+        }
+       
         public void DeleteStationOfLine(int lineID, int stationCode)
         {
             DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
             if (sol != null)
             {
-                int routeLength = DataSource.ListStationsOfLines.FindAll(sl => sl.LineID == lineID).Count();
+                int routeLength = GetAllStationsOfLine(lineID).Count();
                 UpdateStationIndexInLine(lineID, stationCode, routeLength);
-                
                 DataSource.ListStationsOfLines.Remove(sol);
+                //Update last station of this line
+                DataSource.ListLines.Find(li => li.ID == lineID).LastStationCode = DataSource.ListStationsOfLines.Find(s => s.StationIndexInLine == GetAllStationsOfLine(lineID).Count()).StationCode;
             }
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng line id or station code");
@@ -181,18 +211,6 @@ namespace DL
         public void DeleteSolByLine(int lineID)
         {
             DataSource.ListStationsOfLines.RemoveAll(sol => sol.LineID == lineID);
-        }
-
-        public void UpdateStationOfLine(DO.StationOfLine stationOfLine)
-        {
-            DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == stationOfLine.LineID && sl.StationCode == stationOfLine.StationCode);
-            if (sol != null)
-            {
-                DataSource.ListStationsOfLines.Remove(sol);
-                DataSource.ListStationsOfLines.Add(stationOfLine.Clone());
-            }
-            else
-                throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Worng station of line");
         }
 
         public void UpdateStationIndexInLine(int lineID, int stationCode, int newIndex)
@@ -213,6 +231,9 @@ namespace DL
                         solList[i].StationIndexInLine--;
                 }
                 sol.StationIndexInLine = newIndex;
+                //Update first and last stations for this line
+                DataSource.ListLines.Find(li => li.ID == lineID).FirstStationCode = DataSource.ListStationsOfLines.Find(s => s.StationIndexInLine == 1).StationCode;
+                DataSource.ListLines.Find(li => li.ID == lineID).LastStationCode = DataSource.ListStationsOfLines.Find(s => s.StationIndexInLine == GetAllStationsOfLine(lineID).Count()).StationCode;
             }
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng station of line");
@@ -224,14 +245,7 @@ namespace DL
         //           select station.Clone();
         //}
 
-        //public DO.StationOfLine GetStationOfLine(int lineID, int stationCode)
-        //{
-        //    DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
-        //    if (sol != null)
-        //        return sol.Clone();
-        //    else
-        //        throw new DO.BadLineIDStationCodeException(lineID, stationCode, "bad station code or line id");
-        //}
+
         //public void AddStationOfLine(DO.StationOfLine stationOfLine)
         //{
         //    DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == stationOfLine.LineID && sl.StationCode == stationOfLine.StationCode);
@@ -252,40 +266,82 @@ namespace DL
         //{
         //    throw new NotImplementedException();
         //}
+
+        //public void UpdateStationOfLine(DO.StationOfLine stationOfLine)
+        //{
+        //    DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == stationOfLine.LineID && sl.StationCode == stationOfLine.StationCode);
+        //    if (sol != null)
+        //    {
+        //        DataSource.ListStationsOfLines.Remove(sol);
+        //        DataSource.ListStationsOfLines.Add(stationOfLine.Clone());
+        //    }
+        //    else
+        //        throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Worng station of line");
+        //}
         #endregion
 
         #region AdjacentStations
-        public void AddAdjacentStations(int station1Code, int station2Code)
-        {
-
-            //if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == station1Code && sols.StationCode == stationCode)) != null)
-            //    throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
-
-            if (DataSource.ListAdjacentStations.FirstOrDefault(adjSt => (adjSt.Station1Code == station1Code && adjSt.Station2Code == station2Code)) == null)
-            {
-                DO.Station station1 = GetStation(station1Code);
-                DO.Station station2 = GetStation(station2Code);
-                var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
-                var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
-
-                var distance = sCoord.GetDistanceTo(eCoord);
-                DO.AdjacentStations adjSt = new DO.AdjacentStations() {
-                    Station1Code = station1Code, 
-                    Station2Code = station2Code,
-                    Distance=distance
-                    //timeSpan
-                };
-
-                DataSource.ListAdjacentStations.Add(adjSt);
-            }
-            //else
-                //throw 
-
-        }
         public IEnumerable<DO.AdjacentStations> GetAllAdjacentStations()
         {
             return from adjSt in DataSource.ListAdjacentStations
                    select adjSt.Clone();
+        }
+
+        public DO.AdjacentStations GetAdjacentStations(int station1Code, int station2Code)
+        {
+            DO.AdjacentStations adjSta = DataSource.ListAdjacentStations.Find(adjS => (adjS.Station1Code == station1Code && adjS.Station2Code == station2Code) || (adjS.Station2Code == station1Code && adjS.Station1Code == station2Code));
+            if (adjSta != null)
+                return adjSta.Clone();
+            else
+                throw new DO.BadStationCodeException(station1Code, "Adjacent stations is not found");
+
+        }
+
+        public IEnumerable<DO.AdjacentStations> GetMyAdjacentStations(int stationCode)
+        {
+            return from adjSt in GetAllAdjacentStations()
+                   where adjSt.Station1Code == stationCode || adjSt.Station2Code == stationCode
+                   select adjSt.Clone();
+        }
+
+        public void AddAdjacentStations(int station1Code, int station2Code)
+        {
+            if (DataSource.ListStations.FirstOrDefault(sta => (sta.Code == station1Code)) == null)
+                throw new DO.BadStationCodeException(station1Code, $"station code {station1Code} is not found");
+            if (DataSource.ListStations.FirstOrDefault(sta => (sta.Code == station2Code)) == null)
+                throw new DO.BadStationCodeException(station2Code, $"station code {station2Code} is not found");
+            if (DataSource.ListAdjacentStations.FirstOrDefault(adjSt => (adjSt.Station1Code == station1Code && adjSt.Station2Code == station2Code) || (adjSt.Station1Code == station2Code && adjSt.Station2Code == station1Code)) == null)
+            {
+                DO.Station station1 = GetStation(station1Code);
+                DO.Station station2 = GetStation(station2Code);
+                //var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
+                //var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
+                //var distance = sCoord.GetDistanceTo(eCoord);
+                
+                DO.AdjacentStations adjSt = new DO.AdjacentStations() {
+                    Station1Code = station1Code, 
+                    Station2Code = station2Code,
+                    //Distance = 1.5 * distance,
+                    Distance = 500,
+                    AvgTime = new TimeSpan(0, 5, 0)
+                };
+                DataSource.ListAdjacentStations.Add(adjSt);
+            }
+        }
+
+        public void DeleteAdjacentStationsByStation(int stationCode)
+        {
+            DataSource.ListAdjacentStations.RemoveAll(adjS => adjS.Station1Code == stationCode || adjS.Station2Code == stationCode);
+        }
+
+        public void UpdateAdjacentStations(DO.Station stationDO)
+        {
+            List<DO.AdjacentStations> myAdjacentStations = DataSource.ListAdjacentStations.FindAll(adjS => adjS.Station1Code == stationDO.Code || adjS.Station2Code == stationDO.Code);
+            DataSource.ListAdjacentStations.RemoveAll(adjS => adjS.Station1Code == stationDO.Code || adjS.Station2Code == stationDO.Code);
+            for (int i = 0; i < myAdjacentStations.Count(); i++)
+            {
+                AddAdjacentStations(myAdjacentStations[i].Station1Code, myAdjacentStations[i].Station2Code);
+            }
         }
         #endregion
 

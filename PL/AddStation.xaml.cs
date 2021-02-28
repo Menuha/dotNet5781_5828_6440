@@ -51,14 +51,14 @@ namespace PL
                     if (rol == MessageBoxResult.OK)
                         return;
                 }
-                if (newSta.Latitude < 30 || newSta.Latitude > 34)
+                if (newSta.Latitude < 31 || newSta.Latitude > 33.3)
                 {
                     MessageBoxResult res2 = MessageBox.Show("Press latitude in Israel only!");
                     if (res2 == MessageBoxResult.OK)
                         return;
                 }
 
-                if (newSta.Longitude < 30 || newSta.Longitude > 34)
+                if (newSta.Longitude < 34.3 || newSta.Longitude > 35.5)
                 {
                     MessageBoxResult res3 = MessageBox.Show("Press longitude in Israel only!");
                     if (res3 == MessageBoxResult.OK)
@@ -80,6 +80,7 @@ namespace PL
         {
             this.Close();
         }
+       
         private void My_Validation_Error(object sender, ValidationErrorEventArgs e)
         {
             if (e.Action == ValidationErrorEventAction.Added)
@@ -87,6 +88,7 @@ namespace PL
             else
                 btContinue.IsEnabled = true; ; //errorMessages.Remove(e.Error.Exception.Message);
         }
+      
         private void codeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(codeTextBox.Text, "[^0-9]"))
@@ -95,6 +97,7 @@ namespace PL
                 codeTextBox.Text = codeTextBox.Text.Remove(codeTextBox.Text.Length - 1);
             }
         }
+      
         private void latitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(latitudeTextBox.Text, "[^0-9]"))
@@ -103,6 +106,7 @@ namespace PL
                 latitudeTextBox.Text = latitudeTextBox.Text.Remove(latitudeTextBox.Text.Length - 1);
             }
         }
+       
         private void longitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(longitudeTextBox.Text, "[^0-9]"))
