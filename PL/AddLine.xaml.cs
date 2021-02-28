@@ -74,11 +74,19 @@ namespace PL
             MessageBoxResult res = MessageBox.Show("Add line?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.No)
                 return;
-            //
             try
             {
-                bl.AddLine(newLine, firstStationCode, lastStationCode);
-                this.Close();
+                if (firstStationCode == lastStationCode)
+                {
+                    MessageBoxResult res2 = MessageBox.Show("Press diffrent stations!");
+                    if (res2 == MessageBoxResult.OK)
+                        return;
+                }
+                else
+                {
+                    bl.AddLine(newLine, firstStationCode, lastStationCode);
+                    this.Close();
+                }
             }
             catch (BO.BadLineIDException ex)
             {
