@@ -23,6 +23,8 @@ namespace PL
     {
         IBL bl;
         BO.Line newLine = new BO.Line();
+        int firstStationCode;
+        int lastStationCode;
         public AddLine(IBL _bl)
         {
             InitializeComponent();
@@ -30,7 +32,41 @@ namespace PL
             gridNewLine.DataContext = newLine;
 
             areaComboBox.ItemsSource = Enum.GetValues(typeof(BO.Areas));
-           
+            
+            cbStation1.DataContext = bl.GetAllStations();
+            cbStation1.DisplayMemberPath = "Name";
+            cbStation1.SelectedItem = "Code";
+            cbStation2.DataContext = bl.GetAllStations();
+            cbStation2.DisplayMemberPath = "Name";
+            cbStation2.SelectedItem = "Code";
+        }
+
+        private void iDTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(iDTextBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.");
+                iDTextBox.Text = iDTextBox.Text.Remove(iDTextBox.Text.Length - 1);
+            }
+        }
+
+        private void numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(numberTextBox.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numbers.");
+                numberTextBox.Text = numberTextBox.Text.Remove(numberTextBox.Text.Length - 1);
+            }
+        }
+
+        private void cbStation1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            firstStationCode = (cbStation1.SelectedItem as BO.Station).Code;
+        }
+
+        private void cbStation2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lastStationCode = (cbStation2.SelectedItem as BO.Station).Code;
         }
 
         private void btContinue_Click(object sender, RoutedEventArgs e)
@@ -38,10 +74,10 @@ namespace PL
             MessageBoxResult res = MessageBox.Show("Add line?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.No)
                 return;
-
+            //
             try
             {
-                bl.AddLine(newLine);
+                bl.AddLine(newLine, firstStationCode, lastStationCode);
                 this.Close();
             }
             catch (BO.BadLineIDException ex)
@@ -62,21 +98,6 @@ namespace PL
             else
                 btContinue.IsEnabled = true; ; //errorMessages.Remove(e.Error.Exception.Message);
         }
-        private void iDTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(iDTextBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("Please enter only numbers.");
-                iDTextBox.Text = iDTextBox.Text.Remove(iDTextBox.Text.Length - 1);
-            }
-        }
-        private void numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(numberTextBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("Please enter only numbers.");
-                numberTextBox.Text = numberTextBox.Text.Remove(numberTextBox.Text.Length - 1);
-            }
-        }
+       
     }
 }

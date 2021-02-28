@@ -10,18 +10,21 @@
         Title="AddLine" Height="300" Width="300" WindowStartupLocation="CenterScreen" >
 
     <Grid>
-        <Grid x:Name="gridNewLine" VerticalAlignment="Top" Margin="50,80,0,0" HorizontalAlignment="Left" >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF008000" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <Grid x:Name="gridNewLine" VerticalAlignment="Top" Margin="29,33,0,0" HorizontalAlignment="Left" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="White" Offset="0"/>
-                    <GradientStop Color="#FF008000" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -39,10 +42,17 @@
 
             <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Area:"/>
             <ComboBox x:Name="areaComboBox" Width="120" VerticalAlignment="Center" Grid.Row="2" Margin="3" SelectedItem="{Binding Area}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1"/>
+
+            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="First Station Code:"/>
+            <ComboBox x:Name="cbStation1" Width="120" VerticalAlignment="Center" Grid.Row="3" Margin="3" ItemsSource="{Binding}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1" SelectionChanged="cbStation1_SelectionChanged"/>
+
+            <Label VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Last Station Code:"/>
+            <ComboBox x:Name="cbStation2" Width="120" VerticalAlignment="Center" Grid.Row="4" Margin="3" ItemsSource="{Binding}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1" SelectionChanged="cbStation2_SelectionChanged"/>
+
         </Grid>
         
-        <Button x:Name="btContinue" Content="Continue" HorizontalAlignment="Left" Margin="60,206,0,0" VerticalAlignment="Top" Width="75" Click="btContinue_Click"/>
-        <Button x:Name="btCancel" Content="Cancel" HorizontalAlignment="Left" Margin="160,206,0,0" VerticalAlignment="Top" Width="75" Click="btCancel_Click"/>
+        <Button x:Name="btContinue" Content="Continue" HorizontalAlignment="Left" Margin="60,215,0,0" VerticalAlignment="Top" Width="75" Click="btContinue_Click"/>
+        <Button x:Name="btCancel" Content="Cancel" HorizontalAlignment="Left" Margin="160,215,0,0" VerticalAlignment="Top" Width="75" Click="btCancel_Click"/>
     </Grid>
     
 </Window>

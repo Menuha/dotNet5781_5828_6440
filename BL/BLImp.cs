@@ -46,14 +46,25 @@ namespace BL
                    select lineDoBoAdapter(lineDO);
         }
 
-        public void AddLine(BO.Line line)
+        public void AddLine(BO.Line line, int firstStationCode, int lastStationCode)
         {
             //Add new DO.Line with no stations          
             DO.Line lineDO = new DO.Line();
             line.CopyPropertiesTo(lineDO);
             try
             {
+                lineDO.FirstStationCode = dl.GetStation(firstStationCode).Code;
+                lineDO.LastStationCode = dl.GetStation(lastStationCode).Code;
                 dl.AddLine(lineDO);
+
+                AddAdjacentStations(firstStationCode, lastStationCode);
+
+                AddStationOfLine(line.ID, firstStationCode);
+                AddStationOfLine(line.ID, lastStationCode);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
+                throw new BO.BadStationCodeException("Station code is illegal", ex);
             }
             catch (DO.BadLineIDException ex)
             {
@@ -160,6 +171,8 @@ namespace BL
             try
             {
                 dl.UpdateStation(stationDO);
+                //if location is changed:
+                dl.UpdateAdjacentStations(stationDO);
             }
             catch (DO.BadStationCodeException ex)
             {
@@ -172,6 +185,7 @@ namespace BL
             try
             {
                 dl.DeleteStation(code);
+                dl.DeleteAdjacentStationsByStation(code);
             }
             catch (DO.BadStationCodeException ex)
             {
@@ -198,10 +212,11 @@ namespace BL
             BO.StationOfLine solBO = new BO.StationOfLine();
             solDO.CopyPropertiesTo(solBO);
             solBO.StationName = dl.GetStation(solDO.StationCode).Name;
-
-            //solBO.DistanceFromPre = 
-            //solBO.TimeFromPre = 
-
+            if (solDO.StationCode != dl.GetLine(solDO.LineID).FirstStationCode)
+            {
+                solBO.DistanceFromPre = dl.GetAdjacentStations(dl.GetPrevSol(solDO.LineID, solDO.StationCode).StationCode, solDO.StationCode).Distance;
+                solBO.TimeFromPre = dl.GetAdjacentStations(dl.GetPrevSol(solDO.LineID, solDO.StationCode).StationCode, solDO.StationCode).AvgTime;
+            }
             return solBO;
         }
 
@@ -212,23 +227,33 @@ namespace BL
                    select stationOfLineDoBoAdapter(sol);
         }
         
-        public void AddStationOfLine(int lineId, int stationCode)
+        public void AddStationOfLine(int lineID, int stationCode)
         {
             try
             {
-                dl.AddStationOfLine(lineId, stationCode);
+                if (dl.GetLine(lineID).FirstStationCode != stationCode)
+                    AddAdjacentStations(dl.GetLine(lineID).LastStationCode, stationCode);
+                dl.AddStationOfLine(lineID, stationCode);
             }
             catch (DO.BadLineIDStationCodeException ex)
             {
                 throw new BO.BadLineIDStationCodeException("Line ID and Station code is Not exist", ex);
             }
+            catch (DO.BadStationCodeException ex)
+            {
+                throw new BO.BadStationCodeException("Bad station code", ex);
+            }
         }
         
-        public void DeleteStationOfLine(int lineId, int stationCode)
+        public void DeleteStationOfLine(int lineID, int stationCode)
         {
             try
             {
-                dl.DeleteStationOfLine(lineId, stationCode);
+                //Add adjacent stations - previous & next stations
+                if (dl.GetLine(lineID).FirstStationCode != stationCode && dl.GetLine(lineID).LastStationCode != stationCode)
+                    AddAdjacentStations(dl.GetPrevSol(lineID, stationCode).StationCode, dl.GetNextSol(lineID, stationCode).StationCode);
+
+                dl.DeleteStationOfLine(lineID, stationCode);
             }
             catch (DO.BadLineIDStationCodeException ex)
             {
@@ -236,15 +261,30 @@ namespace BL
             }
         }
 
-        public void UpdateStationIndexInLine(int lineId, int stationCode, int newIndex)
+        public void UpdateStationIndexInLine(int lineID, int stationCode, int newIndex)
         {
             try
             {
-                dl.UpdateStationIndexInLine(lineId, stationCode, newIndex);
+                //Add adjacent stations - part 1
+                if (dl.GetLine(lineID).FirstStationCode != stationCode && dl.GetLine(lineID).LastStationCode != stationCode)
+                    AddAdjacentStations(dl.GetPrevSol(lineID, stationCode).StationCode, dl.GetNextSol(lineID, stationCode).StationCode);
+
+                dl.UpdateStationIndexInLine(lineID, stationCode, newIndex);
+
+                //Add adjacent stations - part 2
+                if (dl.GetLine(lineID).FirstStationCode != stationCode)
+                    AddAdjacentStations(dl.GetPrevSol(lineID, stationCode).StationCode, stationCode);
+                if (dl.GetLine(lineID).LastStationCode != stationCode)
+                    AddAdjacentStations(stationCode, dl.GetNextSol(lineID, stationCode).StationCode);
+
             }
             catch (DO.BadLineIDStationCodeException ex)
             {
                 throw new BO.BadLineIDStationCodeException("Line ID and Station code is Not exist", ex);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
+                throw new BO.BadStationCodeException("Bad station code", ex);
             }
         }
         #endregion
@@ -269,8 +309,7 @@ namespace BL
         
         public IEnumerable<BO.AdjacentStations> GetMyAdjacentStations(int stationCode)
         {
-            return from adjSt in dl.GetAllAdjacentStations()
-                   where adjSt.Station1Code == stationCode || adjSt.Station2Code == stationCode
+            return from adjSt in dl.GetMyAdjacentStations(stationCode)
                    select adjacentStationsDoBoAdapter(adjSt);
         }
 

@@ -14,7 +14,7 @@ namespace BO
         public int StationCode { get; set; }
         public string StationName { get; set; }
         public int StationIndexInLine { get; set; }
-        public float DistanceFromPre { get; set; }
+        public double DistanceFromPre { get; set; }
         public TimeSpan TimeFromPre { get; set; }
         public override string ToString() => this.ToStringProperty();
     }
