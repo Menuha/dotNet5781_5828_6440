@@ -195,14 +195,6 @@ namespace DL
             XMLTools.SaveListToXMLSerializer(ListLines, LinesPath);
         }
 
-        //public IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate)
-        //{
-        //    throw new NotImplementedException();
-        //}
-        //public void UpdateLine(int id, Action<DO.Line> update)
-        //{
-        //    throw new NotImplementedException();
-        //}
         #endregion
 
         #region StationOfLine
