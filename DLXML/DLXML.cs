@@ -319,46 +319,6 @@ namespace DL
             XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationOfLinesPath);
             XMLTools.SaveListToXMLSerializer(ListLines, LinesPath);
         }
-
-        //public IEnumerable<DO.StationOfLine> GetAllStationsOfLines()
-        //{
-        //    return from station in DataSource.ListStationsOfLines
-        //           select station.Clone();
-        //}
-
-
-        //public void AddStationOfLine(DO.StationOfLine stationOfLine)
-        //{
-        //    DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == stationOfLine.LineID && sl.StationCode == stationOfLine.StationCode);
-        //    if (sol != null)
-        //        throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Duplicate station code");
-        //    DataSource.ListStationsOfLines.Add(stationOfLine.Clone());
-        //}
-        //public void DeleteSolByStation(int stationCode)
-        //{
-        //    DataSource.ListStationsOfLines.RemoveAll(sol => sol.StationCode == stationCode);
-        //}
-
-        //public void DeleteStationsOfLinesBy(Predicate<DO.StationOfLine> predicate)
-        //{
-        //    DataSource.ListStationsOfLines.RemoveAll(sol => predicate(sol));
-        //}
-        //public void UpdateStationOfLine(int lineID, int stationCode, Action<DO.StationOfLine> update)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void UpdateStationOfLine(DO.StationOfLine stationOfLine)
-        //{
-        //    DO.StationOfLine sol = DataSource.ListStationsOfLines.Find(sl => sl.LineID == stationOfLine.LineID && sl.StationCode == stationOfLine.StationCode);
-        //    if (sol != null)
-        //    {
-        //        DataSource.ListStationsOfLines.Remove(sol);
-        //        DataSource.ListStationsOfLines.Add(stationOfLine.Clone());
-        //    }
-        //    else
-        //        throw new DO.BadLineIDStationCodeException(stationOfLine.LineID, stationOfLine.StationCode, "Worng station of line");
-        //}
         #endregion
 
         #region AdjacentStations
