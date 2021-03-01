@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace DL
         string StationsPath = @"StationsXml.xml"; //XElement
 
         string LinesPath = @"LinesXml.xml"; //XMLSerializer
-        string StationOfLinesPath = @"StationOfLinesXml.xml"; //XMLSerializer
+        string StationsOfLinesPath = @"StationsOfLinesXml.xml"; //XMLSerializer
         string AdjacentStationsPath = @"AdjacentStationsXml.xml"; //XElement
 
         #endregion
@@ -89,7 +90,7 @@ namespace DL
         public void DeleteStation(int code)
         {
             XElement stationsRootElem = XMLTools.LoadListFromXMLElement(StationsPath);
-            XElement stationOfLinesRootElem = XMLTools.LoadListFromXMLElement(StationOfLinesPath);
+            XElement stationOfLinesRootElem = XMLTools.LoadListFromXMLElement(StationsOfLinesPath);
 
 
             XElement sta = (from s in stationsRootElem.Elements()
@@ -200,7 +201,7 @@ namespace DL
         #region StationOfLine
         public IEnumerable<DO.StationOfLine> GetAllStationsOfLinesBy(Predicate<DO.StationOfLine> predicate)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             return from sol in ListStationsOfLines
                    where predicate(sol)
                    select sol;
@@ -208,7 +209,7 @@ namespace DL
 
         public IEnumerable<DO.StationOfLine> GetAllStationsOfLine(int lineID)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             return from sol in ListStationsOfLines
                    where sol.LineID == lineID
                    select sol;
@@ -216,7 +217,7 @@ namespace DL
 
         public DO.StationOfLine GetStationOfLine(int lineID, int stationCode)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             DO.StationOfLine sol = ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
             if (sol != null)
                 return sol;
@@ -226,7 +227,7 @@ namespace DL
 
         public DO.StationOfLine GetPrevSol(int lineID, int stationCode)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             int myIndex = GetStationOfLine(lineID, stationCode).StationIndexInLine;
             DO.StationOfLine prevSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex - 1);
             if (prevSol != null)
@@ -237,7 +238,7 @@ namespace DL
 
         public DO.StationOfLine GetNextSol(int lineID, int stationCode)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             int myIndex = GetStationOfLine(lineID, stationCode).StationIndexInLine;
             DO.StationOfLine prevSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex + 1);
             if (prevSol != null)
@@ -248,7 +249,7 @@ namespace DL
 
         public void AddStationOfLine(int lineID, int stationCode)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
             if (ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == lineID && sols.StationCode == stationCode)) != null)
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, $"line ID {lineID} is already registered to station code {stationCode}");
@@ -257,12 +258,12 @@ namespace DL
             ListStationsOfLines.Add(sol);
             ListLines.Find(li => li.ID == lineID).LastStationCode = stationCode;
             XMLTools.SaveListToXMLSerializer(ListLines, LinesPath);
-            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationOfLinesPath);
+            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationsOfLinesPath);
         }
 
         public void DeleteStationOfLine(int lineID, int stationCode)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
             DO.StationOfLine sol = ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
             int routeLength = GetAllStationsOfLine(lineID).Count();
@@ -278,20 +279,20 @@ namespace DL
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng line id or station code");
 
-            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationOfLinesPath);
+            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationsOfLinesPath);
             XMLTools.SaveListToXMLSerializer(ListLines, LinesPath);
         }
 
         public void DeleteSolByLine(int lineID)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             ListStationsOfLines.RemoveAll(sol => sol.LineID == lineID);
-            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationOfLinesPath);
+            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationsOfLinesPath);
         }
 
         public void UpdateStationIndexInLine(int lineID, int stationCode, int newIndex)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationsOfLinesPath);
             List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
             DO.StationOfLine sol = ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
             if (sol != null)
@@ -316,7 +317,7 @@ namespace DL
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng station of line");
 
-            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationOfLinesPath);
+            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, StationsOfLinesPath);
             XMLTools.SaveListToXMLSerializer(ListLines, LinesPath);
         }
         #endregion
@@ -364,17 +365,17 @@ namespace DL
             {
                 DO.Station station1 = GetStation(station1Code);
                 DO.Station station2 = GetStation(station2Code);
-                //var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
-                //var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
-                //var distance = sCoord.GetDistanceTo(eCoord);
+                var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
+                var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
+                var distance = sCoord.GetDistanceTo(eCoord);
 
                 DO.AdjacentStations adjSt = new DO.AdjacentStations()
                 {
                     Station1Code = station1Code,
                     Station2Code = station2Code,
-                    //Distance = 1.5 * distance,
-                    Distance = 500,
-                    AvgTime = new TimeSpan(0, 5, 0)
+                    Distance = 1.5 * distance,
+                    //speed = 10 m/s
+                    AvgTime = new TimeSpan(0, 0, Convert.ToInt32(1.5 * distance / 10))
                 };
                 ListAdjacentStations.Add(adjSt);
                 XMLTools.SaveListToXMLSerializer(ListAdjacentStations, AdjacentStationsPath);
