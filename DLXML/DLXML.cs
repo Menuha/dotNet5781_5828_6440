@@ -23,83 +23,85 @@ namespace DL
 
         #region DS XML Files
 
+        string StationsPath = @"StationsXml.xml"; //XElement
+       
+        string LinesPath = @"LinesXml.xml"; //XMLSerializer
+        string StationOfLinesPath = @"StationOfLinesXml.xml"; //XMLSerializer
         string AdjacentStationsPath = @"AdjacentStationsXml.xml"; //XElement
 
-        string LinesPath = @"LinesXml.xml"; //XMLSerializer
-        string StationsPath = @"StationsXml.xml"; //XMLSerializer
-        string StationOfLinesPath = @"StationOfLinesXml.xml"; //XMLSerializer
-
         #endregion
 
-        #region AdjacentStations
-        //public void AddAdjacentStations(int station1Code, int station2Code)
+        #region Stations
+
+        //public IEnumerable<DO.Station> GetSortStations()
         //{
-
-        //    //if (DataSource.ListStationsOfLines.FirstOrDefault(sols => (sols.LineID == station1Code && sols.StationCode == stationCode)) != null)
-        //    //    throw new DO.BadLineIDStationCodeException(lineId, stationCode, "line ID is already registered to station code");
-
-        //    if (DataSource.ListAdjacentStations.FirstOrDefault(adjSt => (adjSt.Station1Code == station1Code && adjSt.Station2Code == station2Code)) == null)
-        //    {
-        //        DO.Station station1 = GetStation(station1Code);
-        //        DO.Station station2 = GetStation(station2Code);
-        //        var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
-        //        var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
-
-        //        var distance = sCoord.GetDistanceTo(eCoord);
-        //        DO.AdjacentStations adjSt = new DO.AdjacentStations()
-        //        {
-        //            Station1Code = station1Code,
-        //            Station2Code = station2Code,
-        //            Distance = distance
-        //            //timeSpan
-        //        };
-
-        //        DataSource.ListAdjacentStations.Add(adjSt);
-        //    }
-        //    //else
-        //    //throw 
+        //    List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(stationsPath);
+        //    return from Station in ListStations
+        //           orderby Station.Code
+        //           select Station;
 
         //}
-        //public void AddPerson(DO.Person person)
-        //{
-        //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
 
-        //    XElement per1 = (from p in personsRootElem.Elements()
-        //                     where int.Parse(p.Element("ID").Value) == person.ID
-        //                     select p).FirstOrDefault();
-
-        //    if (per1 != null)
-        //        throw new DO.BadPersonIdException(person.ID, "Duplicate person ID");
-
-        //    XElement personElem = new XElement("Person", new XElement("ID", person.ID),
-        //                          new XElement("Name", person.Name),
-        //                          new XElement("Street", person.Street),
-        //                          new XElement("HouseNumber", person.HouseNumber.ToString()),
-        //                          new XElement("City", person.City),
-        //                          new XElement("BirthDate", person.BirthDate),
-        //                          new XElement("PersonalStatus", person.PersonalStatus.ToString()),
-        //                          new XElement("Duration", person.Duration.ToString()));
-
-        //    personsRootElem.Add(personElem);
-
-        //    XMLTools.SaveListToXMLElement(personsRootElem, personsPath);
-        //}
-        public IEnumerable<DO.AdjacentStations> GetAllAdjacentStations()
+        public IEnumerable<DO.Station> GetAllStations()
         {
-            XElement AdjacentStationsRootElem = XMLTools.LoadListFromXMLElement(AdjacentStationsPath);
+            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
 
-            return (from a in AdjacentStationsRootElem.Elements()
-                    select new AdjacentStations()
-                    {
-                        Station1Code = Int32.Parse(a.Element("Station 1 Code").Value),
-                        Station2Code = Int32.Parse(a.Element("Station 2 Code").Value),
-                        Distance = double.Parse(a.Element("Distance").Value),
-                        AvgTime = TimeSpan.ParseExact(a.Element("Avarage Time").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
-                    }
-                   );
+            return from station in ListStations
+                   select station; //no need to Clone()
+        }
+        public DO.Station GetStation(int code)
+        {
+            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+
+            DO.Station sta = ListStations.Find(l => l.Code == code);
+            if (sta != null)
+                return sta; //no need to Clone()
+            else
+                throw new DO.BadLineIDException(code, $"bad station code: {code}");
+
+
+            //return ListStations.Find(s => s.Code == Code); //no need to Clone()
+            //if not exist throw exception etc.
+        }
+        public void AddStation(DO.Station station)
+        {
+            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            if (ListStations.FirstOrDefault(s => s.Code == station.Code) != null)
+                throw new DO.BadStationCodeException(station.Code, "Duplicate station code");
+
+            ListStations.Add(station); //no need to Clone()
+
+            XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
+        }
+        public void DeleteStation(int code)
+        {
+            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            DO.Station sta = ListStations.Find(l => l.Code == code);
+
+            if (sta != null)
+            {
+                ListStations.Remove(sta);
+            }
+            else
+                throw new DO.BadStationCodeException(code, $"bad station code: {code}");
+
+            XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
+        }
+        public void UpdateStation(DO.Station station)
+        {
+            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            DO.Station sta = ListStations.Find(s => s.Code == station.Code);
+            if (sta != null)
+            {
+                ListStations.Remove(sta);
+                ListStations.Add(station); //no nee to Clone()
+            }
+            else
+                throw new DO.BadStationCodeException(station.Code, $"bad station code: {station.Code}");
+
+            XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
         }
         #endregion
-
 
         #region Line
         public DO.Line GetLine(int id)
@@ -181,78 +183,6 @@ namespace DL
         }
         #endregion Student
 
-        #region Stations
-
-        //public IEnumerable<DO.Station> GetSortStations()
-        //{
-        //    List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(stationsPath);
-        //    return from Station in ListStations
-        //           orderby Station.Code
-        //           select Station;
-
-        //}
-
-        public IEnumerable<DO.Station> GetAllStations()
-        {
-            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
-
-            return from station in ListStations
-                   select station; //no need to Clone()
-        }
-        public DO.Station GetStation(int code)
-        {
-            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
-
-            DO.Station sta = ListStations.Find(l => l.Code == code);
-            if (sta != null)
-                return sta; //no need to Clone()
-            else
-                throw new DO.BadLineIDException(code, $"bad station code: {code}");
-
-
-            //return ListStations.Find(s => s.Code == Code); //no need to Clone()
-            //if not exist throw exception etc.
-        }
-        public void AddStation(DO.Station station)
-        {
-            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
-            if (ListStations.FirstOrDefault(s => s.Code == station.Code) != null)
-                throw new DO.BadStationCodeException(station.Code, "Duplicate station code");
-
-            ListStations.Add(station); //no need to Clone()
-
-            XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
-        }
-        public void DeleteStation(int code)
-        {
-            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
-            DO.Station sta = ListStations.Find(l => l.Code == code);
-
-            if (sta != null)
-            {
-                ListStations.Remove(sta);
-            }
-            else
-                throw new DO.BadStationCodeException(code, $"bad station code: {code}");
-
-            XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
-        }
-        public void UpdateStation(DO.Station station)
-        {
-            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
-            DO.Station sta = ListStations.Find(s => s.Code == station.Code);
-            if (sta != null)
-            {
-                ListStations.Remove(sta);
-                ListStations.Add(station); //no nee to Clone()
-            }
-            else
-                throw new DO.BadStationCodeException(station.Code, $"bad station code: {station.Code}");
-
-            XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
-        }
-        #endregion
-
         #region StationOfLine
         public IEnumerable<DO.StationOfLine> GetAllStationsOfLinesBy (Predicate<DO.StationOfLine> predicate)
         {
@@ -333,7 +263,116 @@ namespace DL
 
             XMLTools.SaveListToXMLSerializer(ListStationOfLines, StationOfLinesPath);
         }
+        public DO.StationOfLine GetPrevSol(int lineID, int stationCode)
+        {
+            int myIndex = GetStationOfLine(lineID, stationCode).StationIndexInLine;
+            DO.StationOfLine prevSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex - 1);
+            if (prevSol != null)
+                return prevSol;
+            else
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "this is the first station of this line");
+        }
 
+        public DO.StationOfLine GetNextSol(int lineID, int stationCode)
+        {
+            int myIndex = GetStationOfLine(lineID, stationCode).StationIndexInLine;
+            DO.StationOfLine prevSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex + 1);
+            if (prevSol != null)
+                return prevSol;
+            else
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "this is the last station of this line");
+        }
+        public DO.StationOfLine GetStationOfLine(int lineID, int stationCode)
+        {
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(StationOfLinesPath);
+            DO.StationOfLine sol = ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
+            if (sol != null)
+                return sol;
+            else
+                throw new DO.BadLineIDStationCodeException(lineID, stationCode, "bad station code or line id");
+        }
+        #endregion
+
+        #region AdjacentStations
+
+     
+
+        public IEnumerable<DO.AdjacentStations> GetAllAdjacentStations()
+        {
+            List<AdjacentStations> ListAdjacentStations = XMLTools.LoadListFromXMLSerializer<AdjacentStations>(AdjacentStationsPath);
+
+            return from adjacentStations in ListAdjacentStations
+                   select adjacentStations; //no need to Clone()
+        }
+
+        public DO.AdjacentStations GetAdjacentStations(int station1Code, int station2Code)
+        {
+            List<AdjacentStations> ListAdjacentStations = XMLTools.LoadListFromXMLSerializer<AdjacentStations>(AdjacentStationsPath);
+            AdjacentStations adjacentStations = ListAdjacentStations.Find(adjS => (adjS.Station1Code == station1Code && adjS.Station2Code == station2Code) || (adjS.Station2Code == station1Code && adjS.Station1Code == station2Code));
+            if (adjacentStations != null)
+                return adjacentStations;
+            else
+                throw new DO.BadStationCodeException(station1Code, "Adjacent stations is not found");
+        }
+        //public IEnumerable<DO.AdjacentStations> GetMyAdjacentStations(int stationCode)
+        //{
+        //    return from adjSt in GetAllAdjacentStations()
+        //           where adjSt.Station1Code == stationCode || adjSt.Station2Code == stationCode
+        //           select adjSt.Clone();
+        //}
+        public IEnumerable<DO.AdjacentStations> GetMyAdjacentStations(int stationCode)
+        {
+            List<AdjacentStations> ListAdjacentStations = XMLTools.LoadListFromXMLSerializer<AdjacentStations>(AdjacentStationsPath);
+            return from adjSt in ListAdjacentStations
+                   where adjSt.Station1Code == stationCode || adjSt.Station2Code == stationCode
+                   select adjSt;
+        }
+        public void AddAdjacentStations(int station1Code, int station2Code)
+        {
+            List<AdjacentStations> ListAdjacentStations = XMLTools.LoadListFromXMLSerializer<AdjacentStations>(AdjacentStationsPath);
+            List<Station> ListStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            if (ListStations.FirstOrDefault(sta => (sta.Code == station1Code)) == null)
+                throw new DO.BadStationCodeException(station1Code, $"station code {station1Code} is not found");
+            if (ListStations.FirstOrDefault(sta => (sta.Code == station2Code)) == null)
+                throw new DO.BadStationCodeException(station2Code, $"station code {station2Code} is not found");
+            if (ListAdjacentStations.FirstOrDefault(adjSt => (adjSt.Station1Code == station1Code && adjSt.Station2Code == station2Code) || (adjSt.Station1Code == station2Code && adjSt.Station2Code == station1Code)) == null)
+            {
+                DO.Station station1 = GetStation(station1Code);
+                DO.Station station2 = GetStation(station2Code);
+                //var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
+                //var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
+                //var distance = sCoord.GetDistanceTo(eCoord);
+
+                DO.AdjacentStations adjSt = new DO.AdjacentStations()
+                {
+                    Station1Code = station1Code,
+                    Station2Code = station2Code,
+                    //Distance = 1.5 * distance,
+                    Distance = 500,
+                    AvgTime = new TimeSpan(0, 5, 0)
+                };
+                ListAdjacentStations.Add(adjSt);
+                XMLTools.SaveListToXMLSerializer(ListAdjacentStations, AdjacentStationsPath);
+            }
+        }
+        public void DeleteAdjacentStationsByStation(int stationCode)
+        {
+            List<AdjacentStations> ListAdjacentStations = XMLTools.LoadListFromXMLSerializer<AdjacentStations>(AdjacentStationsPath);
+            ListAdjacentStations.RemoveAll(adjS => adjS.Station1Code == stationCode || adjS.Station2Code == stationCode);
+            XMLTools.SaveListToXMLSerializer(ListAdjacentStations, AdjacentStationsPath);
+        }
+
+        public void UpdateAdjacentStations(DO.Station stationDO)
+        {
+            List<AdjacentStations> ListAdjacentStations = XMLTools.LoadListFromXMLSerializer<AdjacentStations>(AdjacentStationsPath);
+            List<AdjacentStations> myAdjacentStations = ListAdjacentStations.FindAll(adjS => adjS.Station1Code == stationDO.Code || adjS.Station2Code == stationDO.Code);
+            ListAdjacentStations.RemoveAll(adjS => adjS.Station1Code == stationDO.Code || adjS.Station2Code == stationDO.Code);
+            for (int i = 0; i < myAdjacentStations.Count(); i++)
+            {
+                AddAdjacentStations(myAdjacentStations[i].Station1Code, myAdjacentStations[i].Station2Code);
+            }
+            XMLTools.SaveListToXMLSerializer(ListAdjacentStations, AdjacentStationsPath);
+        }
         #endregion
 
     }
