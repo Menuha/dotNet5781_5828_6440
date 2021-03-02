@@ -88,6 +88,13 @@ namespace DL
                    select line.Clone();
         }
 
+        public IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate)
+        {
+            return from li in DataSource.ListLines
+                   where predicate(li)
+                   select li.Clone();
+        }
+
         public DO.Line GetLine(int id)
         {
             DO.Line li = DataSource.ListLines.Find(l => l.ID == id);
@@ -146,10 +153,7 @@ namespace DL
                 throw new DO.BadLineIDException(line.ID, $"bad line id: {line.ID}");
         }
 
-        //public IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate)
-        //{
-        //    throw new NotImplementedException();
-        //}
+
         //public void UpdateLine(int id, Action<DO.Line> update)
         //{
         //    throw new NotImplementedException();

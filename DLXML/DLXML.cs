@@ -146,6 +146,14 @@ namespace DL
                    select line;
         }
 
+        public IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate)
+        {
+            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            return from li in ListLines
+                   where predicate(li)
+                   select li;
+        }
+
         public DO.Line GetLine(int id)
         {
             List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);

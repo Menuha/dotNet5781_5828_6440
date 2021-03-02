@@ -7,6 +7,25 @@
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.LinesWindow"
         mc:Ignorable="d"
         Title="LinesWindow" Height="526.787" Width="1287.15" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize"
+              Value="12" />
+            <Setter Property="FontFamily"
+              Value="Consolas" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+        </Style>
+
+        <Style x:Key="myLabelStyle" TargetType="Label">
+            <Setter Property="FontSize"
+              Value="12" />
+            <Setter Property="FontFamily"
+              Value="Consolas" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+        </Style>
+    </Window.Resources>
 
     <Grid Margin="0,0,0.2,-0.8" >
         <Grid.RowDefinitions>
@@ -24,7 +43,7 @@
             <ColumnDefinition Width="324*"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="lbSelect" Content="Select line:" Grid.Row="0" HorizontalAlignment="Left" Margin="22,50,0,0" VerticalAlignment="Top" Height="25" Width="68" FontWeight="Bold"/>
+        <Label x:Name="lbSelect" Content="Select line:" Grid.Row="0" HorizontalAlignment="Left" Margin="1,50,0,0" VerticalAlignment="Top" Height="25" Width="89" Style="{StaticResource myLabelStyle}"/>
         <ComboBox x:Name="cbLineID" HorizontalAlignment="Left" Text="" VerticalAlignment="Top"
                   Grid.Row="0" Height="24" Margin="98,53,0,0" Width="160"
                   ItemsSource="{Binding}" 
@@ -49,7 +68,7 @@
             <ComboBox x:Name="areaComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" SelectedItem="{Binding Area}" Margin="3" Grid.Row="2" VerticalAlignment="Center" Width="120"/>
         </Grid>
 
-        <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="30,53,0,0" VerticalAlignment="Top" Height="23" Width="209" Grid.Column="1" FontWeight="Bold"/>
+        <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="30,53,0,0" VerticalAlignment="Top" Height="23" Width="209" Grid.Column="1" Style="{StaticResource myLabelStyle}"/>
         <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="28,85,30,35" RowDetailsVisibilityMode="VisibleWhenSelected" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <DataGrid.RenderTransform>
                 <TransformGroup>
@@ -85,7 +104,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="All other stations:" Grid.Column="2" HorizontalAlignment="Left"  Margin="28,53,0,0" VerticalAlignment="Top" Height="23" Width="163" FontWeight="Bold"/>
+        <Label Content="All other stations:" Grid.Column="2" HorizontalAlignment="Left"  Margin="28,53,0,0" VerticalAlignment="Top" Height="23" Width="163" Style="{StaticResource myLabelStyle}"/>
         <DataGrid x:Name="dgOtherStations" Grid.Column="2" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,85,30,35" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>

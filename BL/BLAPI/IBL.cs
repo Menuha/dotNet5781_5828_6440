@@ -37,6 +37,8 @@ namespace BLAPI
 
         #region LineOfStation
         IEnumerable<BO.LineOfStation> GetAllLinesOfStation(int code);
+
+        IEnumerable<BO.LineOfStation> GetAllLinesOfStationSorted(int stationCode);
         #endregion
 
         #region AdjacentStations

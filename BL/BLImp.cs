@@ -293,6 +293,13 @@ namespace BL
                    let line = dl.GetLine(sol.LineID)
                    select line.CopyToLineOfStation(sol);
         }
+
+        public IEnumerable<BO.LineOfStation> GetAllLinesOfStationSorted(int stationCode)
+        {
+            return from li in GetAllLinesOfStation(stationCode)
+                   orderby li.Area
+                   select li; //GetAllLinesOfStation did the cloning for this object 
+        }
         #endregion
 
         #region AdjacentStations

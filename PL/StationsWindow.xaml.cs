@@ -41,7 +41,6 @@ namespace PL
 
             RefreshAllStationComboBox();
 
-            dgLinesOfStation.IsReadOnly = true;
             dgAdjacentStations.IsReadOnly = true;
         }
 
@@ -57,9 +56,9 @@ namespace PL
             cbStationID.SelectedIndex = 0; //index of the object to be selected
         }
         
-        void RefreshAllLinesOfStationGrid()
+        void RefreshAllLinesOfStationListBox()
         {
-            dgLinesOfStation.DataContext = bl.GetAllLinesOfStation(sta.Code);
+            listBoxLinesOfStation.DataContext = bl.GetAllLinesOfStation(sta.Code);
         }
 
         void RefreshAllAdjacentStationGrid()
@@ -75,7 +74,7 @@ namespace PL
             if (sta != null)
             {
                 //list of lines of selected station
-                RefreshAllLinesOfStationGrid();
+                RefreshAllLinesOfStationListBox();
                 //list of adjacent stations of selected station
                 RefreshAllAdjacentStationGrid();
             }
@@ -124,7 +123,7 @@ namespace PL
                 {
                     bl.DeleteStation(sta.Code);
                   
-                    RefreshAllLinesOfStationGrid();
+                    RefreshAllLinesOfStationListBox();
                     RefreshAllAdjacentStationGrid();
                     RefreshAllStationComboBox();
                 }
@@ -148,10 +147,15 @@ namespace PL
 
         private void WinAddStation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            RefreshAllLinesOfStationGrid();
+            RefreshAllLinesOfStationListBox();
             RefreshAllAdjacentStationGrid();
             RefreshAllStationComboBox();
 
+        }
+
+        private void btSort_Click(object sender, RoutedEventArgs e)
+        {
+            listBoxLinesOfStation.DataContext = bl.GetAllLinesOfStationSorted(sta.Code);
         }
     }
 }

@@ -19,7 +19,8 @@ namespace DLAPI
         #endregion
 
         #region Line
-        IEnumerable<DO.Line> GetAllLines();        
+        IEnumerable<DO.Line> GetAllLines();
+        IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate);
         DO.Line GetLine(int id);
         int AddLine(int number, DO.Areas newArea, int firstStationCode, int lastStationCode);
         void UpdateLine(DO.Line line);
