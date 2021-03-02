@@ -11,7 +11,7 @@ namespace BLAPI
         #region Line
         BO.Line GetLine(int id);
         IEnumerable<BO.Line> GetAllLines();
-        void AddLine(BO.Line line, int firstStationCode, int lastStationCode);
+        int AddLine(int number, BO.Areas newArea, int firstStationCode, int lastStationCode);
         void UpdateLine(BO.Line line);
         void DeleteLine(int id);
         //IEnumerable<BO.Line> GetAllLinesBy(Predicate<BO.Line> predicate);

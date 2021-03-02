@@ -23,8 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DS", "DS\DS.csproj", "{9F15
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4F7BCD7-340D-406D-8162-055845C52623}"
 	ProjectSection(SolutionItems) = preProject
+		bin\xml\AdjacentStationsXml.xml = bin\xml\AdjacentStationsXml.xml
 		bin\config.xml = bin\config.xml
 		bin\xml\LinesXml.xml = bin\xml\LinesXml.xml
+		bin\xml\StationsOfLinesXml.xml = bin\xml\StationsOfLinesXml.xml
 		bin\xml\StationsXml.xml = bin\xml\StationsXml.xml
 	EndProjectSection
 EndProject

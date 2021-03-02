@@ -21,7 +21,7 @@ namespace DLAPI
         #region Line
         IEnumerable<DO.Line> GetAllLines();        
         DO.Line GetLine(int id);
-        void AddLine(DO.Line line);
+        int AddLine(int number, DO.Areas newArea, int firstStationCode, int lastStationCode);
         void UpdateLine(DO.Line line);
         void DeleteLine(int id);
         //IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate);

@@ -41,15 +41,6 @@ namespace PL
             cbStation2.SelectedItem = "Code";
         }
 
-        private void iDTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(iDTextBox.Text, "[^0-9]"))
-            {
-                MessageBox.Show("Please enter only numbers.");
-                iDTextBox.Text = iDTextBox.Text.Remove(iDTextBox.Text.Length - 1);
-            }
-        }
-
         private void numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(numberTextBox.Text, "[^0-9]"))
@@ -84,7 +75,7 @@ namespace PL
                 }
                 else
                 {
-                    bl.AddLine(newLine, firstStationCode, lastStationCode);
+                    newLine.ID = bl.AddLine(newLine.Number, newLine.Area, firstStationCode, lastStationCode);
                     this.Close();
                 }
             }

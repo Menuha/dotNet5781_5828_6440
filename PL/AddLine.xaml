@@ -17,9 +17,8 @@
             </LinearGradientBrush>
         </Grid.Background>
         
-        <Grid x:Name="gridNewLine" VerticalAlignment="Top" Margin="29,45,0,0" HorizontalAlignment="Left" >
+        <Grid x:Name="gridNewLine" VerticalAlignment="Top" Margin="26,64,0,0" HorizontalAlignment="Left" Height="134" Width="250" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -32,22 +31,18 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
-            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="ID:"/>
-            <TextBox x:Name="iDTextBox" Width="120" VerticalAlignment="Center" Text="{Binding ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="iDTextBox_TextChanged"/>
-            <Label Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="2" Content="{Binding ElementName=iDTextBox, Path=(Validation.Errors)[0].ErrorContent}"  Foreground="Red"/>
+            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Number:"/>
+            <TextBox x:Name="numberTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="numberTextBox_TextChanged"/>
+            <Label Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="2" Content="{Binding ElementName=numberTextBox, Path=(Validation.Errors)[0].ErrorContent}"  Foreground="Red"/>
 
-            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Number:"/>
-            <TextBox x:Name="numberTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1" TextChanged="numberTextBox_TextChanged"/>
-            <Label Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="2" Content="{Binding ElementName=numberTextBox, Path=(Validation.Errors)[0].ErrorContent}"  Foreground="Red"/>
+            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Area:"/>
+            <ComboBox x:Name="areaComboBox" Width="120" VerticalAlignment="Center" Grid.Row="1" Margin="3" SelectedItem="{Binding Area}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1"/>
 
-            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Area:"/>
-            <ComboBox x:Name="areaComboBox" Width="120" VerticalAlignment="Center" Grid.Row="2" Margin="3" SelectedItem="{Binding Area}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="First Station Code:"/>
+            <ComboBox x:Name="cbStation1" Width="120" VerticalAlignment="Center" Grid.Row="2" Margin="3" ItemsSource="{Binding}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1" SelectionChanged="cbStation1_SelectionChanged"/>
 
-            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="First Station Code:"/>
-            <ComboBox x:Name="cbStation1" Width="120" VerticalAlignment="Center" Grid.Row="3" Margin="3" ItemsSource="{Binding}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1" SelectionChanged="cbStation1_SelectionChanged"/>
-
-            <Label VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Last Station Code:"/>
-            <ComboBox x:Name="cbStation2" Width="120" VerticalAlignment="Center" Grid.Row="4" Margin="3" ItemsSource="{Binding}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1" SelectionChanged="cbStation2_SelectionChanged"/>
+            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Last Station Code:"/>
+            <ComboBox x:Name="cbStation2" Width="120" VerticalAlignment="Center" Grid.Row="3" Margin="3" ItemsSource="{Binding}" Height="Auto" HorizontalAlignment="Left" Grid.Column="1" SelectionChanged="cbStation2_SelectionChanged"/>
 
         </Grid>
         

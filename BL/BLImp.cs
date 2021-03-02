@@ -46,21 +46,18 @@ namespace BL
                    select lineDoBoAdapter(lineDO);
         }
 
-        public void AddLine(BO.Line line, int firstStationCode, int lastStationCode)
-        {
-            //Add new DO.Line with no stations          
-            DO.Line lineDO = new DO.Line();
-            line.CopyPropertiesTo(lineDO);
+        public int AddLine(int number, BO.Areas newArea, int firstStationCode, int lastStationCode)
+        {         
             try
             {
-                lineDO.FirstStationCode = dl.GetStation(firstStationCode).Code;
-                lineDO.LastStationCode = dl.GetStation(lastStationCode).Code;
-                dl.AddLine(lineDO);
+                int lineID = dl.AddLine(number, (DO.Areas)newArea, firstStationCode, lastStationCode);
 
                 AddAdjacentStations(firstStationCode, lastStationCode);
 
-                AddStationOfLine(line.ID, firstStationCode);
-                AddStationOfLine(line.ID, lastStationCode);
+                AddStationOfLine(lineID, firstStationCode);
+                AddStationOfLine(lineID, lastStationCode);
+
+                return lineID;
             }
             catch (DO.BadStationCodeException ex)
             {

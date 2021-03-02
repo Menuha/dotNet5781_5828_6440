@@ -98,11 +98,28 @@ namespace DL
                 throw new DO.BadLineIDException(id, $"bad line id: {id}");
         }
 
-        public void AddLine(DO.Line line)
+        public int AddLine(int number, DO.Areas area, int firstStationCode, int lastStationCode)
         {
-            if (DataSource.ListLines.FirstOrDefault(l => l.ID == line.ID) != null)
+            DO.Station station = GetStation(firstStationCode);
+            if (station == null)
+                throw new DO.BadStationCodeException(firstStationCode, $"Station code {firstStationCode} does not exist");
+            station = GetStation(lastStationCode);
+            if (station == null)
+                throw new DO.BadStationCodeException(lastStationCode, $"Station code {lastStationCode} does not exist");
+            
+            DO.Line line = DataSource.ListLines.FirstOrDefault(l => l.Number == number && l.Area == area);
+            if (line != null)
                 throw new DO.BadLineIDException(line.ID, "Duplicate line id");
-            DataSource.ListLines.Add(line.Clone());
+            line = new DO.Line()
+            {
+                ID = ++DO.Config.LineID,
+                Number = number,
+                Area = area,
+                FirstStationCode = firstStationCode,
+                LastStationCode = lastStationCode
+            };
+            DataSource.ListLines.Add(line);
+            return line.ID;
         }
 
         public void DeleteLine(int id)
@@ -318,18 +335,17 @@ namespace DL
                 DO.Station station2 = GetStation(station2Code);
                 var sCoord = new GeoCoordinate(station1.Longitude, station1.Latitude);
                 var eCoord = new GeoCoordinate(station2.Longitude, station2.Latitude);
-                var distance = sCoord.GetDistanceTo(eCoord);
+                var distance = sCoord.GetDistanceTo(eCoord) * 1.5;
                 
                 DO.AdjacentStations adjSt = new DO.AdjacentStations() {
                     Station1Code = station1Code, 
                     Station2Code = station2Code,
-                    Distance = 1.5 * distance,
-                    //speed = 10 m/s
-                    AvgTime = new TimeSpan(0, 0, Convert.ToInt32(1.5 * distance / 10))
+                    Distance = distance,
+                    //speed = 10 m/s => time = distance/speed
+                    AvgTime = new TimeSpan(0, 0, Convert.ToInt32(distance / 10))
                 };
                 DataSource.ListAdjacentStations.Add(adjSt);
             }
-            //
         }
 
         public void DeleteAdjacentStationsByStation(int stationCode)
