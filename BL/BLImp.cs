@@ -65,7 +65,7 @@ namespace BL
             }
             catch (DO.BadLineIDException ex)
             {
-                throw new BO.BadLineIDException("Line ID is illegal", ex);
+                throw new BO.BadLineIDException("Duplicate Line ID", ex);
             }
         }
         
@@ -157,7 +157,7 @@ namespace BL
             }
             catch (DO.BadStationCodeException ex)
             {
-                throw new BO.BadStationCodeException("Station Code is illegal", ex);
+                throw new BO.BadStationCodeException("Duplicate Station Code", ex);
             }
         }
         

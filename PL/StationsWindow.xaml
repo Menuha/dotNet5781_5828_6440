@@ -82,7 +82,7 @@
         <ComboBox x:Name="cbStationID" HorizontalAlignment="Left" Margin="132,61,0,0" VerticalAlignment="Top" Width="105" Text=""
                   ItemsSource="{Binding}" SelectionChanged="cbStationID_SelectionChanged" Height="22" Grid.ColumnSpan="2" />
 
-        <Grid x:Name="gridOneStation" HorizontalAlignment="Left" Margin="39,124,0,0" VerticalAlignment="Top" Height="128" Width="198" Grid.ColumnSpan="2">
+        <Grid x:Name="gridOneStation" HorizontalAlignment="Left" Margin="23,124,0,0" VerticalAlignment="Top" Height="128" Width="198">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -103,12 +103,12 @@
             <TextBox x:Name="longitudeTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="3" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         </Grid>
 
-        <Label Content="List of lines of this station:" HorizontalAlignment="Left" Margin="32,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Width="188"/>
+        <Label Content="List of lines of this station:" HorizontalAlignment="Left" Margin="32,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Width="188"/>
 
         <ListBox x:Name="listBoxLinesOfStation" ItemsSource="{Binding}" Grid.Column="1" Margin="28,98,29,71"
              ItemTemplate="{StaticResource MyDataTemplate}"
              HorizontalContentAlignment="Stretch" />
-        <Button x:Name="btSort" Content="Sort By Area" Grid.Column="1"
+        <Button x:Name="btSort" Content="Sort Lines By Areas" Grid.Column="1"
             Click="btSort_Click" Margin="28,436,29,31"/>
 
 
@@ -121,7 +121,7 @@
             </DataGrid.Columns>
         </DataGrid>-->
 
-        <Label Content="List of my adjacent stations:" HorizontalAlignment="Left" Margin="32,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold" Grid.Row="0" Grid.Column="2" Width="188"/>
+        <Label Content="List of my adjacent stations:" HorizontalAlignment="Left" Margin="30,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold" Grid.Row="0" Grid.Column="2" Width="188"/>
         <DataGrid x:Name="dgAdjacentStations" AutoGenerateColumns="False" Grid.Column="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="24,99,22,72" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="station1CodeColumn" Binding="{Binding Station1Code}" Header="Station 1 Code" Width="SizeToHeader"/>
@@ -132,9 +132,9 @@
         </DataGrid>
 
 
-        <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="69,301,0,0" VerticalAlignment="Top" Width="155" Background="DeepPink" Click="btUpStation_Click" Height="20"/>
-        <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="69,345,0,0" VerticalAlignment="Top" Width="155" Background="BlueViolet" Click="btDelStation_Click" Height="20"/>
-        <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="69,387,0,0" VerticalAlignment="Top" Width="155" Background="#FF6DB469" Click="btAddStation_Click" Height="20" />
+        <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="49,301,0,0" VerticalAlignment="Top" Width="155" Background="DeepPink" Click="btUpStation_Click" Height="20"/>
+        <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="49,345,0,0" VerticalAlignment="Top" Width="155" Background="BlueViolet" Click="btDelStation_Click" Height="20"/>
+        <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="49,387,0,0" VerticalAlignment="Top" Width="155" Background="#FF6DB469" Click="btAddStation_Click" Height="20" />
 
         <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="35" Margin="99,430,0,0" VerticalAlignment="Top" Width="142" FontStyle="Italic" FontSize="20" FontWeight="Bold" Grid.Column="0" Grid.ColumnSpan="2"/>
 
