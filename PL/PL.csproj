@@ -64,6 +64,9 @@
     <Compile Include="IndexWindow.xaml.cs">
       <DependentUpon>IndexWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LineTripsWindow.xaml.cs">
+      <DependentUpon>LineTripsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LinesWidow.xaml.cs">
       <DependentUpon>LinesWidow.xaml</DependentUpon>
     </Compile>
@@ -79,6 +82,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="IndexWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LineTripsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,10 +129,16 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\DataSources\BO.AdjacentStations.datasource" />
+    <None Include="Properties\DataSources\BO.AdjacentStations1.datasource" />
     <None Include="Properties\DataSources\BO.Line.datasource" />
+    <None Include="Properties\DataSources\BO.Line1.datasource" />
     <None Include="Properties\DataSources\BO.LineOfStation.datasource" />
+    <None Include="Properties\DataSources\BO.LineOfStation1.datasource" />
+    <None Include="Properties\DataSources\BO.LineTrip.datasource" />
     <None Include="Properties\DataSources\BO.Station.datasource" />
+    <None Include="Properties\DataSources\BO.Station1.datasource" />
     <None Include="Properties\DataSources\BO.StationOfLine.datasource" />
+    <None Include="Properties\DataSources\BO.StationOfLine1.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

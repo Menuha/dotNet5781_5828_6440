@@ -48,6 +48,7 @@
     <Compile Include="BO\Exceptions.cs" />
     <Compile Include="BO\Line.cs" />
     <Compile Include="BO\LineOfStation.cs" />
+    <Compile Include="BO\LineTrip.cs" />
     <Compile Include="BO\StationOfLine.cs" />
     <Compile Include="BO\Station.cs" />
     <Compile Include="BLImp.cs" />

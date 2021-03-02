@@ -42,5 +42,10 @@ namespace PL
             secondWindow.Show();
         }
 
+        private void btLineTrip_Click(object sender, RoutedEventArgs e)
+        {
+            LineTripsWindow secondWindow = new LineTripsWindow(bl);
+            secondWindow.Show();
+        }
     }
 }
