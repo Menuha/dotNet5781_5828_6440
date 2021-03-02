@@ -56,5 +56,14 @@ namespace DLAPI
         void UpdateAdjacentStations(DO.Station stationDO);
         #endregion
 
+        #region LineTrip
+        IEnumerable<DO.LineTrip> GetAllLinesTrips();
+        IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate);
+        DO.LineTrip GetLineTrip(int id);
+        int AddLineTrip(int number, DO.Areas newArea, int firstStationCode, int lastStationCode);
+        void UpdateLineTrip(DO.LineTrip lineTrip);
+        void DeleteLineTrip(int id);
+        #endregion
+
     }
 }

@@ -4,12 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DO
+namespace BO
 {
-    /// <summary>
-    /// DO entity that describes the departure of a bus line for travel. 
-    /// Each line can have several departures at different hours.
-    /// </summary>
     public class LineTrip
     {
         public int LineTripID { get; set; } //Key - automatic number.
@@ -17,6 +13,7 @@ namespace DO
         public TimeSpan StartAt { get; set; } //Bonus. Part2 of the key
         //public TimeSpan Frequency { get; set; } //Bonus
         //public TimeSpan FinishAt { get; set; } //Bonus
-        public override string ToString() => this.ToStringProperty();
+        public override string ToString() => $"Line ID: {LineID}, Start At: {StartAt}";
     }
 }
+

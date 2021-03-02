@@ -368,5 +368,34 @@ namespace DL
         }
         #endregion
 
+        #region LineTrip
+        public IEnumerable<DO.LineTrip> GetAllLinesTrips()
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate)
+        {
+            return from lt in DataSource.ListLinesTrips
+                   where predicate(lt)
+                   select lt.Clone();
+        }
+        public DO.LineTrip GetLineTrip(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public int AddLineTrip(int number, DO.Areas newArea, int firstStationCode, int lastStationCode)
+        {
+            throw new NotImplementedException();
+        }
+        public void UpdateLineTrip(DO.LineTrip lineTrip)
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteLineTrip(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
     }
 }

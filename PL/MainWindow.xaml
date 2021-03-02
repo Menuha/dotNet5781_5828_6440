@@ -11,7 +11,8 @@
             <GradientStop Color="Black" Offset="0"/>
             <GradientStop Color="#FF8CE44F" Offset="1"/>
         </LinearGradientBrush>
-    </Window.Resources>
+    </Window.Resources>
+
     <Grid x:Name="gridWindow" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Image Source="https://www.kipa.co.il/userFiles/314914_ae59b3616eb9d8767ac5141985555059.jpg" >
             <Image.OpacityMask>
@@ -24,6 +25,8 @@
         <Button x:Name="btStations" Content="Stations" HorizontalAlignment="Left" Margin="171,239,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btStations_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}">
         </Button>
         <Button x:Name="btLines" Content="Lines" HorizontalAlignment="Left" Margin="537,242,0,0" VerticalAlignment="Top" Width="181" Height="79" Click="btLines_Click" FontWeight="Bold" RenderTransformOrigin="0.604,1.046" Background="{StaticResource myLinearGradientBrush}">
+        </Button>
+        <Button x:Name="btLineTrip" Content="Line Trips" HorizontalAlignment="Left" Margin="359,338,0,0" VerticalAlignment="Top" Width="177" Height="79" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Click="btLineTrip_Click">
         </Button>
         <Label Content="Welcome to the system" HorizontalAlignment="Left" Margin="171,41,0,0" VerticalAlignment="Top" Height="87" Width="527" FontWeight="Bold" FontStyle="Italic" Cursor="None" FontSize="48">
             <Label.Background>

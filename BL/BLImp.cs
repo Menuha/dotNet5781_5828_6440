@@ -329,5 +329,39 @@ namespace BL
             }
         }
         #endregion
+
+        #region LineTrip
+        BO.LineTrip lineTripDoBoAdapter(DO.LineTrip lineTripDO)
+        {
+            BO.LineTrip lineTripBO = new BO.LineTrip();
+            lineTripDO.CopyPropertiesTo(lineTripBO);
+            return lineTripBO;
+        }
+        public IEnumerable<DO.LineTrip> GetAllLinesTrips()
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.Line> predicate)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<BO.LineTrip> GetLineTrips(int lineID)
+        {
+            return from lt in dl.GetAllLinesTripsBy(lt => lt.LineID == lineID)
+                   select lineTripDoBoAdapter(lt);
+        }
+        public int AddLineTrip(int number, DO.Areas newArea, int firstStationCode, int lastStationCode)
+        {
+            throw new NotImplementedException();
+        }
+        public void UpdateLineTrip(DO.LineTrip lineTrip)
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteLineTrip(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
