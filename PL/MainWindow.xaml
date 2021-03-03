@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Home Page" Height="506.489" Width="849.15" WindowStartupLocation="CenterScreen">
+        Title="Home Page" Height="506.489" Width="847" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <LinearGradientBrush   x:Key="myLinearGradientBrush">
             <GradientStop Color="Black" Offset="0"/>
@@ -27,14 +27,14 @@
 
         <Image Source="https://www.kipa.co.il/userFiles/314914_ae59b3616eb9d8767ac5141985555059.jpg" Grid.RowSpan="2" Grid.ColumnSpan="3">
             <Image.OpacityMask>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </Image.OpacityMask>
         </Image>
 
-        <Label Content="Welcome to the system" HorizontalAlignment="Left" Margin="165,66,0,0" VerticalAlignment="Top" Height="87" Width="527" FontWeight="Bold" FontStyle="Italic" Cursor="None" FontSize="48" Grid.ColumnSpan="3">
+        <Label Content="Welcome to the system" HorizontalAlignment="Left" Margin="165,66,0,0" VerticalAlignment="Top" Height="87" Width="528" FontWeight="Bold" FontStyle="Italic" Cursor="None" FontSize="48" Grid.ColumnSpan="3">
             <Label.Background>
                 <LinearGradientBrush EndPoint="0.5,1"   MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
