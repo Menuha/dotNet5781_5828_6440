@@ -7,8 +7,15 @@
         mc:Ignorable="d"
         Title="Updata Index" Height="168.163" Width="235.804" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Select updated index:" HorizontalAlignment="Left" Height="30" Margin="10,49,0,0" VerticalAlignment="Top" Width="130"/>
-        <ComboBox x:Name="cbIndex" Text="{Binding StationIndexInLine}" HorizontalAlignment="Left" Margin="145,49,0,0" VerticalAlignment="Top" Width="50" Height="23"/>
-        <Button x:Name="btUpdateIndex" Content="Update Index" HorizontalAlignment="Left" Margin="61,100,0,0" VerticalAlignment="Top" Width="101" Height="26" Click="btUpdateIndex_Click" />
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF008000" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <Label Content="Select updated index:" HorizontalAlignment="Left" Height="30" Margin="10,41,0,0" VerticalAlignment="Top" Width="130"/>
+        <ComboBox x:Name="cbIndex" Text="{Binding StationIndexInLine}" HorizontalAlignment="Left" Margin="145,44,0,0" VerticalAlignment="Top" Width="50" Height="23"/>
+        <Button x:Name="btUpdateIndex" Content="Update Index" HorizontalAlignment="Left" Margin="61,90,0,0" VerticalAlignment="Top" Width="101" Height="26" Click="btUpdateIndex_Click" />
     </Grid>
 </Window>

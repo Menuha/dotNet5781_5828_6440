@@ -78,7 +78,7 @@
             <ColumnDefinition Width="85*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Select Station:" HorizontalAlignment="Left" Margin="33,57,0,0" VerticalAlignment="Top" Width="85" Height="30" RenderTransformOrigin="0.343,0.461" FontWeight="Bold"/>
+        <Label Content="Select Station:" HorizontalAlignment="Left" Margin="33,57,0,0" VerticalAlignment="Top" Width="95" Height="30" RenderTransformOrigin="0.343,0.461" FontWeight="Bold"/>
         <ComboBox x:Name="cbStationID" HorizontalAlignment="Left" Margin="132,61,0,0" VerticalAlignment="Top" Width="105" Text=""
                   ItemsSource="{Binding}" SelectionChanged="cbStationID_SelectionChanged" Height="22" Grid.ColumnSpan="2" />
 
@@ -105,11 +105,11 @@
 
         <Label Content="List of lines of this station:" HorizontalAlignment="Left" Margin="32,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Width="188"/>
 
-        <ListBox x:Name="listBoxLinesOfStation" ItemsSource="{Binding}" Grid.Column="1" Margin="28,98,29,71"
+        <ListBox x:Name="listBoxLinesOfStation" ItemsSource="{Binding}" Grid.Column="1" Margin="28,98,29,71" 
              ItemTemplate="{StaticResource MyDataTemplate}"
              HorizontalContentAlignment="Stretch" />
         <Button x:Name="btSort" Content="Sort Lines By Areas" Grid.Column="1"
-            Click="btSort_Click" Margin="28,436,29,31"/>
+            Click="btSort_Click" Margin="98,436,96,39" Background="#FF0086FF"/>
 
 
         <!--<DataGrid x:Name="dgLinesOfStation" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="28,98,29,71" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.Column="1" >
@@ -122,7 +122,7 @@
         </DataGrid>-->
 
         <Label Content="List of my adjacent stations:" HorizontalAlignment="Left" Margin="30,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.298,1.532" Height="34" FontWeight="Bold" Grid.Row="0" Grid.Column="2" Width="188"/>
-        <DataGrid x:Name="dgAdjacentStations" AutoGenerateColumns="False" Grid.Column="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="24,99,22,72" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="dgAdjacentStations" AutoGenerateColumns="False" Grid.Column="2" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="24,99,22,72" RowDetailsVisibilityMode="VisibleWhenSelected" >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="station1CodeColumn" Binding="{Binding Station1Code}" Header="Station 1 Code" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="station2CodeColumn" Binding="{Binding Station2Code}" Header="Station 2 Code" Width="SizeToHeader"/>

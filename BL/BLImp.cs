@@ -337,31 +337,51 @@ namespace BL
             lineTripDO.CopyPropertiesTo(lineTripBO);
             return lineTripBO;
         }
-        public IEnumerable<BO.LineTrip> GetAllLinesTrips()
-        {
-            throw new NotImplementedException();
-        }
-        public IEnumerable<BO.LineTrip> GetAllLinesTripsBy(Predicate<BO.Line> predicate)
-        {
-            throw new NotImplementedException();
-        }
+       
         public IEnumerable<BO.LineTrip> GetAllLineTrips(int lineID)
         {
-            return from lt in dl.GetAllLinesTripsBy(lt => lt.LineID == lineID)
+            return from lt in dl.GetAllLineTrips(lineID)
                    select lineTripDoBoAdapter(lt);
         }
-        public int AddLineTrip(int number, BO.Areas newArea, int firstStationCode, int lastStationCode)
+        
+        public int AddLineTrip(int lineID, TimeSpan startAt)
         {
-            throw new NotImplementedException();
+            try 
+            {
+                int lineTripID = dl.AddLineTrip(lineID, startAt);
+                return lineTripID;
+            }
+            catch(DO.BadLineIDException ex)
+            {
+                throw new BO.BadLineIDException("Duplicate line trip", ex);
+            }
+
         }
-        public void UpdateLineTrip(BO.LineTrip lineTrip)
+
+        public void DeleteLineTrip(int lineTripID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dl.DeleteLineTrip(lineTripID);
+            }
+            catch (DO.BadLineIDException ex)
+            {
+                throw new BO.BadLineIDException("Line ID does Not exist", ex);
+            }
         }
-        public void DeleteLineTrip(int id)
-        {
-            throw new NotImplementedException();
-        }
+
+        //public IEnumerable<BO.LineTrip> GetAllLinesTrips()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //public IEnumerable<BO.LineTrip> GetAllLinesTripsBy(Predicate<BO.Line> predicate)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //public void UpdateLineTrip(BO.LineTrip lineTrip)
+        //{
+        //    throw new NotImplementedException();
+        //}
         #endregion
     }
 }

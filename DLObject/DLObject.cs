@@ -369,32 +369,64 @@ namespace DL
         #endregion
 
         #region LineTrip
-        public IEnumerable<DO.LineTrip> GetAllLinesTrips()
-        {
-            throw new NotImplementedException();
-        }
-        public IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate)
+        public IEnumerable<DO.LineTrip> GetAllLineTrips(int lineID)
         {
             return from lt in DataSource.ListLinesTrips
-                   where predicate(lt)
+                   where lt.LineID == lineID
                    select lt.Clone();
         }
-        public DO.LineTrip GetLineTrip(int id)
+
+        public int AddLineTrip(int lineID, TimeSpan startAt)
         {
-            throw new NotImplementedException();
+            DO.Line line = DataSource.ListLines.FirstOrDefault(li => li.ID == lineID);
+            if (line == null)
+                throw new DO.BadLineIDException(lineID, $"Line ID {lineID} does not exist");
+
+            DO.LineTrip lineTrip = DataSource.ListLinesTrips.FirstOrDefault(lt => lt.LineID == lineID && lt.StartAt == startAt);
+            if (lineTrip != null)
+                throw new DO.BadLineIDException(lineID, "Duplicate line trip");
+            lineTrip = new DO.LineTrip()
+            {
+                LineTripID = ++DO.Config.LineTripID,
+                LineID = lineID,
+                StartAt = startAt
+            };
+            DataSource.ListLinesTrips.Add(lineTrip);
+            return lineTrip.LineTripID;
         }
-        public int AddLineTrip(int number, DO.Areas newArea, int firstStationCode, int lastStationCode)
+
+        public void DeleteLineTrip(int lineTripID)
         {
-            throw new NotImplementedException();
+            DO.LineTrip lt = DataSource.ListLinesTrips.Find(l => l.LineTripID == lineTripID);
+
+            if (lt != null)
+            {
+                DataSource.ListLinesTrips.Remove(lt);
+            }
+            else
+                throw new DO.BadLineIDException(lineTripID, $"bad line trip id: {lineTripID}");
+
         }
-        public void UpdateLineTrip(DO.LineTrip lineTrip)
-        {
-            throw new NotImplementedException();
-        }
-        public void DeleteLineTrip(int id)
-        {
-            throw new NotImplementedException();
-        }
+
+        //public IEnumerable<DO.LineTrip> GetAllLinesTrips()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate)
+        //{
+        //    return from lt in DataSource.ListLinesTrips
+        //           where predicate(lt)
+        //           select lt.Clone();
+        //}
+        //public void UpdateLineTrip(DO.LineTrip lineTrip)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //public void DeleteLineTrip(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
         #endregion
 
     }

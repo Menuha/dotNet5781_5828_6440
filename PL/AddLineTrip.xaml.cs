@@ -24,32 +24,33 @@ namespace PL
     {
         IBL bl;
         BO.LineTrip newLT = new BO.LineTrip();
-        public AddLineTrip(IBL _bl)
+        public AddLineTrip(IBL _bl, int lineID)
         {
             InitializeComponent();
             bl = _bl;
+            newLT.LineID = lineID;
 
-            tSpanTextBox.DataContext = newLT;
+            gridLT.DataContext = newLT;
         }
 
         private void btAdd_Click(object sender, RoutedEventArgs e)
         { 
             try
             {
-                newLT.StartAt = TimeSpan.Parse(tSpanTextBox.Text);
+                newLT.StartAt = TimeSpan.Parse(startAtTextBox.Text);
 
                 string pattern = @"\d\d:\d\d:\d\d$";
                 Regex rgx = new Regex(pattern);
 
-                if (!rgx.IsMatch(tSpanTextBox.Text))
+                if (!rgx.IsMatch(startAtTextBox.Text))
                 {
                     MessageBox.Show("Please enter time in the right pattern.");
-                    tSpanTextBox.Text = tSpanTextBox.Text.Remove(0);
+                    startAtTextBox.Text = startAtTextBox.Text.Remove(0);
                 }
 
                 else
                 {
-                    bl.AddLineTrip(newLT);
+                    bl.AddLineTrip(newLT.LineID, newLT.StartAt);
                     this.Close();
                 }
             }

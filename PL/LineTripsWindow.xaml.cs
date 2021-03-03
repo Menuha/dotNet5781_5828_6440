@@ -65,9 +65,25 @@ namespace PL
                 RefreshAllLineTripsGrid();
         }
 
+        private void btUnRegisterLT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BO.LineTrip lineTrip = ((sender as Button).DataContext as BO.LineTrip);
+                bl.DeleteLineTrip(lineTrip.LineTripID);
+
+                RefreshAllLineTripsGrid();
+            }
+            catch (BO.BadLineIDStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
         private void btAddTrip_Click(object sender, RoutedEventArgs e)
         {
-            AddLineTrip win = new AddLineTrip(bl);
+            AddLineTrip win = new AddLineTrip(bl, curLine.ID);
             win.Closing += WinAddLineTrip_Closing;
             win.ShowDialog();
         }

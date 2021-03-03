@@ -46,6 +46,14 @@
                 <DataGridTextColumn x:Name="lineIDColumn" Binding="{Binding LineID}" Header="Line ID" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="lineTripIDColumn" Binding="{Binding LineTripID}" Header="Line Trip ID" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="startAtColumn" Binding="{Binding StartAt}" Header="Start At" Width="SizeToHeader"/>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btUnRegisterLT" Content="UnRegister" Click="btUnRegisterLT_Click" ToolTip="UnRegister selected trip from selected line"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

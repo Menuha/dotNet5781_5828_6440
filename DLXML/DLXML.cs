@@ -24,11 +24,10 @@ namespace DL
         #region DS XML Files
 
         string stationsPath = @"StationsXml.xml"; //XElement
-
         string linesPath = @"LinesXml.xml"; //XMLSerializer
         string stationsOfLinesPath = @"StationsOfLinesXml.xml"; //XMLSerializer
         string adjacentStationsPath = @"AdjacentStationsXml.xml"; //XElement
-        string linesTripsPath = @"LinesTripsXml.xml"; //XMLSerializer
+        string linesTripsPath = @"LinesTripsXml.xml"; //XElement
 
         #endregion
 
@@ -549,33 +548,87 @@ namespace DL
         #endregion
 
         #region LineTrip
-        public IEnumerable<DO.LineTrip> GetAllLinesTrips()
+        public IEnumerable<DO.LineTrip> GetAllLineTrips(int lineID)
         {
-            throw new NotImplementedException();
+            XElement linesTripsRootElem = XMLTools.LoadListFromXMLElement(linesTripsPath);
+
+            return (from lt in linesTripsRootElem.Elements()
+                    where int.Parse(lt.Element("LineID").Value) == lineID
+                    select new LineTrip()
+                    {
+                        LineTripID = Int32.Parse(lt.Element("LineTripID").Value),
+                        LineID = Int32.Parse(lt.Element("LineID").Value),
+                        StartAt = TimeSpan.ParseExact(lt.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                    }
+                   );
         }
-        public IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate)
+
+        public int AddLineTrip(int lineID, TimeSpan startAt)
         {
-            List<LineTrip> ListLinesTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(linesTripsPath);
-            return from lt in ListLinesTrips
-                   where predicate(lt)
-                   select lt;
+            XElement linesRootElem = XMLTools.LoadListFromXMLElement(linesPath);
+            XElement line = (from li in linesRootElem.Elements()
+                             where int.Parse(li.Element("ID").Value) == lineID
+                             select li).FirstOrDefault();
+            if(line == null)
+                throw new DO.BadLineIDException(lineID, $"Line ID {lineID} does not exist");
+
+            XElement linesTripsRootElem = XMLTools.LoadListFromXMLElement(linesTripsPath);
+
+            XElement lineTrip = (from lt in linesTripsRootElem.Elements()
+                                 where int.Parse(lt.Element("LineID").Value) == lineID &&
+                                       TimeSpan.Parse(lt.Element("StartAt").Value) == startAt
+                                 select lt).FirstOrDefault();
+            if (lineTrip != null)
+                throw new DO.BadLineIDException(lineID, "Duplicate line trip");
+
+            lineTrip = new XElement("LineTrip", new XElement("LineTripID", ++DO.Config.LineTripID),
+                                  new XElement("LineID", lineID),
+                                  new XElement("StartAt", startAt));
+
+            linesTripsRootElem.Add(lineTrip);
+
+            XMLTools.SaveListToXMLElement(linesTripsRootElem, linesTripsPath);
+
+            return DO.Config.LineTripID;
         }
-        public DO.LineTrip GetLineTrip(int id)
+
+        public void DeleteLineTrip(int lineTripID)
         {
-            throw new NotImplementedException();
+            XElement linesTripsRootElem = XMLTools.LoadListFromXMLElement(linesTripsPath);
+
+            XElement lineTrip = (from lt in linesTripsRootElem.Elements()
+                                 where int.Parse(lt.Element("LineTripID").Value) == lineTripID
+                                 select lt).FirstOrDefault();
+            if (lineTrip != null)
+            {
+                lineTrip.Remove(); //<==>   Remove lineTrip from linesTripsRootElem
+                XMLTools.SaveListToXMLElement(linesTripsRootElem, linesTripsPath);
+            }
+            else
+                throw new DO.BadLineIDException(lineTripID, "Line trip does not exist");
         }
-        public int AddLineTrip(int number, DO.Areas newArea, int firstStationCode, int lastStationCode)
-        {
-            throw new NotImplementedException();
-        }
-        public void UpdateLineTrip(DO.LineTrip lineTrip)
-        {
-            throw new NotImplementedException();
-        }
-        public void DeleteLineTrip(int id)
-        {
-            throw new NotImplementedException();
-        }
+
+        //public IEnumerable<DO.LineTrip> GetAllLinesTrips()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate)
+        //{
+        //    List<LineTrip> ListLinesTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(linesTripsPath);
+        //    return from lt in ListLinesTrips
+        //           where predicate(lt)
+        //           select lt;
+        //}
+
+        //public void UpdateLineTrip(DO.LineTrip lineTrip)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //public void DeleteLineTrip(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
         #endregion
 
     }

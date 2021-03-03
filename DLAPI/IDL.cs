@@ -57,12 +57,13 @@ namespace DLAPI
         #endregion
 
         #region LineTrip
-        IEnumerable<DO.LineTrip> GetAllLinesTrips();
-        IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate);
-        DO.LineTrip GetLineTrip(int id);
-        int AddLineTrip(int number, DO.Areas newArea, int firstStationCode, int lastStationCode);
-        void UpdateLineTrip(DO.LineTrip lineTrip);
-        void DeleteLineTrip(int id);
+        IEnumerable<DO.LineTrip> GetAllLineTrips(int lineID);
+        int AddLineTrip(int lineID, TimeSpan startAt);
+        void DeleteLineTrip(int lineTripID);
+        //IEnumerable<DO.LineTrip> GetAllLinesTrips();
+        //IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate);
+        //void UpdateLineTrip(DO.LineTrip lineTrip);
+        //void DeleteLineTrip(int id);
         #endregion
 
     }

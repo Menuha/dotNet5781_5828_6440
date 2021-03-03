@@ -47,12 +47,14 @@ namespace BLAPI
         #endregion
 
         #region LineTrip
-        IEnumerable<BO.LineTrip> GetAllLinesTrips();
-        IEnumerable<BO.LineTrip> GetAllLinesTripsBy(Predicate<BO.Line> predicate);
+
         IEnumerable<BO.LineTrip> GetAllLineTrips(int lineID);
-        int AddLineTrip(int number, BO.Areas newArea, int firstStationCode, int lastStationCode);
-        void UpdateLineTrip(BO.LineTrip lineTrip);
-        void DeleteLineTrip(int id);
+        int AddLineTrip(int lineID, TimeSpan startAt);
+        void DeleteLineTrip(int lineTripID);
+        //IEnumerable<BO.LineTrip> GetAllLinesTrips();
+        //IEnumerable<BO.LineTrip> GetAllLinesTripsBy(Predicate<BO.Line> predicate);
+        //void UpdateLineTrip(BO.LineTrip lineTrip);
+
         #endregion
     }
 }
