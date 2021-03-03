@@ -337,24 +337,24 @@ namespace BL
             lineTripDO.CopyPropertiesTo(lineTripBO);
             return lineTripBO;
         }
-        public IEnumerable<DO.LineTrip> GetAllLinesTrips()
+        public IEnumerable<BO.LineTrip> GetAllLinesTrips()
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.Line> predicate)
+        public IEnumerable<BO.LineTrip> GetAllLinesTripsBy(Predicate<BO.Line> predicate)
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<BO.LineTrip> GetLineTrips(int lineID)
+        public IEnumerable<BO.LineTrip> GetAllLineTrips(int lineID)
         {
             return from lt in dl.GetAllLinesTripsBy(lt => lt.LineID == lineID)
                    select lineTripDoBoAdapter(lt);
         }
-        public int AddLineTrip(int number, DO.Areas newArea, int firstStationCode, int lastStationCode)
+        public int AddLineTrip(int number, BO.Areas newArea, int firstStationCode, int lastStationCode)
         {
             throw new NotImplementedException();
         }
-        public void UpdateLineTrip(DO.LineTrip lineTrip)
+        public void UpdateLineTrip(BO.LineTrip lineTrip)
         {
             throw new NotImplementedException();
         }

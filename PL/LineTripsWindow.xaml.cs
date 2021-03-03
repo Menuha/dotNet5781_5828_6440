@@ -1,5 +1,4 @@
-﻿using BLAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+using BLAPI;
+
 namespace PL
 {
     /// <summary>
@@ -23,14 +24,14 @@ namespace PL
     public partial class LineTripsWindow : Window
     {
         IBL bl;
-        BO.Line curLineTrips;
+        BO.Line curLine;
         DispatcherTimer Timer = new DispatcherTimer();
         public LineTripsWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
 
-            cbLineID.SelectedValuePath = "LineID";//selection return only specific Property of object
+            cbLineID.SelectedValuePath = "ID";//selection return only specific Property of object
             RefreshAllLinesComboBox();
 
             Timer.Tick += new EventHandler(Timer_Click);
@@ -49,20 +50,32 @@ namespace PL
             cbLineID.SelectedIndex = 0; //index of the object to be selected
         }
 
+        //list of departures of selected line
+        void RefreshAllLineTripsGrid()
+        {
+            dgLineTrips.DataContext = bl.GetAllLineTrips(curLine.ID);
+        }
+
 
         private void cbLineID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            curLineTrips = (cbLineID.SelectedItem as BO.Line);
-            //gridOneLine.DataContext = curLine;
+            curLine = (cbLineID.SelectedItem as BO.Line);
 
-            if (curLineTrips != null)
-            {
+            if (curLine != null)
+                RefreshAllLineTripsGrid();
+        }
 
-                ////list of stations of selected line
-                //RefreshAllStationsOfLineGrid();
-                ////list of all stations (that selected line is not registered to it)
-                //RefreshAllOtherStationsGrid();
-            }
+        private void btAddTrip_Click(object sender, RoutedEventArgs e)
+        {
+            AddLineTrip win = new AddLineTrip(bl);
+            win.Closing += WinAddLineTrip_Closing;
+            win.ShowDialog();
+        }
+
+        private void WinAddLineTrip_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            RefreshAllLineTripsGrid();
+            RefreshAllLinesComboBox();
         }
     }
 }

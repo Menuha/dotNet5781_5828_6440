@@ -64,13 +64,13 @@ namespace DS
                 new LineTrip
                 {
                     LineTripID=11445,
-                    LineID=1,
+                    LineID=2,
                     StartAt= new TimeSpan(0,5,0),
                 },
                  new LineTrip
                 {
                     LineTripID=76588,
-                    LineID=1,
+                    LineID=2,
                     StartAt= new TimeSpan(0,8,0),
                 },
             };

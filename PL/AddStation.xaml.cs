@@ -38,13 +38,13 @@ namespace PL
             MessageBoxResult res = MessageBox.Show("Add stationt?", "Verification", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.No)
                 return;
-
-            newSta.Latitude = int.Parse(latitudeTextBox.Text);
-            newSta.Longitude = int.Parse(longitudeTextBox.Text);
-            //newSta.Name = nameTextBox.Text;
            
             try
             {
+                newSta.Latitude = int.Parse(latitudeTextBox.Text);
+                newSta.Longitude = int.Parse(longitudeTextBox.Text);
+                //newSta.Name = nameTextBox.Text;
+
                 if ((codeTextBox.Text.Length) > 5 || codeTextBox.Text.Length < 5)
                 {
                     MessageBoxResult rol = MessageBox.Show("Press station code with 5 nunbers only!");

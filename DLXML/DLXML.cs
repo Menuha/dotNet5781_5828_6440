@@ -560,7 +560,7 @@ namespace DL
                    where predicate(lt)
                    select lt;
         }
-            public DO.LineTrip GetLineTrip(int id)
+        public DO.LineTrip GetLineTrip(int id)
         {
             throw new NotImplementedException();
         }
