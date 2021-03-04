@@ -34,7 +34,7 @@
             </Image.OpacityMask>
         </Image>
 
-        <Label Content="Welcome to the system" HorizontalAlignment="Left" Margin="165,66,0,0" VerticalAlignment="Top" Height="87" Width="527" FontWeight="Bold" FontStyle="Italic" Cursor="None" FontSize="48" Grid.ColumnSpan="3">
+        <Label Content="Lines and Stations System" HorizontalAlignment="Left" Margin="165,65,0,0" VerticalAlignment="Top" Height="79" Width="511" FontWeight="Bold" FontStyle="Italic" Cursor="None" FontSize="40" Grid.ColumnSpan="3">
             <Label.Background>
                 <LinearGradientBrush EndPoint="0.5,1"   MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
