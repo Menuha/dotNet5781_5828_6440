@@ -91,7 +91,6 @@ namespace PL
         private void WinAddLineTrip_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             RefreshAllLineTripsGrid();
-            RefreshAllLinesComboBox();
         }
     }
 }

@@ -65,7 +65,7 @@
             <ComboBox x:Name="areaComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" SelectedItem="{Binding Area}" Margin="3" Grid.Row="2" VerticalAlignment="Center" Width="120"/>
         </Grid>
 
-        <Label Content="The Station route of this line:" HorizontalAlignment="Left" Margin="30,53,0,0" VerticalAlignment="Top" Height="23" Width="209" Grid.Column="1" Style="{StaticResource myLabelStyle}"/>
+        <Label Content="The Stations route of this line:" HorizontalAlignment="Left" Margin="30,53,0,0" VerticalAlignment="Top" Height="23" Width="209" Grid.Column="1" Style="{StaticResource myLabelStyle}"/>
         <DataGrid x:Name="dgStationsOfLine" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="28,85,30,35" RowDetailsVisibilityMode="VisibleWhenSelected" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <DataGrid.RenderTransform>
                 <TransformGroup>
@@ -79,7 +79,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="stationCodeColumn" Binding="{Binding StationCode}" Header="Station Code" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="stationNameColumn" Binding="{Binding StationName}" Header="Station Name" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="stationIndexInLineColumn" Binding="{Binding StationIndexInLine}" Header="Station Index In Line" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="stationIndexInLineColumn" Binding="{Binding StationIndexInLine}" Header="Index In Line" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="distanceFromPreColumn" Binding="{Binding DistanceFromPre}" Header="Distance From Pre" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="timeFromPreColumn" Binding="{Binding TimeFromPre}" Header="Time From Pre" Width="SizeToHeader"/>
 

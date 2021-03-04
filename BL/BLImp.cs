@@ -211,8 +211,9 @@ namespace BL
             solBO.StationName = dl.GetStation(solDO.StationCode).Name;
             if (solDO.StationCode != dl.GetLine(solDO.LineID).FirstStationCode)
             {
-                solBO.DistanceFromPre = dl.GetAdjacentStations(dl.GetPrevSol(solDO.LineID, solDO.StationCode).StationCode, solDO.StationCode).Distance;
-                solBO.TimeFromPre = dl.GetAdjacentStations(dl.GetPrevSol(solDO.LineID, solDO.StationCode).StationCode, solDO.StationCode).AvgTime;
+                DO.AdjacentStations adj = dl.GetAdjacentStations(dl.GetPrevSol(solDO.LineID, solDO.StationCode).StationCode, solDO.StationCode);
+                solBO.DistanceFromPre = adj.Distance;
+                solBO.TimeFromPre = adj.AvgTime;
             }
             return solBO;
         }
@@ -228,8 +229,9 @@ namespace BL
         {
             try
             {
-                if (dl.GetLine(lineID).FirstStationCode != stationCode)
-                    AddAdjacentStations(dl.GetLine(lineID).LastStationCode, stationCode);
+                DO.Line line = dl.GetLine(lineID);
+                if (line.FirstStationCode != stationCode)
+                    AddAdjacentStations(line.LastStationCode, stationCode);
                 dl.AddStationOfLine(lineID, stationCode);
             }
             catch (DO.BadLineIDStationCodeException ex)
@@ -246,8 +248,9 @@ namespace BL
         {
             try
             {
+                DO.Line line = dl.GetLine(lineID);
                 //Add adjacent stations - previous & next stations
-                if (dl.GetLine(lineID).FirstStationCode != stationCode && dl.GetLine(lineID).LastStationCode != stationCode)
+                if (line.FirstStationCode != stationCode && line.LastStationCode != stationCode)
                     AddAdjacentStations(dl.GetPrevSol(lineID, stationCode).StationCode, dl.GetNextSol(lineID, stationCode).StationCode);
 
                 dl.DeleteStationOfLine(lineID, stationCode);
@@ -262,16 +265,19 @@ namespace BL
         {
             try
             {
+                DO.Line line = dl.GetLine(lineID);
                 //Add adjacent stations - part 1
-                if (dl.GetLine(lineID).FirstStationCode != stationCode && dl.GetLine(lineID).LastStationCode != stationCode)
+                if (line.FirstStationCode != stationCode && line.LastStationCode != stationCode)
                     AddAdjacentStations(dl.GetPrevSol(lineID, stationCode).StationCode, dl.GetNextSol(lineID, stationCode).StationCode);
 
                 dl.UpdateStationIndexInLine(lineID, stationCode, newIndex);
-
+                
+                //The update changed the line
+                line = dl.GetLine(lineID);
                 //Add adjacent stations - part 2
-                if (dl.GetLine(lineID).FirstStationCode != stationCode)
+                if (line.FirstStationCode != stationCode)
                     AddAdjacentStations(dl.GetPrevSol(lineID, stationCode).StationCode, stationCode);
-                if (dl.GetLine(lineID).LastStationCode != stationCode)
+                if (line.LastStationCode != stationCode)
                     AddAdjacentStations(stationCode, dl.GetNextSol(lineID, stationCode).StationCode);
 
             }
