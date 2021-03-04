@@ -117,6 +117,14 @@ namespace DL
             DO.Line line = DataSource.ListLines.FirstOrDefault(l => l.Number == number && l.Area == area);
             if (line != null)
                 throw new DO.BadLineIDException(line.ID, "Duplicate line id");
+
+            List<DO.Line> lines = GetAllLines().ToList();
+            for (int i = 0; i < lines.Count(); i++)
+            {
+                if (lines[i].ID > DO.Config.LineID)
+                    DO.Config.LineID = lines[i].ID;
+            }
+
             line = new DO.Line()
             {
                 ID = ++DO.Config.LineID,
@@ -197,9 +205,9 @@ namespace DL
         public DO.StationOfLine GetNextSol(int lineID, int stationCode)
         {
             int myIndex = GetStationOfLine(lineID, stationCode).StationIndexInLine;
-            DO.StationOfLine prevSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex + 1);
-            if (prevSol != null)
-                return prevSol.Clone();
+            DO.StationOfLine nextSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex + 1);
+            if (nextSol != null)
+                return nextSol.Clone();
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "this is the last station of this line");
         }
@@ -225,7 +233,7 @@ namespace DL
                 UpdateStationIndexInLine(lineID, stationCode, routeLength);
                 DataSource.ListStationsOfLines.Remove(sol);
                 //Update last station of this line
-                DataSource.ListLines.Find(li => li.ID == lineID).LastStationCode = DataSource.ListStationsOfLines.Find(s => s.StationIndexInLine == GetAllStationsOfLine(lineID).Count()).StationCode;
+                DataSource.ListLines.Find(li => li.ID == lineID).LastStationCode = DataSource.ListStationsOfLines.Find(s => s.LineID == lineID && s.StationIndexInLine == GetAllStationsOfLine(lineID).Count()).StationCode;
             }
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng line id or station code");
@@ -255,8 +263,8 @@ namespace DL
                 }
                 sol.StationIndexInLine = newIndex;
                 //Update first and last stations for this line
-                DataSource.ListLines.Find(li => li.ID == lineID).FirstStationCode = DataSource.ListStationsOfLines.Find(s => s.StationIndexInLine == 1).StationCode;
-                DataSource.ListLines.Find(li => li.ID == lineID).LastStationCode = DataSource.ListStationsOfLines.Find(s => s.StationIndexInLine == GetAllStationsOfLine(lineID).Count()).StationCode;
+                DataSource.ListLines.Find(li => li.ID == lineID).FirstStationCode = DataSource.ListStationsOfLines.Find(s => s.LineID == lineID && s.StationIndexInLine == 1).StationCode;
+                DataSource.ListLines.Find(li => li.ID == lineID).LastStationCode = DataSource.ListStationsOfLines.Find(s => s.LineID == lineID && s.StationIndexInLine == GetAllStationsOfLine(lineID).Count()).StationCode;
             }
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng station of line");

@@ -178,6 +178,13 @@ namespace DL
             DO.Line line = ListLines.FirstOrDefault(l => l.Number == number && l.Area == area);
             if (line != null)
                 throw new DO.BadLineIDException(line.ID, "Duplicate line id");
+
+            for (int i = 0; i < ListLines.Count(); i++)
+            {
+                if (ListLines[i].ID > DO.Config.LineID)
+                    DO.Config.LineID = ListLines[i].ID;
+            }
+
             line = new DO.Line()
             {
                 ID = ++DO.Config.LineID,
@@ -264,9 +271,9 @@ namespace DL
         public DO.StationOfLine GetNextSol(int lineID, int stationCode)
         {
             int myIndex = GetStationOfLine(lineID, stationCode).StationIndexInLine;
-            DO.StationOfLine prevSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex + 1);
-            if (prevSol != null)
-                return prevSol;
+            DO.StationOfLine nextSol = GetAllStationsOfLine(lineID).FirstOrDefault(sol => sol.StationIndexInLine == myIndex + 1);
+            if (nextSol != null)
+                return nextSol;
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "this is the last station of this line");
         }
@@ -287,8 +294,7 @@ namespace DL
 
         public void DeleteStationOfLine(int lineID, int stationCode)
         {
-            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(stationsOfLinesPath);
-            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            List<StationOfLine> ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(stationsOfLinesPath);  
             DO.StationOfLine sol = ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
             int routeLength = GetAllStationsOfLine(lineID).Count();
             if (routeLength == 2)
@@ -296,9 +302,15 @@ namespace DL
             if (sol != null)
             {
                 UpdateStationIndexInLine(lineID, stationCode, routeLength);
+                //update method changed the xml file so we need to laod this file again:
+                ListStationsOfLines = XMLTools.LoadListFromXMLSerializer<StationOfLine>(stationsOfLinesPath);
+                sol = ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
+
                 ListStationsOfLines.Remove(sol);
+
                 //Update last station of this line
-                ListLines.Find(li => li.ID == lineID).LastStationCode = ListStationsOfLines.Find(s => s.StationIndexInLine == GetAllStationsOfLine(lineID).Count() - 1).StationCode;
+                List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+                ListLines.Find(li => li.ID == lineID).LastStationCode = ListStationsOfLines.Find(s => s.LineID == lineID && s.StationIndexInLine == GetAllStationsOfLine(lineID).Count() - 1).StationCode;
 
                 XMLTools.SaveListToXMLSerializer(ListStationsOfLines, stationsOfLinesPath);
                 XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
@@ -321,28 +333,30 @@ namespace DL
             DO.StationOfLine sol = ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == stationCode);
             if (sol != null)
             {
+                int prevIndex = sol.StationIndexInLine;
                 //List of stations between the previous index and the new index
                 List<DO.StationOfLine> solList = ListStationsOfLines.FindAll(sl => sl.LineID == lineID
-                    && sl.StationIndexInLine >= Math.Min(sol.StationIndexInLine, newIndex)
-                    && sl.StationIndexInLine <= Math.Max(sol.StationIndexInLine, newIndex));
+                    && sl.StationIndexInLine >= Math.Min(prevIndex, newIndex)
+                    && sl.StationIndexInLine <= Math.Max(prevIndex, newIndex));
                 //Update the route of the stations between the previous index and the new index
                 for (int i = 0; i < solList.Count(); i++)
                 {
-                    if (newIndex < sol.StationIndexInLine)
-                        solList[i].StationIndexInLine++;
+                    if (newIndex < prevIndex)
+                        ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == solList[i].StationCode).StationIndexInLine++;
                     else
-                        solList[i].StationIndexInLine--;
+                        ListStationsOfLines.Find(sl => sl.LineID == lineID && sl.StationCode == solList[i].StationCode).StationIndexInLine--;
                 }
-                sol.StationIndexInLine = newIndex;
+                ListStationsOfLines.Find(sl => sl.LineID == lineID && 
+                                         sl.StationCode == sol.StationCode).StationIndexInLine = newIndex;
                 //Update first and last stations for this line
-                ListLines.Find(li => li.ID == lineID).FirstStationCode = ListStationsOfLines.Find(s => s.StationIndexInLine == 1).StationCode;
-                ListLines.Find(li => li.ID == lineID).LastStationCode = ListStationsOfLines.Find(s => s.StationIndexInLine == GetAllStationsOfLine(lineID).Count()).StationCode;
+                ListLines.Find(li => li.ID == lineID).FirstStationCode = ListStationsOfLines.Find(s => s.LineID == lineID && s.StationIndexInLine == 1).StationCode;
+                ListLines.Find(li => li.ID == lineID).LastStationCode = ListStationsOfLines.Find(s => s.LineID == lineID && s.StationIndexInLine == GetAllStationsOfLine(lineID).Count()).StationCode;
+
+                XMLTools.SaveListToXMLSerializer(ListStationsOfLines, stationsOfLinesPath);
+                XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
             }
             else
                 throw new DO.BadLineIDStationCodeException(lineID, stationCode, "Worng station of line");
-
-            XMLTools.SaveListToXMLSerializer(ListStationsOfLines, stationsOfLinesPath);
-            XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
         }
         #endregion
 
@@ -548,6 +562,20 @@ namespace DL
         #endregion
 
         #region LineTrip
+        public IEnumerable<DO.LineTrip> GetAllLinesTrips()
+        {
+            XElement linesTripsRootElem = XMLTools.LoadListFromXMLElement(linesTripsPath);
+
+            return (from lt in linesTripsRootElem.Elements()
+                    select new LineTrip()
+                    {
+                        LineTripID = Int32.Parse(lt.Element("LineTripID").Value),
+                        LineID = Int32.Parse(lt.Element("LineID").Value),
+                        StartAt = TimeSpan.ParseExact(lt.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                    }
+                   );
+        }
+
         public IEnumerable<DO.LineTrip> GetAllLineTrips(int lineID)
         {
             XElement linesTripsRootElem = XMLTools.LoadListFromXMLElement(linesTripsPath);
@@ -581,9 +609,17 @@ namespace DL
             if (lineTrip != null)
                 throw new DO.BadLineIDException(lineID, "Duplicate line trip");
 
+            List<LineTrip> linesTrips = GetAllLinesTrips().ToList();
+            for (int i = 0; i < linesTrips.Count(); i++)
+            {
+                if (linesTrips[i].LineTripID > DO.Config.LineTripID)
+                    DO.Config.LineTripID = linesTrips[i].LineTripID;
+            }
+
             lineTrip = new XElement("LineTrip", new XElement("LineTripID", ++DO.Config.LineTripID),
-                                  new XElement("LineID", lineID),
-                                  new XElement("StartAt", startAt));
+                                    new XElement("LineID", lineID),
+                                    new XElement("StartAt", startAt.ToString())
+                                   );
 
             linesTripsRootElem.Add(lineTrip);
 
@@ -607,11 +643,6 @@ namespace DL
             else
                 throw new DO.BadLineIDException(lineTripID, "Line trip does not exist");
         }
-
-        //public IEnumerable<DO.LineTrip> GetAllLinesTrips()
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         //public IEnumerable<DO.LineTrip> GetAllLinesTripsBy(Predicate<DO.LineTrip> predicate)
         //{
