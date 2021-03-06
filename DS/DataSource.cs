@@ -157,13 +157,6 @@ namespace DS
                 },
             };
 
-            //            < AdjacentStations >
-            //  < Station1Code > 38831 </ Station1Code >
-            //  < Station2Code > 38832 </ Station2Code >
-            //  < Distance > 54213.315114244 </ Distance >
-            //  < AvgTime> 01:30:21 </ AvgTime>
-            //</ AdjacentStations >
-
             //Bonus:
             ListBuses = new List<Bus>
             {

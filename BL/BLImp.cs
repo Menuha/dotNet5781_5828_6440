@@ -193,7 +193,7 @@ namespace BL
             }
             catch (DO.BadStationCodeException ex)
             {
-                throw new BO.BadStationCodeException("Station code does Not exist", ex);
+                throw new BO.BadStationCodeException(ex.Message, ex);
             }
         }
 
