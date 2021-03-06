@@ -25,4 +25,9 @@
     <LineID>10</LineID>
     <StartAt>09:00:00</StartAt>
   </LineTrip>
+  <LineTrip>
+    <LineTripID>7</LineTripID>
+    <LineID>1</LineID>
+    <StartAt>00:40:00</StartAt>
+  </LineTrip>
 </ArrayOfLinesTrips>

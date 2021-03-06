@@ -44,6 +44,8 @@ namespace BLAPI
         #region AdjacentStations
         IEnumerable<BO.AdjacentStations> GetMyAdjacentStations(int stationCode);
         void AddAdjacentStations(int station1Code, int station2Code);
+        double Distance2S(int lineID, int station1Code, int station2Code);
+        TimeSpan TimeSpan2S(int lineID, int station1Code, int station2Code);
         #endregion
 
         #region LineTrip

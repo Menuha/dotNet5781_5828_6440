@@ -36,16 +36,21 @@ namespace PL
             Timer.Interval = new TimeSpan(0, 0, 1);
             Timer.Start();
 
-            //dgAdjacentStations.IsReadOnly = true;
+            cbStationID.DataContext = bl.GetAllStations();
+            cbStationID.SelectedIndex = 0; //index of the object to be selected
+
+            dgLineTiming.IsReadOnly = true;
         }
         private void Timer_Click(object sender, EventArgs e)
         {
             DateTime d = DateTime.Now;
             lblTimer.Content = d.Hour + " : " + d.Minute + " : " + d.Second;
+            RefreshLinesTimingOfStationGrid();
         }
         void RefreshLinesTimingOfStationGrid()
         {
-            dgLineTiming.DataContext = bl.GetAllLinesTimingOfStation(sta.Code, lblTimer.Content);
+            DateTime d = DateTime.Now;
+            dgLineTiming.DataContext = bl.GetAllLinesTimingOfStation(sta.Code, new TimeSpan(d.Hour, d.Minute, d.Second));
         }
 
         private void cbStationID_SelectionChanged(object sender, SelectionChangedEventArgs e)

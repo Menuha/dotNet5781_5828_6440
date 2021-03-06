@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.SimulateOneStationWindow"
         mc:Ignorable="d"
-        Title="SimulateOneStationWindow" Height="450" Width="800" >
-   
+        Title="SimulateOneStationWindow" Height="450" Width="450" WindowStartupLocation="CenterScreen">
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -18,14 +18,15 @@
         <Label Content="Select Station:" HorizontalAlignment="Left" Margin="33,57,0,0" VerticalAlignment="Top" Width="95" Height="30" RenderTransformOrigin="0.343,0.461" FontWeight="Bold"/>
         <ComboBox x:Name="cbStationID" HorizontalAlignment="Left" Margin="132,61,0,0" VerticalAlignment="Top" Width="105" Text=""
                   ItemsSource="{Binding}" SelectionChanged="cbStationID_SelectionChanged" Height="22" Grid.ColumnSpan="2" />
-        <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="51" Margin="43,344,0,0" VerticalAlignment="Top" Width="380" FontStyle="Italic" FontSize="20" FontWeight="Bold" Grid.Column="0"/>
-        <DataGrid x:Name="dgLineTiming" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="266,63,189.333,99.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="51" Margin="257,51,0,0" VerticalAlignment="Top" Width="164" FontStyle="Italic" FontSize="24" FontWeight="Bold" Grid.Column="0" RenderTransformOrigin="0.497,0.546"/>
+
+        <DataGrid x:Name="dgLineTiming" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="9,113,17,49" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="expectedTimeTillArriveColumn" Binding="{Binding ExpectedTimeTillArrive}" Header="Expected Time Till Arrive" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="lastStationColumn" Binding="{Binding LastStation}" Header="Last Station" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="lineIdColumn" Binding="{Binding LineId}" Header="Line Id" Width="SizeToHeader" Visibility="Hidden"/>
-                <DataGridTextColumn x:Name="numberColumn" Binding="{Binding Number}" Header="Number" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="numberColumn" Binding="{Binding LineNumber}" Header="Line Number" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="startedAtColumn" Binding="{Binding StartedAt}" Header="Started At" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="expectedTimeTillArriveColumn" Binding="{Binding ExpectedTimeTillArrive}" Header="Expected Time Till Arrive" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="lastStationColumn" Binding="{Binding LastStationName}" Header="Last Station Name" Width="SizeToHeader"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -22,7 +22,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+
         </Grid.ColumnDefinitions>
 
         <Image Source="https://www.kipa.co.il/userFiles/314914_ae59b3616eb9d8767ac5141985555059.jpg" Grid.RowSpan="2" Grid.ColumnSpan="3">
@@ -34,7 +34,7 @@
             </Image.OpacityMask>
         </Image>
 
-        <Label Content="Welcome to the system" HorizontalAlignment="Stretch" Margin="156,66,155.667,0" VerticalAlignment="Top" Height="87" Width="528" FontWeight="Bold" FontStyle="Italic" Cursor="None" FontSize="48" Grid.ColumnSpan="3">
+        <Label Content="      Lines &amp; Stations" HorizontalAlignment="Stretch" Margin="156,66,155.667,0" VerticalAlignment="Top" Height="87" Width="528" FontWeight="Bold" FontStyle="Italic" Cursor="None" FontSize="48" Grid.ColumnSpan="3">
             <Label.Background>
                 <LinearGradientBrush EndPoint="0.5,1"   MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
@@ -43,13 +43,13 @@
             </Label.Background>
         </Label>
 
-        <Button x:Name="btStations" Content="Stations" HorizontalAlignment="Left" Margin="54,20,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btStations_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1">
+        <Button x:Name="btStations" Content="Stations" HorizontalAlignment="Left" Margin="164,1,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btStations_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1">
         </Button>
-        <Button x:Name="btLines" Content="Lines" HorizontalAlignment="Left" Margin="54,20,0,0" VerticalAlignment="Top" Width="181" Height="79" Click="btLines_Click" FontWeight="Bold" RenderTransformOrigin="0.604,1.046" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1" Grid.Column="1">
+        <Button x:Name="btLines" Content="Lines" HorizontalAlignment="Left" Margin="77,2,0,0" VerticalAlignment="Top" Width="181" Height="79" Click="btLines_Click" FontWeight="Bold" RenderTransformOrigin="0.604,1.046" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1" Grid.Column="1">
         </Button>
-        <Button x:Name="btLineTrips" Content="Line Trips" HorizontalAlignment="Left" Margin="54,20,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btLineTrips_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1" Grid.Column="2">
+        <Button x:Name="btLineTrips" Content="Line Trips" HorizontalAlignment="Left" Margin="78,115,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btLineTrips_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1" Grid.Column="1">
         </Button>
-        <Button x:Name="btSimulateOneStationWindow" Content="Simulator" HorizontalAlignment="Left" Margin="52,115,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btSimulateOneStationWindow_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1" Grid.Column="1"/>
+        <Button x:Name="btSimulateOneStationWindow" Content="Simulator" HorizontalAlignment="Left" Margin="164,115,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btSimulateOneStationWindow_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1"/>
     </Grid>
 
 </Window>

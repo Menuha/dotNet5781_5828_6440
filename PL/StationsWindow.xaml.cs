@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 using BLAPI;
 
@@ -25,7 +26,7 @@ namespace PL
     {
         IBL bl;
         BO.Station sta;
-        System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
+        DispatcherTimer Timer = new DispatcherTimer();
 
         public StationsWindow(IBL _bl)
         {

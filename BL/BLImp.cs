@@ -448,15 +448,27 @@ namespace BL
         #region LineTiming
         public IEnumerable<BO.LineTiming> GetAllLinesTimingOfStation(int stationCode, TimeSpan time)
         {
-            List<BO.Line> lines = (from los in GetAllLinesOfStation(stationCode)
-                                   let lineDO = dl.GetLine(los.ID)
-                                   select lineDoBoAdapter(lineDO)).ToList();
+            //For each line that passes through this station, select it and the time it takes to reach me
+            var lines = (from los in GetAllLinesOfStation(stationCode)
+                         let lineDO = dl.GetLine(los.ID)
+                         let timeS = TimeSpan2S(lineDO.ID, lineDO.FirstStationCode, stationCode)
+                         select new {LineBO = lineDoBoAdapter(lineDO), TimeS = timeS }).ToList();
 
-            List<TimeSpan> timeSpans = (from li in lines
-                       let line = dl.GetLine(li.ID)
-                       select TimeSpan2S(li.ID, line.FirstStationCode, stationCode)).ToList();
-
-            
+            //For each line passing through this station, 
+            //find its departure time closest to the requested time and calculate the time of arrival at the requested station
+            return (from line in lines
+                    let nearestStart = (from lt in GetAllLineTrips(line.LineBO.ID)
+                                        //Check that this line with this departure time has not yet passed the requested station
+                                        where lt.StartAt + line.TimeS >= time
+                                        select lt.StartAt).Min()
+                    let lineTiming = new BO.LineTiming() { 
+                        StartedAt = nearestStart,
+                        LineId = line.LineBO.ID, 
+                        LineNumber = line.LineBO.Number,
+                        LastStationName = line.LineBO.StationsInLine.Last().StationName,
+                        ExpectedTimeTillArrive = nearestStart + line.TimeS - time
+                    }
+                    select lineTiming).ToList();
         }
 
         #endregion
