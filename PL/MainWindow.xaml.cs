@@ -47,5 +47,11 @@ namespace PL
             LineTripsWindow secondWindow = new LineTripsWindow(bl);
             secondWindow.Show();
         }
+
+        private void btSimulateOneStationWindow_Click(object sender, RoutedEventArgs e)
+        {
+            SimulateOneStationWindow secondWindow = new SimulateOneStationWindow(bl);
+            secondWindow.Show();
+        }
     }
 }

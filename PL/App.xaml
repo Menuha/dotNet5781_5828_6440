@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="FontAwesome">/Fonts/fontawesomewebfont.ttf#ontAwesome</FontFamily>
     </Application.Resources>
 </Application>

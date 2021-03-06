@@ -49,6 +49,7 @@
         </Button>
         <Button x:Name="btLineTrips" Content="Line Trips" HorizontalAlignment="Left" Margin="54,20,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btLineTrips_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1" Grid.Column="2">
         </Button>
+        <Button x:Name="btSimulateOneStationWindow" Content="Simulator" HorizontalAlignment="Left" Margin="52,115,0,0" VerticalAlignment="Top" Width="177" Height="79" Click="btSimulateOneStationWindow_Click" FontWeight="Bold" Background="{StaticResource myLinearGradientBrush}" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 
 </Window>

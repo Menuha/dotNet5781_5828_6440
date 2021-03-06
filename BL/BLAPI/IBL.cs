@@ -56,5 +56,9 @@ namespace BLAPI
         //void UpdateLineTrip(BO.LineTrip lineTrip);
 
         #endregion
+
+        #region LineTiming
+        IEnumerable<BO.LineTiming> GetAllLinesTimingOfStation(int stationCode, TimeSpan time);
+        #endregion
     }
 }

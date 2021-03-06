@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,11 +16,11 @@ namespace BLAPI
             switch (type)
             {
                 case "1":
-                    return new BLImp();
-                case "2":
-                //return new BLImp2();
+                    return BLImp.Instance;
+                //case "2":
+                ////return new BLImp2();
                 default:
-                    return new BLImp();
+                    throw new ArgumentException("Wrong number");
             }
         }
     }

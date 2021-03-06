@@ -9,8 +9,15 @@ using BLAPI;
 
 namespace BL
 {
-    internal class BLImp : IBL
+    internal sealed class BLImp : IBL
     {
+        #region singelton
+        static readonly BLImp instance = new BLImp();
+        static BLImp() { }// static ctor to ensure instance init is done just before first usage
+        BLImp() { } // default => private
+        public static BLImp Instance { get => instance; }// The public Instance property to use
+        #endregion
+
         IDL dl = DLFactory.GetDL();
 
         #region Line
@@ -304,7 +311,7 @@ namespace BL
         {
             return from li in GetAllLinesOfStation(stationCode)
                    orderby li.Area
-                   select li; //GetAllLinesOfStation did the cloning for this object 
+                   select li; //GetAllLinesOfStation did the cloning for this object
         }
         #endregion
 
@@ -333,6 +340,54 @@ namespace BL
             {
                 throw new BO.BadStationCodeException("Station code is Not exist", ex);
             }
+        }
+        public double Distance2S (int lineID, int station1Code, int station2Code)
+        {
+            int index1 = (from sol in GetAllStationsOfLine(lineID)
+                         where sol.StationCode == station1Code
+                         select sol.StationIndexInLine).FirstOrDefault();
+            int index2 = (from sol in GetAllStationsOfLine(lineID)
+                          where sol.StationCode == station2Code
+                          select sol.StationIndexInLine).FirstOrDefault();
+
+            if (index1 > index2)
+            {
+                int tmp = index1;
+                index1 = index2;
+                index2 = tmp;
+            }
+            return (from sol in GetAllStationsOfLine(lineID)
+                   where sol.StationIndexInLine > index1 && sol.StationIndexInLine <= index2
+                   let prevSol = dl.GetPrevSol(lineID, sol.StationCode)
+                   select dl.GetAdjacentStations(prevSol.StationCode, sol.StationCode).Distance).Sum();
+
+        }
+        public TimeSpan TimeSpan2S(int lineID, int station1Code, int station2Code)
+        {
+            int index1 = (from sol in GetAllStationsOfLine(lineID)
+                          where sol.StationCode == station1Code
+                          select sol.StationIndexInLine).FirstOrDefault();
+            int index2 = (from sol in GetAllStationsOfLine(lineID)
+                          where sol.StationCode == station2Code
+                          select sol.StationIndexInLine).FirstOrDefault();
+
+            if (index1 > index2)
+            {
+                int tmp = index1;
+                index1 = index2;
+                index2 = tmp;
+            }
+            List<TimeSpan> times = (from sol in GetAllStationsOfLine(lineID)
+                    where sol.StationIndexInLine > index1 && sol.StationIndexInLine <= index2
+                    let prevSol = dl.GetPrevSol(lineID, sol.StationCode)
+                    select dl.GetAdjacentStations(prevSol.StationCode, sol.StationCode).AvgTime).ToList();
+            TimeSpan totalTime = new TimeSpan(0, 0, 0);
+            for (int i = 0; i < times.Count; i++)
+            {
+                totalTime += times[i];
+            }
+            return totalTime;
+
         }
         #endregion
 
@@ -388,6 +443,22 @@ namespace BL
         //{
         //    throw new NotImplementedException();
         //}
+        #endregion
+
+        #region LineTiming
+        public IEnumerable<BO.LineTiming> GetAllLinesTimingOfStation(int stationCode, TimeSpan time)
+        {
+            List<BO.Line> lines = (from los in GetAllLinesOfStation(stationCode)
+                                   let lineDO = dl.GetLine(los.ID)
+                                   select lineDoBoAdapter(lineDO)).ToList();
+
+            List<TimeSpan> timeSpans = (from li in lines
+                       let line = dl.GetLine(li.ID)
+                       select TimeSpan2S(li.ID, line.FirstStationCode, stationCode)).ToList();
+
+            
+        }
+
         #endregion
     }
 }
