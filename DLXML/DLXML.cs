@@ -73,7 +73,7 @@ namespace DL
             XElement stationsRootElem = XMLTools.LoadListFromXMLElement(stationsPath);
 
             XElement sta = (from s in stationsRootElem.Elements()
-                             where int.Parse(s.Element("ID").Value) == station.Code
+                             where int.Parse(s.Element("Code").Value) == station.Code
                              select s).FirstOrDefault();
 
             if (sta != null)
