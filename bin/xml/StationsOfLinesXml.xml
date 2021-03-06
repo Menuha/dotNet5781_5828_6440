@@ -18,37 +18,27 @@
   <StationOfLine>
     <LineID>1</LineID>
     <StationCode>20058</StationCode>
-    <StationIndexInLine>4</StationIndexInLine>
-  </StationOfLine>
-  <StationOfLine>
-    <LineID>1</LineID>
-    <StationCode>20061</StationCode>
-    <StationIndexInLine>5</StationIndexInLine>
-  </StationOfLine>
-  <StationOfLine>
-    <LineID>1</LineID>
-    <StationCode>20078</StationCode>
-    <StationIndexInLine>6</StationIndexInLine>
-  </StationOfLine>
-  <StationOfLine>
-    <LineID>1</LineID>
-    <StationCode>20080</StationCode>
-    <StationIndexInLine>7</StationIndexInLine>
-  </StationOfLine>
-  <StationOfLine>
-    <LineID>1</LineID>
-    <StationCode>20082</StationCode>
     <StationIndexInLine>8</StationIndexInLine>
   </StationOfLine>
   <StationOfLine>
     <LineID>1</LineID>
+    <StationCode>20061</StationCode>
+    <StationIndexInLine>4</StationIndexInLine>
+  </StationOfLine>
+  <StationOfLine>
+    <LineID>1</LineID>
+    <StationCode>20078</StationCode>
+    <StationIndexInLine>5</StationIndexInLine>
+  </StationOfLine>
+  <StationOfLine>
+    <LineID>1</LineID>
     <StationCode>20079</StationCode>
-    <StationIndexInLine>9</StationIndexInLine>
+    <StationIndexInLine>6</StationIndexInLine>
   </StationOfLine>
   <StationOfLine>
     <LineID>1</LineID>
     <StationCode>20077</StationCode>
-    <StationIndexInLine>10</StationIndexInLine>
+    <StationIndexInLine>7</StationIndexInLine>
   </StationOfLine>
   <StationOfLine>
     <LineID>2</LineID>
@@ -504,5 +494,20 @@
     <LineID>10</LineID>
     <StationCode>28609</StationCode>
     <StationIndexInLine>10</StationIndexInLine>
+  </StationOfLine>
+  <StationOfLine>
+    <LineID>1</LineID>
+    <StationCode>20080</StationCode>
+    <StationIndexInLine>9</StationIndexInLine>
+  </StationOfLine>
+  <StationOfLine>
+    <LineID>11</LineID>
+    <StationCode>20085</StationCode>
+    <StationIndexInLine>1</StationIndexInLine>
+  </StationOfLine>
+  <StationOfLine>
+    <LineID>11</LineID>
+    <StationCode>20089</StationCode>
+    <StationIndexInLine>2</StationIndexInLine>
   </StationOfLine>
 </ArrayOfStationOfLine>

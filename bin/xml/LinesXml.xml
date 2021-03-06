@@ -5,7 +5,7 @@
     <Number>12</Number>
     <Area>General</Area>
     <FirstStationCode>26946</FirstStationCode>
-    <LastStationCode>20077</LastStationCode>
+    <LastStationCode>20080</LastStationCode>
   </Line>
   <Line>
     <ID>2</ID>
@@ -69,5 +69,12 @@
     <Area>Center</Area>
     <FirstStationCode>20091</FirstStationCode>
     <LastStationCode>28609</LastStationCode>
+  </Line>
+  <Line>
+    <ID>11</ID>
+    <Number>30</Number>
+    <Area>Jerusalem</Area>
+    <FirstStationCode>20085</FirstStationCode>
+    <LastStationCode>20089</LastStationCode>
   </Line>
 </ArrayOfLine>

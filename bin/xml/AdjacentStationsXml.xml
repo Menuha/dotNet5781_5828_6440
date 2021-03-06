@@ -546,4 +546,34 @@
     <Distance>2374.2200805433445</Distance>
     <AvgTime>00:03:57</AvgTime>
   </AdjacentStations>
+  <AdjacentStations>
+    <Station1Code>20077</Station1Code>
+    <Station2Code>20058</Station2Code>
+    <Distance>1717.6394368539234</Distance>
+    <AvgTime>00:02:52</AvgTime>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1Code>20078</Station1Code>
+    <Station2Code>20082</Station2Code>
+    <Distance>942.34111726280821</Distance>
+    <AvgTime>00:01:34</AvgTime>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1Code>20078</Station1Code>
+    <Station2Code>20079</Station2Code>
+    <Distance>368.75882133672383</Distance>
+    <AvgTime>00:00:37</AvgTime>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1Code>20058</Station1Code>
+    <Station2Code>20080</Station2Code>
+    <Distance>2514.3736489317089</Distance>
+    <AvgTime>00:04:11</AvgTime>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1Code>20085</Station1Code>
+    <Station2Code>20089</Station2Code>
+    <Distance>764.5888214146039</Distance>
+    <AvgTime>00:01:16</AvgTime>
+  </AdjacentStations>
 </ArrayOfAdjacentStations>

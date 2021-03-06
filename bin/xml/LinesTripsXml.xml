@@ -22,42 +22,7 @@
   </LineTrip>
   <LineTrip>
     <LineTripID>6</LineTripID>
-    <LineID>1</LineID>
-    <StartAt>15:30:00</StartAt>
-  </LineTrip>
-  <LineTrip>
-    <LineTripID>7</LineTripID>
-    <LineID>1</LineID>
-    <StartAt>16:30:00</StartAt>
-  </LineTrip>
-  <LineTrip>
-    <LineTripID>8</LineTripID>
-    <LineID>1</LineID>
-    <StartAt>17:30:00</StartAt>
-  </LineTrip>
-  <LineTrip>
-    <LineTripID>9</LineTripID>
-    <LineID>2</LineID>
-    <StartAt>06:00:00</StartAt>
-  </LineTrip>
-  <LineTrip>
-    <LineTripID>10</LineTripID>
-    <LineID>2</LineID>
-    <StartAt>07:00:00</StartAt>
-  </LineTrip>
-  <LineTrip>
-    <LineTripID>11</LineTripID>
-    <LineID>2</LineID>
-    <StartAt>08:00:00</StartAt>
-  </LineTrip>
-  <LineTrip>
-    <LineTripID>12</LineTripID>
-    <LineID>2</LineID>
+    <LineID>10</LineID>
     <StartAt>09:00:00</StartAt>
-  </LineTrip>
-  <LineTrip>
-    <LineTripID>13</LineTripID>
-    <LineID>2</LineID>
-    <StartAt>10:00:00</StartAt>
   </LineTrip>
 </ArrayOfLinesTrips>
