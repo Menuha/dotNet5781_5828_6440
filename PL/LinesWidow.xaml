@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" 
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
         Title="LinesWindow" Height="526.787" Width="1287.15" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
@@ -27,8 +28,8 @@
         </Style>
     </Window.Resources>
 
-    
-    
+
+
     <Grid Margin="0,0,0.2,-0.8" >
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -47,6 +48,7 @@
                   Grid.Row="0" Height="24" Margin="98,53,0,0" Width="160"
                   ItemsSource="{Binding}" 
                   HorizontalContentAlignment="Left" VerticalContentAlignment="Top" SelectionChanged="cbLineID_SelectionChanged"/>
+
 
         <Grid x:Name="gridOneLine" HorizontalAlignment="Left" Margin="39,118,0,0" VerticalAlignment="Top" Height="96" Width="188">
             <Grid.ColumnDefinitions>
@@ -124,6 +126,11 @@
         <Button x:Name="btUpdateLine" Content="Update Current Line" HorizontalAlignment="Left" Margin="55,268,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="DeepPink" Click="btUpdateLine_Click"/>
         <Button x:Name="btDeleteLine" Content="Delete Current Line" HorizontalAlignment="Left" Margin="55,324,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="BlueViolet" Click="btDeleteLine_Click"/>
         <Button x:Name="btAddLine" Content="Add New Line" HorizontalAlignment="Left" Margin="55,384,0,0" VerticalAlignment="Top" Width="160" Height="28" Background="#FF6DB469" Click="btAddLine_Click"/>
+
+        <fa:ImageAwesome Icon="Trash"  Margin="18,325,220,149.133"/>
+        <fa:ImageAwesome Icon="Plus" Margin="24,386,221,90.133"/>
+        <fa:ImageAwesome Icon="Save" Margin="21,270,224,206.133"/>
+
 
         <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="40" Margin="80,434,0,0" VerticalAlignment="Top" Width="175" FontStyle="Italic" FontSize="20" FontWeight="Bold"/>
 

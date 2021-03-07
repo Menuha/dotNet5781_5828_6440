@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.LineTripsWindow"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
         Title="LineTripsWindow" Height="450" Width="350" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -58,6 +59,17 @@
         </DataGrid>
 
         <Button x:Name="btAddTrip" Content="Add New Trip For This Line" HorizontalAlignment="Left" Margin="58,321,0,0" VerticalAlignment="Top" Width="226" Height="28" Background="#FF6DB469" Click="btAddTrip_Click" />
+
+        <fa:ImageAwesome Icon="Plus" Margin="-7,321,260.333,79.667" RenderTransformOrigin="0.572,-0.037">
+            <fa:ImageAwesome.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="24.702"/>
+                </TransformGroup>
+            </fa:ImageAwesome.RenderTransform>
+        </fa:ImageAwesome>
 
         <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="40" Margin="115,364,0,0" VerticalAlignment="Top" Width="175" FontStyle="Italic" FontSize="20" FontWeight="Bold" />
 
