@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontaAwesome.WPF"
         mc:Ignorable="d"
         Title="Home Page" Height="506.489" Width="847" WindowStartupLocation="CenterScreen">
     <Window.Resources>
