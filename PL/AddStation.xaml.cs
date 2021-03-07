@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 using BLAPI;
 
@@ -91,7 +92,7 @@ namespace PL
       
         private void codeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(codeTextBox.Text, "[^0-9]"))
+            if (Regex.IsMatch(codeTextBox.Text, "[^0-9]"))
             {
                 MessageBox.Show("Please enter only numbers.");
                 codeTextBox.Text = codeTextBox.Text.Remove(codeTextBox.Text.Length - 1);
@@ -100,7 +101,7 @@ namespace PL
       
         private void latitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(latitudeTextBox.Text, "[^0-9]"))
+            if (Regex.IsMatch(latitudeTextBox.Text, "[^0-9]"))
             {
                 MessageBox.Show("Please enter only numbers.");
                 latitudeTextBox.Text = latitudeTextBox.Text.Remove(latitudeTextBox.Text.Length - 1);
@@ -109,7 +110,7 @@ namespace PL
        
         private void longitudeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(longitudeTextBox.Text, "[^0-9]"))
+            if (Regex.IsMatch(longitudeTextBox.Text, "[^0-9]"))
             {
                 MessageBox.Show("Please enter only numbers.");
                 longitudeTextBox.Text = longitudeTextBox.Text.Remove(longitudeTextBox.Text.Length - 1);
