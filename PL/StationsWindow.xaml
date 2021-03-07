@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" 
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
         Title="StationsWindow" Height="526.787" Width="1000" WindowStartupLocation="CenterScreen" >
     <Window.Resources>
@@ -135,6 +136,10 @@
         <Button x:Name="btUpStation" Content="Update Station" HorizontalAlignment="Left" Margin="49,301,0,0" VerticalAlignment="Top" Width="155" Background="DeepPink" Click="btUpStation_Click" Height="20"/>
         <Button x:Name="btDelStation" Content="Delete Station" HorizontalAlignment="Left" Margin="49,345,0,0" VerticalAlignment="Top" Width="155" Background="BlueViolet" Click="btDelStation_Click" Height="20"/>
         <Button x:Name="btAddStation" Content="Add New Station" HorizontalAlignment="Left" Margin="49,387,0,0" VerticalAlignment="Top" Width="155" Background="#FF6DB469" Click="btAddStation_Click" Height="20" />
+
+        <fa:ImageAwesome Icon="Trash"  Margin="27,346,194,135"/>
+        <fa:ImageAwesome Icon="Plus" Margin="26,384,194,92"/>
+        <fa:ImageAwesome Icon="Save" Margin="27,299,194,177"/>
 
         <Label x:Name="lblTimer" HorizontalAlignment="Left" Height="35" Margin="99,430,0,0" VerticalAlignment="Top" Width="142" FontStyle="Italic" FontSize="20" FontWeight="Bold" Grid.Column="0" Grid.ColumnSpan="2"/>
 
